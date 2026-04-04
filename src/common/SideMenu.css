@@ -1,23 +1,15 @@
-:root {
-  --side-bg: #050827;
-  --side-hover: #12163d;
-  --side-accent: #3b82f6;
-  --side-text: #94a3b8;
-  --side-anim: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .side-menu {
   width: 200px;
   height: 100vh;
-  background-color: var(--side-bg);
+  background-color: var(--bg-sidebar);
   display: flex;
   flex-direction: column;
-  transition: var(--side-anim);
+  transition: var(--transition-main);
   position: fixed;
   left: 0;
   top: 0;
   z-index: 1000;
-  border-right: 1px solid rgba(255, 255, 255, 0.03);
+  border-right: 1px solid var(--border-main);
 }
 
 .side-menu.collapsed {
@@ -33,7 +25,7 @@
 .brand-trigger, .mobile-brand-trigger {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #3b82f6, #2dd4bf);
+  background: linear-gradient(135deg, var(--primary), #2dd4bf);
   border: none;
   border-radius: 14px;
   display: flex;
@@ -41,7 +33,7 @@
   justify-content: center;
   box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
   cursor: pointer;
-  transition: var(--side-anim);
+  transition: var(--transition-main);
   flex-shrink: 0;
 }
 
@@ -65,23 +57,23 @@
   display: flex;
   align-items: center;
   padding: 12px 15px;
-  color: var(--side-text);
+  color: var(--text-muted);
   cursor: pointer;
   border-radius: 10px;
-  transition: var(--side-anim);
+  transition: var(--transition-main);
   margin-bottom: 2px;
   white-space: nowrap;
 }
 
 .nav-link:hover {
-  background-color: var(--side-hover);
-  color: white;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--text-main);
   transform: translateX(6px);
 }
 
 .nav-link.active {
-  background-color: rgba(255, 255, 255, 0.06);
-  color: white;
+  background-color: var(--bg-card);
+  color: var(--text-main);
 }
 
 .sep-margin {
@@ -111,7 +103,7 @@
 
 .side-menu-footer {
   padding: 20px 15px;
-  border-top: 1px solid rgba(255, 255, 255, 0.03);
+  border-top: 1px solid var(--border-main);
 }
 
 .exit-link {

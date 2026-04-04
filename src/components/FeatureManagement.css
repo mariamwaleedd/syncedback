@@ -1,10 +1,10 @@
 .feature-mgmt-container {
-  background: rgba(15, 17, 34, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--bg-glass);
+  border: 1px solid var(--border-main);
   border-radius: 32px;
   padding: 40px;
   margin: 0 30px 40px 290px;
-  transition: all 0.3s ease;
+  transition: var(--transition-main);
 }
 
 .feature-mgmt-header {
@@ -15,15 +15,15 @@
 }
 
 .header-text h1 {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-title);
   font-size: 34px;
   margin-bottom: 8px;
-  color: white;
+  color: var(--text-main);
   font-weight: 500;
 }
 
 .header-text p {
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 15px;
 }
 
@@ -31,8 +31,8 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #2B7FFF;
-  font-family: 'General Sans', sans-serif;
+  background: var(--primary);
+  font-family: var(--font-body);
   border: none;
   color: white;
   padding: 12px 22px;
@@ -40,8 +40,8 @@
   cursor: pointer;
   font-size: 15px;
   font-weight: 500;
-  transition: all 0.2s;
-  box-shadow: 0 8px 20px rgba(43, 127, 255, 0.25);
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-primary);
 }
 
 .add-feature-btn:hover {
@@ -58,15 +58,15 @@
 
 .feature-card {
   background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-thin);
   border-radius: 24px;
   padding: 24px;
-  transition: all 0.3s ease;
+  transition: var(--transition-main);
 }
 
 .feature-card:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.08);
+  background: var(--bg-card-hover);
+  border-color: var(--border-main);
   transform: translateY(-4px);
 }
 
@@ -80,7 +80,7 @@
 .feature-icon {
   width: 44px;
   height: 44px;
-  background: #2B7FFF;
+  background: var(--primary);
   border-radius: 12px;
   display: flex;
   align-items: center;
@@ -108,7 +108,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--border-light);
   transition: .4s;
   border-radius: 34px;
 }
@@ -126,7 +126,7 @@
 }
 
 input:checked + .slider {
-  background-color: #10b981;
+  background-color: var(--success);
 }
 
 input:checked + .slider:before {
@@ -134,7 +134,7 @@ input:checked + .slider:before {
 }
 
 .card-content h3 {
-  color: white;
+  color: var(--text-main);
   font-size: 20px;
   font-weight: 500;
   margin-bottom: 12px;
@@ -147,12 +147,12 @@ input:checked + .slider:before {
 }
 
 .category {
-  color: #64748b;
+  color: var(--text-dim);
   font-size: 13px;
 }
 
 .users-count {
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 500;
 }

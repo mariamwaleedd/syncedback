@@ -1,19 +1,58 @@
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
 
-body {
-  font-family: 'General Sans', sans-serif;
-  margin: 0;
-  background-color: #010422;
-  color: white;
+:root {
+  /* Typography */
+  --font-body: 'General Sans', sans-serif;
+  --font-title: 'Instrument Serif', serif;
 
+  /* Colors - Brand */
+  --primary: #2B7FFF;
+  --primary-glow: rgba(43, 127, 255, 0.25);
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f97316;
+  --accent-purple: #9333ea;
+  --accent-pink: #d946ef;
+  --accent-cyan: #06b6d4;
+
+  /* Colors - Backgrounds */
+  --bg-dark: #010422;
+  --bg-sidebar: #050827;
+  --bg-navbar: #050827;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-hover: rgba(255, 255, 255, 0.05);
+  --bg-glass: rgba(15, 17, 34, 0.4);
+  --bg-chip: rgba(43, 127, 255, 0.08);
+
+  /* Colors - Text */
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --text-dim: #64748b;
+
+  /* Borders */
+  --border-main: rgba(255, 255, 255, 0.05);
+  --border-light: rgba(255, 255, 255, 0.1);
+  --border-thin: rgba(255, 255, 255, 0.02);
+
+  /* Effects */
+  --transition-main: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.2s ease;
+  --shadow-primary: 0 8px 20px rgba(43, 127, 255, 0.25);
+}
+
+body {
+  font-family: var(--font-body);
+  margin: 0;
+  background-color: var(--bg-dark);
+  color: var(--text-main);
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Instrument Serif', serif;
+  font-family: var(--font-title);
   font-weight: 500;
 }
 
 code {
-  font-family: 'General Sans', sans-serif;
+  font-family: var(--font-body);
 }
