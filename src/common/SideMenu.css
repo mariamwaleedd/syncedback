@@ -28,7 +28,6 @@
   padding: 30px 20px;
   display: flex;
   align-items: center;
-  min-height: 110px;
 }
 
 .brand-trigger, .mobile-brand-trigger {
@@ -135,7 +134,7 @@
   
   .side-menu.mobile-show {
     left: 0;
-    width: 280px;
+    width: 210px;
   }
 
   .mobile-brand-trigger {
