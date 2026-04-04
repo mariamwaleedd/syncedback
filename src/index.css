@@ -1,4 +1,7 @@
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
+
 body {
+  font-family: 'General Sans', sans-serif;
   margin: 0;
   background-color: #010422;
   color: white;
@@ -6,6 +9,5 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'General Sans', sans-serif;
 }

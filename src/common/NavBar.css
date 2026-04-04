@@ -4,6 +4,7 @@
   right: 0;
   left: 260px;
   height: 80px;
+  background-color: #050827;
   display: flex;
   align-items: center;
   justify-content: space-between;
