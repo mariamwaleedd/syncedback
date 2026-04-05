@@ -53,7 +53,7 @@ const Login = () => {
                         Login
                     </button>
 
-                    <a href="#" className="forgot-link">Forget password?</a>
+                    <Link to="/forget-password" alt="" className="forgot-link">Forget password?</Link>
                 </form>
 
                 <div className="social-login">

@@ -5,6 +5,7 @@ import NavBar from './common/NavBar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import ForgetPass from './pages/ForgetPass';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -12,7 +13,7 @@ const Routing = () => {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
 
-    const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
+    const isAuthPage = ['/login', '/signup', '/forget-password'].includes(location.pathname);
 
     useEffect(() => {
         const handleResize = () => {
@@ -54,6 +55,7 @@ const Routing = () => {
                 <Route path="/" element={<Home isCollapsed={isCollapsed} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/forget-password" element={<ForgetPass />} />
             </Routes>
         </>
     );

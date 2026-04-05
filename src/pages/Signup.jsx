@@ -74,7 +74,7 @@ const Signup = () => {
                         />
                     </div>
 
-                    <a href="#" className="forgot-link">Forget password?</a>
+                    <Link to="/forget-password" alt="" className="forgot-link">Forget password?</Link>
 
                     <button type="submit" className="signup-btn">
                         Sign Up
