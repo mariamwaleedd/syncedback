@@ -60,3 +60,11 @@ code {
 button {
   font-family: var(--font-body);
 }
+
+a:visited,
+a:active,
+a:focus {
+  text-decoration: none !important;
+  color: inherit;
+  outline: none;
+}

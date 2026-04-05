@@ -18,6 +18,7 @@ import HelpPage from './pages/HelpPage';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import AddFeature from './pages/AddFeature';
+import AddPage from './pages/AddPage';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -80,6 +81,7 @@ const Routing = () => {
                 <Route path="/messages" element={<Messages isCollapsed={isCollapsed} />} />
                 <Route path="/help" element={<HelpPage isCollapsed={isCollapsed} />} />
                 <Route path="/settings" element={<Settings isCollapsed={isCollapsed} />} />
+                <Route path="/add-page" element={<AddPage isCollapsed={isCollapsed} />} />
                 <Route path="/profile" element={<Profile isCollapsed={isCollapsed} />} />
             </Routes>
         </>

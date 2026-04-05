@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { 
   FileText, Filter, Plus, Edit2, MoreVertical 
 } from 'lucide-react';
@@ -30,7 +31,8 @@ const ApplicationPages = () => {
           </button>
           <button className="new-page-btn">
             <Plus size={18} />
-            <span>New Page</span>
+            <Link to="/add-page" className="primary-hero-btn">
+            <span>New Page</span></Link>
           </button>
         </div>
       </div>
