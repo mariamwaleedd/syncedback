@@ -4,6 +4,7 @@ import SideMenu from './common/SideMenu';
 import NavBar from './common/NavBar';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Signup from './pages/Signup';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -11,7 +12,7 @@ const Routing = () => {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
 
-    const isLoginPage = location.pathname === '/login';
+    const isAuthPage = location.pathname === '/login' || location.pathname === '/signup';
 
     useEffect(() => {
         const handleResize = () => {
@@ -35,7 +36,7 @@ const Routing = () => {
 
     return (
         <>
-            {!isLoginPage && (
+            {!isAuthPage && (
                 <SideMenu 
                     isCollapsed={isCollapsed} 
                     isMobileOpen={isMobileOpen} 
@@ -44,7 +45,7 @@ const Routing = () => {
                     closeMobile={() => setIsMobileOpen(false)}
                 />
             )}
-            {!isLoginPage && (
+            {!isAuthPage && (
                 <NavBar 
                     isCollapsed={isCollapsed} 
                 />
@@ -52,6 +53,7 @@ const Routing = () => {
             <Routes>
                 <Route path="/" element={<Home isCollapsed={isCollapsed} />} />
                 <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
             </Routes>
         </>
     );

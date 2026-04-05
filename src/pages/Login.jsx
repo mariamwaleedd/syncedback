@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { User, Lock } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import './Login.css';
 
 const Login = () => {
@@ -83,7 +84,7 @@ const Login = () => {
                 </div>
 
                 <p className="signup-footer">
-                    Don't have an account yet? <a href="#">Sign Up</a>
+                    Don't have an account yet? <Link to="/signup">Sign Up</Link>
                 </p>
             </div>
         </div>
