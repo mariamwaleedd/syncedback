@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { User, Lock } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../imgs/logowhite.png';
 import './ForgetPass.css';
 
@@ -8,9 +8,11 @@ const ForgetPass = () => {
     const [code, setCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        navigate('/');
     };
 
     return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { User, Lock } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../imgs/logowhite.png';
 import './Signup.css';
 
@@ -9,9 +9,11 @@ const Signup = () => {
     const [secondName, setSecondName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        navigate('/');
     };
 
     return (
