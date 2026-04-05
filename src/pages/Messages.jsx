@@ -83,7 +83,7 @@ const Messages = ({ isCollapsed }) => {
                         </thead>
                         <tbody>
                             {inboxData.map((row, idx) => (
-                                <tr key={idx}>
+                                <tr key={idx} onClick={() => navigate(`/messages/${idx}`)} style={{ cursor: 'pointer' }}>
                                     <td>
                                         <span className={`status-badge ${row.status.toLowerCase()}`}>
                                             {row.status}

@@ -16,6 +16,7 @@ import UIElements from './pages/UIElements';
 import Messages from './pages/Messages';
 import HelpPage from './pages/HelpPage';
 import Settings from './pages/Settings';
+import MessageDetail from './pages/MessageDetail';
 import Profile from './pages/Profile';
 import AddFeature from './pages/AddFeature';
 import AddPage from './pages/AddPage';
@@ -79,6 +80,7 @@ const Routing = () => {
                 <Route path="/manage-pages" element={<ManagePages isCollapsed={isCollapsed} />} />
                 <Route path="/ui-elements" element={<UIElements isCollapsed={isCollapsed} />} />
                 <Route path="/messages" element={<Messages isCollapsed={isCollapsed} />} />
+                <Route path="/messages/:id" element={<MessageDetail isCollapsed={isCollapsed} />} />
                 <Route path="/help" element={<HelpPage isCollapsed={isCollapsed} />} />
                 <Route path="/settings" element={<Settings isCollapsed={isCollapsed} />} />
                 <Route path="/add-page" element={<AddPage isCollapsed={isCollapsed} />} />
