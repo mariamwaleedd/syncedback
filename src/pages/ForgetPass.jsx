@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { User, Lock } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../imgs/logowhite.png';
 import './ForgetPass.css';
 
 const ForgetPass = () => {
@@ -17,12 +18,7 @@ const ForgetPass = () => {
             <div className="forget-card">
                 <div className="forget-header">
                     <div className="logo-box">
-                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 5C11.7157 5 5 11.7157 5 20C5 28.2843 11.7157 35 20 35C28.2843 35 35 28.2843 35 20" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-                            <path d="M15 15C13.5 17.5 13.5 22.5 15 25" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-                            <path d="M25 15C26.5 17.5 26.5 22.5 25 25" stroke="white" strokeWidth="2.5" strokeLinecap="round"/>
-                            <path d="M20 16V24M16 20H24" stroke="#2B7FFF" strokeWidth="2.5" strokeLinecap="round"/>
-                        </svg>
+                        <img src={logo} alt="Logo" className="logo-img" />
                     </div>
                     <h1>Reset account password</h1>
                     <p className="subtitle">Enter the verification code sent to your email</p>

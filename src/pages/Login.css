@@ -36,6 +36,12 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
 }
 
+.logo-img {
+    width: 32px;
+    height: auto;
+    object-fit: contain;
+}
+
 .login-header h1 {
     font-size: 42px;
     color: var(--text-main);

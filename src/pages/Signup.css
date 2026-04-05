@@ -35,6 +35,12 @@
     margin: 0 auto 24px;
 }
 
+.logo-img {
+    width: 32px;
+    height: auto;
+    object-fit: contain;
+}
+
 .signup-header h1 {
     font-size: 42px;
     color: var(--text-main);
