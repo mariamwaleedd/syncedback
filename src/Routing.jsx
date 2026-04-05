@@ -17,6 +17,7 @@ import Messages from './pages/Messages';
 import HelpPage from './pages/HelpPage';
 import Settings from './pages/Settings';
 import Profile from './pages/Profile';
+import AddFeature from './pages/AddFeature';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -65,6 +66,7 @@ const Routing = () => {
             )}
             <Routes>
                 <Route path="/" element={<Home isCollapsed={isCollapsed} />} />
+                <Route path="/add-feature" element={<AddFeature isCollapsed={isCollapsed} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forget-password" element={<ForgetPass />} />

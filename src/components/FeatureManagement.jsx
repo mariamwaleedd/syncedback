@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Zap, Plus } from 'lucide-react';
 import './FeatureManagement.css';
+import { Link } from 'react-router-dom';
 
 const featuresData = [
   { id: 1, name: 'Health Questionnaire', category: 'Onboarding', users: '1,240', active: true },
@@ -29,7 +30,9 @@ const FeatureManagement = () => {
         </div>
         <button className="add-feature-btn">
           <Plus size={18} />
-          <span>Add Feature</span>
+          <Link to="/add-feature" className="primary-hero-btn">
+            <span>Add Feature</span>
+          </Link>
         </button>
       </div>
 
