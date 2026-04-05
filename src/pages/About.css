@@ -1,6 +1,5 @@
 .dashboard-container {
     padding: 32px 40px;
-    margin-left: 280px;
     transition: margin-left 0.3s ease;
     min-height: 100vh;
 }

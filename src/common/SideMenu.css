@@ -63,6 +63,7 @@
   transition: var(--transition-main);
   margin-bottom: 2px;
   white-space: nowrap;
+  text-decoration: none;
 }
 
 .nav-link:hover {

@@ -1,6 +1,6 @@
 .dashboard-container {
   min-height: 100vh;
-  margin-left: 260px;
+  margin-left: 190px;
   padding: 100px 30px 50px 30px;
   transition: var(--transition-main);
   background-color: var(--bg-dark);
