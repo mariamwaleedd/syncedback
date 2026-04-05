@@ -14,6 +14,26 @@
   border-bottom: 1px solid var(--border-main);
 }
 
+.mobile-toggle {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-right: 15px;
+}
+
+.mobile-toggle:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--primary);
+}
+
 .navbar.sidebar-collapsed {
   left: 85px;
 }
@@ -270,7 +290,12 @@
   }
 
   .nav-left {
-    max-width: 60px;
+    max-width: none;
+    flex: 1;
+  }
+
+  .mobile-toggle {
+    display: flex;
   }
 
   .search-container {

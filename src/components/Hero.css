@@ -1,6 +1,7 @@
 .hero-container {
   padding: 0;
   margin-bottom: 40px;
+  margin-top: 5%;
   color: var(--text-main);
   transition: var(--transition-main);
 }
@@ -194,8 +195,15 @@
   .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
+@media (max-width: 1024px) {
+  .main-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 768px) {
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .device-grid { grid-template-columns: 1fr; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+  .hero-container { margin-top: 80px; }
 }

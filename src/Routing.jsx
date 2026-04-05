@@ -59,6 +59,7 @@ const Routing = () => {
             {!isAuthPage && (
                 <NavBar 
                     isCollapsed={isCollapsed} 
+                    toggleNav={toggleNav}
                 />
             )}
             <Routes>

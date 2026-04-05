@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   LayoutGrid, BarChart3, Briefcase, User, Library, 
   FileText, PenTool, MessageSquare, HelpCircle, Settings, 
-  LogOut, X 
+  LogOut, X, Menu 
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './SideMenu.css';
@@ -60,12 +60,6 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
         </div>
       </div>
 
-      {isMobile && !isMobileOpen && (
-        <button className="mobile-brand-trigger" onClick={toggleNav}>
-          <LayoutGrid color="white" size={24} />
-        </button>
-      )}
-      
       {isMobileOpen && <div className="side-menu-overlay" onClick={closeMobile}></div>}
     </>
   );

@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, Bell, ShieldAlert, Heart, Activity, Clock } from 'lucide-react';
+import { Search, Bell, ShieldAlert, Heart, Activity, Clock, Menu } from 'lucide-react';
 import './NavBar.css';
 
-const notifications = [
+const notificationsArr = [
   { id: 1, title: 'Health Alert', sub: "Maya's health score dropped to 72%", time: '1 hour ago', icon: <ShieldAlert size={16} />, type: 'alert' },
   { id: 2, title: 'Medication', sub: "Ahmed's evening dose due in 30 mins", time: '2 hours ago', icon: <Heart size={16} />, type: 'med' },
   { id: 3, title: 'System Sync', sub: 'All medical devices synced successfully', time: '5 hours ago', icon: <Activity size={16} />, type: 'sys' },
   { id: 4, title: 'Appointment', sub: 'Grandpa - Dr. Smith @ 10:00 AM tomorrow', time: '1 day ago', icon: <Clock size={16} />, type: 'appt' },
 ];
 
-const NavBar = ({ isCollapsed }) => {
+const NavBar = ({ isCollapsed, toggleNav }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationRef = useRef(null);
 
@@ -31,6 +31,9 @@ const NavBar = ({ isCollapsed }) => {
   return (
     <nav className={`navbar ${isCollapsed ? 'sidebar-collapsed' : ''}`}>
       <div className="nav-left">
+        <button className="mobile-toggle" onClick={toggleNav}>
+          <Menu size={24} />
+        </button>
         <div className="search-container">
           <Search className="search-icon" size={18} />
           <input 
@@ -48,7 +51,7 @@ const NavBar = ({ isCollapsed }) => {
             onClick={handleToggleNotifications}
           >
             <Bell size={20} />
-            <span className="badge">{notifications.length}</span>
+            <span className="badge">{notificationsArr.length}</span>
           </button>
 
           {showNotifications && (
@@ -58,7 +61,7 @@ const NavBar = ({ isCollapsed }) => {
                 <span className="mark-read">Mark all as read</span>
               </div>
               <div className="notifications-list">
-                {notifications.map((notif) => (
+                {notificationsArr.map((notif) => (
                   <div key={notif.id} className="notification-item">
                     <div className={`notif-icon type-${notif.type}`}>
                       {notif.icon}
