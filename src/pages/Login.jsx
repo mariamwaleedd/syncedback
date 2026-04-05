@@ -14,7 +14,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email === 'mariam@123.com' && password === '12345') {
-            navigate('/');
+            navigate('/choose-platform');
         } else {
             setError('Invalid email or password');
         }

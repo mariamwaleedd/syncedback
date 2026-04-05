@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgetPass from './pages/ForgetPass';
+import ChoosePlatform from './pages/ChoosePlatform';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -13,7 +14,7 @@ const Routing = () => {
     const [isMobile, setIsMobile] = useState(false);
     const location = useLocation();
 
-    const isAuthPage = ['/login', '/signup', '/forget-password'].includes(location.pathname);
+    const isAuthPage = ['/login', '/signup', '/forget-password', '/choose-platform'].includes(location.pathname);
 
     useEffect(() => {
         const handleResize = () => {
@@ -56,6 +57,7 @@ const Routing = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forget-password" element={<ForgetPass />} />
+                <Route path="/choose-platform" element={<ChoosePlatform />} />
             </Routes>
         </>
     );
