@@ -7,11 +7,16 @@ import './Login.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        navigate('/');
+        if (email === 'mariam@123.com' && password === '12345') {
+            navigate('/');
+        } else {
+            setError('Invalid email or password');
+        }
     };
 
     return (
@@ -25,6 +30,7 @@ const Login = () => {
                 </div>
 
                 <form className="login-form" onSubmit={handleSubmit}>
+                    {error && <div className="error-message">{error}</div>}
                     <div className="input-group">
                         <User className="input-icon" size={20} />
                         <input 
