@@ -4,21 +4,30 @@ import {
   FileText, PenTool, MessageSquare, HelpCircle, Settings, 
   LogOut, X 
 } from 'lucide-react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './SideMenu.css';
 
 const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile }) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const menuItems = [
-    { icon: <LayoutGrid size={22} />, label: 'Dashboard', active: true },
-    { icon: <BarChart3 size={22} />, label: 'Analytics' },
-    { icon: <Briefcase size={22} />, label: 'Services' },
-    { icon: <User size={22} />, label: 'About' },
-    { icon: <Library size={22} />, label: 'Media Library', space: true },
-    { icon: <FileText size={22} />, label: 'Pages' },
-    { icon: <PenTool size={22} />, label: 'UI Elements' },
-    { icon: <MessageSquare size={22} />, label: 'Messages', space: true },
-    { icon: <HelpCircle size={22} />, label: 'Help' },
-    { icon: <Settings size={22} />, label: 'Settings' },
+    { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/' },
+    { icon: <BarChart3 size={22} />, label: 'Analytics', path: '/analytics' },
+    { icon: <Briefcase size={22} />, label: 'Services', path: '/services' },
+    { icon: <User size={22} />, label: 'About', path: '/about' },
+    { icon: <Library size={22} />, label: 'Media Library', path: '/media-library', space: true },
+    { icon: <FileText size={22} />, label: 'Pages', path: '/manage-pages' },
+    { icon: <PenTool size={22} />, label: 'UI Elements', path: '/ui-elements' },
+    { icon: <MessageSquare size={22} />, label: 'Messages', path: '/messages', space: true },
+    { icon: <HelpCircle size={22} />, label: 'Help', path: '/help' },
+    { icon: <Settings size={22} />, label: 'Settings', path: '/settings' },
   ];
+
+  const handleSignOut = () => {
+    navigate('/login');
+    if (isMobile) closeMobile();
+  };
 
   return (
     <>
@@ -31,15 +40,20 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
 
         <nav className="nav-container">
           {menuItems.map((item, index) => (
-            <div key={index} className={`nav-link ${item.active ? 'active' : ''} ${item.space ? 'sep-margin' : ''}`}>
+            <Link 
+              key={index} 
+              to={item.path}
+              className={`nav-link ${location.pathname === item.path ? 'active' : ''} ${item.space ? 'sep-margin' : ''}`}
+              onClick={isMobile ? closeMobile : undefined}
+            >
               <div className="nav-icon-box">{item.icon}</div>
               <span className="nav-text">{item.label}</span>
-            </div>
+            </Link>
           ))}
         </nav>
 
         <div className="side-menu-footer">
-          <div className="nav-link exit-link">
+          <div className="nav-link exit-link" style={{ cursor: 'pointer' }} onClick={handleSignOut}>
             <div className="nav-icon-box"><LogOut size={22} /></div>
             <span className="nav-text">Sign Out</span>
           </div>

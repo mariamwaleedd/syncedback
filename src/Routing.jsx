@@ -7,6 +7,15 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgetPass from './pages/ForgetPass';
 import ChoosePlatform from './pages/ChoosePlatform';
+import Analytics from './pages/Analytics';
+import Services from './pages/Services';
+import AboutPage from './pages/About';
+import MediaLibrary from './pages/MediaLibrary';
+import ManagePages from './pages/ManagePages';
+import UIElements from './pages/UIElements';
+import Messages from './pages/Messages';
+import HelpPage from './pages/HelpPage';
+import Settings from './pages/Settings';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -58,6 +67,15 @@ const Routing = () => {
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/forget-password" element={<ForgetPass />} />
                 <Route path="/choose-platform" element={<ChoosePlatform />} />
+                <Route path="/analytics" element={<Analytics isCollapsed={isCollapsed} />} />
+                <Route path="/services" element={<Services isCollapsed={isCollapsed} />} />
+                <Route path="/about" element={<AboutPage isCollapsed={isCollapsed} />} />
+                <Route path="/media-library" element={<MediaLibrary isCollapsed={isCollapsed} />} />
+                <Route path="/manage-pages" element={<ManagePages isCollapsed={isCollapsed} />} />
+                <Route path="/ui-elements" element={<UIElements isCollapsed={isCollapsed} />} />
+                <Route path="/messages" element={<Messages isCollapsed={isCollapsed} />} />
+                <Route path="/help" element={<HelpPage isCollapsed={isCollapsed} />} />
+                <Route path="/settings" element={<Settings isCollapsed={isCollapsed} />} />
             </Routes>
         </>
     );
