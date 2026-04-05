@@ -1,8 +1,7 @@
 .hero-container {
-  padding: 100px 30px 30px 290px;
-  background-color: var(--bg-sidebar);
+  padding: 0;
+  margin-bottom: 40px;
   color: var(--text-main);
-  min-height: 100vh;
   transition: var(--transition-main);
 }
 
@@ -53,7 +52,7 @@
 .trend-pulse { color: var(--success); }
 
 .stat-card h2 {
-  font-family: var(--font-body); /* Numeric values often look better in sans */
+  font-family: var(--font-body);
   font-size: 28px;
   font-weight: 700;
   margin: 10px 0 5px;
@@ -181,7 +180,7 @@
   height: 40px;
   background: rgba(43, 127, 255, 0.1);
   color: var(--primary);
-  border-radius: 10px;
+  border-radius: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -195,13 +194,7 @@
   .stats-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
-@media (max-width: 1024px) {
-  .hero-container { padding-left: 100px; }
-  .main-dashboard-grid { grid-template-columns: 1fr; }
-}
-
 @media (max-width: 768px) {
-  .hero-container { padding: 90px 15px 30px 15px; }
   .stats-grid { grid-template-columns: 1fr 1fr; }
   .device-grid { grid-template-columns: 1fr; }
   .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }

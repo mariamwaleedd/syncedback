@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { 
   LayoutGrid, BarChart3, Briefcase, User, Library, 
   FileText, PenTool, MessageSquare, HelpCircle, Settings, 
@@ -6,23 +6,7 @@ import {
 } from 'lucide-react';
 import './SideMenu.css';
 
-const SideMenu = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const mobile = window.innerWidth <= 768;
-      setIsMobile(mobile);
-      if (!mobile) setIsMobileOpen(false);
-    };
-    
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
+const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile }) => {
   const menuItems = [
     { icon: <LayoutGrid size={22} />, label: 'Dashboard', active: true },
     { icon: <BarChart3 size={22} />, label: 'Analytics' },
@@ -36,19 +20,11 @@ const SideMenu = () => {
     { icon: <Settings size={22} />, label: 'Settings' },
   ];
 
-  const handleToggle = () => {
-    if (isMobile) {
-      setIsMobileOpen(!isMobileOpen);
-    } else {
-      setIsCollapsed(!isCollapsed);
-    }
-  };
-
   return (
     <>
       <div className={`side-menu ${isCollapsed ? 'collapsed' : ''} ${isMobileOpen ? 'mobile-show' : ''}`}>
         <div className="side-menu-header">
-          <button className="brand-trigger" onClick={handleToggle}>
+          <button className="brand-trigger" onClick={toggleNav}>
             {isMobileOpen ? <X color="white" size={24} /> : <LayoutGrid color="white" size={24} />}
           </button>
         </div>
@@ -71,12 +47,12 @@ const SideMenu = () => {
       </div>
 
       {isMobile && !isMobileOpen && (
-        <button className="mobile-brand-trigger" onClick={handleToggle}>
+        <button className="mobile-brand-trigger" onClick={toggleNav}>
           <LayoutGrid color="white" size={24} />
         </button>
       )}
       
-      {isMobileOpen && <div className="side-menu-overlay" onClick={() => setIsMobileOpen(false)}></div>}
+      {isMobileOpen && <div className="side-menu-overlay" onClick={closeMobile}></div>}
     </>
   );
 };

@@ -3,7 +3,7 @@
   border: 1px solid var(--border-main);
   border-radius: 28px;
   padding: 30px;
-  margin: 0 30px 30px 290px;
+  margin-bottom: 40px;
   transition: var(--transition-main);
 }
 
@@ -183,16 +183,8 @@
   border-color: rgba(255, 255, 255, 0.2);
 }
 
-@media (max-width: 1024px) {
-  .app-pages-container {
-    margin-left: 100px;
-    margin-right: 15px;
-  }
-}
-
 @media (max-width: 768px) {
   .app-pages-container {
-    margin: 0 15px 30px 15px;
     padding: 20px;
   }
   

@@ -3,7 +3,7 @@
   border: 1px solid var(--border-main);
   border-radius: 32px;
   padding: 40px;
-  margin: 0 30px 40px 290px;
+  margin-bottom: 40px;
   transition: var(--transition-main);
 }
 
@@ -163,15 +163,8 @@ input:checked + .slider:before {
   }
 }
 
-@media (max-width: 1024px) {
-  .feature-mgmt-container {
-    margin-left: 100px;
-  }
-}
-
 @media (max-width: 768px) {
   .feature-mgmt-container {
-    margin: 0 15px 40px 15px;
     padding: 25px;
   }
 

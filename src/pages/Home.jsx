@@ -7,18 +7,19 @@ import FamilyHealthOverview from '../components/FamilyHealthOverview';
 import RecentActivity from '../components/RecentActivity';
 import './Home.css';
 
-const Home = () => {
+const Home = ({ isCollapsed }) => {
     return (  
-        <div className="dashboard-container">
+        <div className={`dashboard-container ${isCollapsed ? 'is-collapsed' : ''}`}>
             <Hero />
-            <ApplicationPages />
-            <FeatureManagement />
-            <QuickActions />
+            
             <div className="dashboard-row">
                 <FamilyHealthOverview />
                 <RecentActivity />
             </div>
 
+            <ApplicationPages />
+            <FeatureManagement />
+            <QuickActions />
         </div>
     );
 };

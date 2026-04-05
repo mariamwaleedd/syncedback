@@ -1,5 +1,5 @@
 .quick-actions-container {
-  margin: 0 30px 40px 290px;
+  margin-bottom: 40px;
   transition: var(--transition-main);
 }
 
@@ -67,17 +67,7 @@
   }
 }
 
-@media (max-width: 1024px) {
-  .quick-actions-container {
-    margin-left: 100px;
-  }
-}
-
 @media (max-width: 768px) {
-  .quick-actions-container {
-    margin: 0 15px 40px 15px;
-  }
-
   .quick-actions-grid {
     grid-template-columns: 1fr;
   }
