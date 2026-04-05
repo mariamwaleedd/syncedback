@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Bell, ShieldAlert, Heart, Activity, Clock, Menu } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './NavBar.css';
 
 const notificationsArr = [
@@ -12,6 +13,7 @@ const notificationsArr = [
 const NavBar = ({ isCollapsed, toggleNav }) => {
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -81,7 +83,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
           )}
         </div>
 
-        <div className="user-profile">
+        <div className="user-profile" style={{ cursor: 'pointer' }} onClick={() => navigate('/profile')}>
           <div className="avatar">M</div>
           <div className="user-info">
             <span className="user-name">Mariam</span>

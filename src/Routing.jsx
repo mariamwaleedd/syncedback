@@ -16,6 +16,7 @@ import UIElements from './pages/UIElements';
 import Messages from './pages/Messages';
 import HelpPage from './pages/HelpPage';
 import Settings from './pages/Settings';
+import Profile from './pages/Profile';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -77,6 +78,7 @@ const Routing = () => {
                 <Route path="/messages" element={<Messages isCollapsed={isCollapsed} />} />
                 <Route path="/help" element={<HelpPage isCollapsed={isCollapsed} />} />
                 <Route path="/settings" element={<Settings isCollapsed={isCollapsed} />} />
+                <Route path="/profile" element={<Profile isCollapsed={isCollapsed} />} />
             </Routes>
         </>
     );
