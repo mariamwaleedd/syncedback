@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Lock } from 'lucide-react';
+import { User, Lock, Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../imgs/logowhite.png';
 import './ForgetPass.css';
@@ -8,6 +8,8 @@ const ForgetPass = () => {
     const [code, setCode] = useState('');
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -45,23 +47,37 @@ const ForgetPass = () => {
                     <div className="input-group">
                         <User className="input-icon" size={20} />
                         <input 
-                            type="password" 
+                            type={showNewPassword ? "text" : "password"} 
                             placeholder="Enter new password" 
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                             required
                         />
+                        <button 
+                            type="button" 
+                            className="toggle-password"
+                            onClick={() => setShowNewPassword(!showNewPassword)}
+                        >
+                            {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
                     </div>
 
                     <div className="input-group">
                         <Lock className="input-icon" size={20} />
                         <input 
-                            type="password" 
+                            type={showConfirmPassword ? "text" : "password"} 
                             placeholder="Confirm password" 
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                             required
                         />
+                        <button 
+                            type="button" 
+                            className="toggle-password"
+                            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                        >
+                            {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
                     </div>
 
                     <button type="submit" className="reset-btn">

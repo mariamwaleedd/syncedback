@@ -90,7 +90,7 @@
 
 .input-group input {
     width: 100%;
-    padding: 16px 20px 16px 54px;
+    padding: 16px 54px 16px 54px;
     background: var(--bg-card);
     border: 1px solid var(--border-light);
     border-radius: 14px;
@@ -99,6 +99,24 @@
     font-size: 15px;
     transition: var(--transition-fast);
     outline: none;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 18px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: var(--transition-fast);
+}
+
+.toggle-password:hover {
+    color: var(--text-main);
 }
 
 .input-group input:focus {

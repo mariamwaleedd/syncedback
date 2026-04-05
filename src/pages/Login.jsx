@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Lock } from 'lucide-react';
+import { User, Lock, Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../imgs/logowhite.png';
 import './Login.css';
@@ -7,6 +7,7 @@ import './Login.css';
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
@@ -45,12 +46,19 @@ const Login = () => {
                     <div className="input-group">
                         <Lock className="input-icon" size={20} />
                         <input 
-                            type="password" 
+                            type={showPassword ? "text" : "password"} 
                             placeholder="Enter password" 
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <button 
+                            type="button" 
+                            className="toggle-password"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
                     </div>
 
                     <button type="submit" className="login-btn">

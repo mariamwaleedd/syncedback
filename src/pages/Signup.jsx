@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { User, Lock } from 'lucide-react';
+import { User, Lock, Eye, EyeOff } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import logo from '../imgs/logowhite.png';
 import './Signup.css';
@@ -9,6 +9,7 @@ const Signup = () => {
     const [secondName, setSecondName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
@@ -64,12 +65,19 @@ const Signup = () => {
                     <div className="input-group">
                         <Lock className="input-icon" size={20} />
                         <input 
-                            type="password" 
+                            type={showPassword ? "text" : "password"} 
                             placeholder="Enter password" 
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <button 
+                            type="button" 
+                            className="toggle-password"
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                        </button>
                     </div>
 
                     <Link to="/forget-password" alt="" className="forgot-link">Forget password?</Link>
