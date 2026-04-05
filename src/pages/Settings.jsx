@@ -18,10 +18,15 @@ const Settings = ({ isCollapsed }) => {
     });
 
     const [appearance, setAppearance] = useState({
-        theme: 'dark',
+        theme: localStorage.getItem('synced_theme') || 'dark',
         language: 'en',
         fontSize: 'medium'
     });
+
+    React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', appearance.theme);
+        localStorage.setItem('synced_theme', appearance.theme);
+    }, [appearance.theme]);
 
     const toggleNotification = (key) => {
         setNotifications(prev => ({ ...prev, [key]: !prev[key] }));

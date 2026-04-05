@@ -41,6 +41,24 @@
   --shadow-primary: 0 8px 20px rgba(43, 127, 255, 0.25);
 }
 
+:root[data-theme="light"] {
+  --bg-dark: #f8fafc;
+  --bg-sidebar: #ffffff;
+  --bg-navbar: #ffffff;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --bg-glass: rgba(255, 255, 255, 0.8);
+  --bg-chip: rgba(43, 127, 255, 0.1);
+
+  --text-main: #0f172a;
+  --text-muted: #002252;
+  --text-dim: #94a3b8;
+
+  --border-main: #e2e8f0;
+  --border-light: #cbd5e1;
+  --border-thin: #f1f5f9;
+}
+
 body {
   font-family: var(--font-body);
   margin: 0;
