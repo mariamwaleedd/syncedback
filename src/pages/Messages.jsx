@@ -67,7 +67,7 @@ const Messages = ({ isCollapsed }) => {
             <section className="inbox-container">
                 <div className="inbox-header-row">
                     <h2>Inbox</h2>
-                    <button className="compose-btn"><Mail size={18} /> Compose Email <Plus size={14} /></button>
+                    <button className="compose-btn" onClick={() => navigate('/compose-message')}><Mail size={18} /> Compose Email <Plus size={14} /></button>
                 </div>
                 <div className="inbox-table-wrapper">
                     <table className="inbox-table">
@@ -101,27 +101,6 @@ const Messages = ({ isCollapsed }) => {
                 </div>
             </section>
 
-            <section className="compose-section">
-                <div className="compose-header">
-                    <h2>Compose Email</h2>
-                    <X size={20} className="close-compose" />
-                </div>
-                <div className="compose-form">
-                    <div className="compose-field">
-                        <label>To</label>
-                        <input type="text" defaultValue="youremail@gmail.com" />
-                    </div>
-                    <div className="compose-field">
-                        <label>Subject</label>
-                        <input type="text" placeholder="Write Subject" />
-                    </div>
-                    <RichTextToolbar />
-                    <div className="compose-field">
-                        <label>Message</label>
-                        <textarea placeholder="Write you message"></textarea>
-                    </div>
-                </div>
-            </section>
         </div>
     );
 };
