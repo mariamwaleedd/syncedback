@@ -11,7 +11,7 @@
     width: 100%;
     max-width: 580px;
     text-align: center;
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 0.signup-8s ease-out;
 }
 
 @keyframes fadeIn {
@@ -23,7 +23,7 @@
     margin-bottom: 40px;
 }
 
-.logo-box {
+.signup-logo-box {
     width: 64px;
     height: 64px;
     background: var(--bg-card);
@@ -35,7 +35,7 @@
     margin: 0 auto 24px;
 }
 
-.logo-img {
+.signup-logo-img {
     width: 32px;
     height: auto;
     object-fit: contain;
@@ -56,29 +56,29 @@
     margin-bottom: 30px;
 }
 
-.name-row {
+.signup-name-row {
     display: flex;
     gap: 20px;
 }
 
-.name-row .input-group {
+.signup-name-row .signup-input-group {
     flex: 1;
 }
 
-.input-group {
+.signup-input-group {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.input-icon {
+.signup-input-icon {
     position: absolute;
     left: 20px;
     color: var(--text-muted);
     transition: var(--transition-fast);
 }
 
-.input-group input {
+.signup-input-group input {
     width: 100%;
     padding: 16px 54px 16px 54px;
     background: var(--bg-card);
@@ -91,7 +91,7 @@
     outline: none;
 }
 
-.toggle-password {
+.signup-toggle-password {
     position: absolute;
     right: 18px;
     background: none;
@@ -105,17 +105,17 @@
     transition: var(--transition-fast);
 }
 
-.toggle-password:hover {
+.signup-toggle-password:hover {
     color: var(--text-main);
 }
 
-.input-group input:focus {
+.signup-input-group input:focus {
     border-color: var(--primary);
     background: var(--bg-card-hover);
     box-shadow: 0 0 0 4px var(--primary-glow);
 }
 
-.input-group input:focus + .input-icon {
+.signup-input-group input:focus + .signup-input-icon {
     color: var(--primary);
 }
 
@@ -139,7 +139,7 @@
     box-shadow: 0 12px 25px rgba(43, 127, 255, 0.35);
 }
 
-.forgot-link {
+.signup-forgot-link {
     align-self: flex-end;
     color: var(--text-muted);
     text-decoration: none;
@@ -147,27 +147,27 @@
     transition: var(--transition-fast);
 }
 
-.forgot-link:hover {
+.signup-forgot-link:hover {
     color: var(--text-main);
 }
 
-.login-footer {
+.signup-login-footer {
     color: var(--text-muted);
     font-size: 15px;
 }
 
-.login-footer a {
+.signup-login-footer a {
     color: var(--text-main);
     text-decoration: none;
     font-weight: 600;
 }
 
-.login-footer a:hover {
+.signup-login-footer a:hover {
     text-decoration: underline;
 }
 
 @media (max-width: 600px) {
-    .name-row {
+    .signup-name-row {
         flex-direction: column;
         gap: 20px;
     }

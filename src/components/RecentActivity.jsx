@@ -12,31 +12,31 @@ const activities = [
 
 const RecentActivity = () => {
   return (
-    <div className="recent-activity-container">
-      <div className="activity-header">
+    <div className="recentactivity-recent-activity-container">
+      <div className="recentactivity-activity-header">
         <h1>Recent Activity</h1>
         <p>Health alerts and updates</p>
       </div>
 
-      <div className="activity-list">
+      <div className="recentactivity-activity-list">
         {activities.map((activity) => (
-          <div key={activity.id} className="activity-row">
-            <div className={`activity-icon-box type-${activity.type.toLowerCase()}`}>
+          <div key={activity.id} className="recentactivity-activity-row">
+            <div className={`recentactivity-activity-icon-box type-${activity.type.toLowerCase()}`}>
               {activity.icon}
             </div>
-            <div className="activity-content">
-              <div className="activity-row-header">
+            <div className="recentactivity-activity-content">
+              <div className="recentactivity-recentactivity-activity-row-header">
                 <h3>{activity.title}</h3>
-                <span className="activity-tag">{activity.type}</span>
+                <span className="recentactivity-activity-tag">{activity.type}</span>
               </div>
-              <p className="activity-sub">{activity.sub}</p>
-              <span className="activity-time">{activity.time}</span>
+              <p className="recentactivity-activity-sub">{activity.sub}</p>
+              <span className="recentactivity-activity-time">{activity.time}</span>
             </div>
           </div>
         ))}
       </div>
 
-      <button className="see-all-activity-btn">See All Activity</button>
+      <button className="recentactivity-see-all-activity-btn">See All Activity</button>
     </div>
   );
 };

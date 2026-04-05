@@ -1,4 +1,4 @@
-.forget-container {
+.forgetpass-forget-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -7,11 +7,11 @@
     background-color: var(--bg-dark);
 }
 
-.forget-card {
+.forgetpass-forget-card {
     width: 100%;
     max-width: 540px;
     text-align: center;
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 0.forgetpass-8s ease-out;
 }
 
 @keyframes fadeIn {
@@ -19,11 +19,11 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-.forget-header {
+.forgetpass-forget-header {
     margin-bottom: 40px;
 }
 
-.logo-box {
+.forgetpass-logo-box {
     width: 64px;
     height: 64px;
     background: var(--bg-card);
@@ -35,13 +35,13 @@
     margin: 0 auto 24px;
 }
 
-.logo-img {
+.forgetpass-logo-img {
     width: 32px;
     height: auto;
     object-fit: contain;
 }
 
-.forget-header h1 {
+.forgetpass-forget-header h1 {
     font-size: 42px;
     color: var(--text-main);
     margin: 0 0 12px;
@@ -49,44 +49,44 @@
     font-weight: 500;
 }
 
-.subtitle {
+.forgetpass-subtitle {
     color: var(--text-muted);
     font-size: 15px;
     margin: 0;
 }
 
-.forget-form {
+.forgetpass-forget-form {
     display: flex;
     flex-direction: column;
     gap: 20px;
     margin-bottom: 30px;
 }
 
-.separator {
+.forgetpass-separator {
     text-align: left;
     margin: 10px 0 0;
 }
 
-.separator span {
+.forgetpass-separator span {
     color: var(--text-main);
     font-size: 14px;
     font-weight: 500;
 }
 
-.input-group {
+.forgetpass-input-group {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.input-icon {
+.forgetpass-input-icon {
     position: absolute;
     left: 20px;
     color: var(--text-muted);
     transition: var(--transition-fast);
 }
 
-.input-group input {
+.forgetpass-input-group input {
     width: 100%;
     padding: 16px 54px 16px 54px;
     background: var(--bg-card);
@@ -99,7 +99,7 @@
     outline: none;
 }
 
-.toggle-password {
+.forgetpass-toggle-password {
     position: absolute;
     right: 18px;
     background: none;
@@ -113,21 +113,21 @@
     transition: var(--transition-fast);
 }
 
-.toggle-password:hover {
+.forgetpass-toggle-password:hover {
     color: var(--text-main);
 }
 
-.input-group input:focus {
+.forgetpass-input-group input:focus {
     border-color: var(--primary);
     background: var(--bg-card-hover);
     box-shadow: 0 0 0 4px var(--primary-glow);
 }
 
-.input-group input:focus + .input-icon {
+.forgetpass-input-group input:focus + .forgetpass-input-icon {
     color: var(--primary);
 }
 
-.reset-btn {
+.forgetpass-reset-btn {
     padding: 16px;
     background: var(--primary);
     border: none;
@@ -141,29 +141,29 @@
     margin-top: 10px;
 }
 
-.reset-btn:hover {
+.forgetpass-reset-btn:hover {
     transform: translateY(-2px);
     background: #4791ff;
     box-shadow: 0 12px 25px rgba(43, 127, 255, 0.35);
 }
 
-.back-footer {
+.forgetpass-back-footer {
     color: var(--text-muted);
     font-size: 15px;
 }
 
-.back-footer a {
+.forgetpass-back-footer a {
     color: var(--text-main);
     text-decoration: none;
     font-weight: 600;
 }
 
-.back-footer a:hover {
+.forgetpass-back-footer a:hover {
     text-decoration: underline;
 }
 
 @media (max-width: 480px) {
-    .forget-header h1 {
+    .forgetpass-forget-header h1 {
         font-size: 32px;
     }
 }

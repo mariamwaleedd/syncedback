@@ -21,16 +21,16 @@ const Signup = () => {
         <div className="signup-container">
             <div className="signup-card">
                 <div className="signup-header">
-                    <div className="logo-box">
-                        <img src={logo} alt="Logo" className="logo-img" />
+                    <div className="signup-logo-box">
+                        <img src={logo} alt="Logo" className="signup-logo-img" />
                     </div>
                     <h1>New? Join our team</h1>
                 </div>
 
                 <form className="signup-form" onSubmit={handleSubmit}>
-                    <div className="name-row">
-                        <div className="input-group">
-                            <User className="input-icon" size={20} />
+                    <div className="signup-name-row">
+                        <div className="signup-input-group">
+                            <User className="signup-input-icon" size={20} />
                             <input 
                                 type="text" 
                                 placeholder="First Name" 
@@ -39,8 +39,8 @@ const Signup = () => {
                                 required
                             />
                         </div>
-                        <div className="input-group">
-                            <User className="input-icon" size={20} />
+                        <div className="signup-input-group">
+                            <User className="signup-input-icon" size={20} />
                             <input 
                                 type="text" 
                                 placeholder="Second Name" 
@@ -51,8 +51,8 @@ const Signup = () => {
                         </div>
                     </div>
 
-                    <div className="input-group">
-                        <User className="input-icon" size={20} />
+                    <div className="signup-input-group">
+                        <User className="signup-input-icon" size={20} />
                         <input 
                             type="email" 
                             placeholder="Enter email" 
@@ -62,8 +62,8 @@ const Signup = () => {
                         />
                     </div>
 
-                    <div className="input-group">
-                        <Lock className="input-icon" size={20} />
+                    <div className="signup-input-group">
+                        <Lock className="signup-input-icon" size={20} />
                         <input 
                             type={showPassword ? "text" : "password"} 
                             placeholder="Enter password" 
@@ -73,21 +73,21 @@ const Signup = () => {
                         />
                         <button 
                             type="button" 
-                            className="toggle-password"
+                            className="signup-toggle-password"
                             onClick={() => setShowPassword(!showPassword)}
                         >
                             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </button>
                     </div>
 
-                    <Link to="/forget-password" alt="" className="forgot-link">Forget password?</Link>
+                    <Link to="/forget-password" alt="" className="signup-forgot-link">Forget password?</Link>
 
                     <button type="submit" className="signup-btn">
                         Sign Up
                     </button>
                 </form>
 
-                <p className="login-footer">
+                <p className="signup-login-footer">
                     Already have an account? <Link to="/login">Login</Link>
                 </p>
             </div>

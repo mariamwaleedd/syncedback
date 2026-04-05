@@ -13,25 +13,25 @@ const ChoosePlatform = () => {
     };
 
     return (
-        <div className="choose-container">
-            <div className="choose-content">
+        <div className="chooseplatform-choose-container">
+            <div className="chooseplatform-choose-content">
                 <div className="logo-box">
                     <img src={logo} alt="Logo" className="logo-img" />
                 </div>
                 
-                <h1 className="choose-title">What do you want to work on today?</h1>
+                <h1 className="chooseplatform-choose-title">What do you want to work on today?</h1>
                 
-                <div className="platform-grid">
-                    <div className="platform-card" onClick={handleSelect}>
-                        <div className="image-container">
-                            <img src={laptop} alt="Website" className="platform-img" />
+                <div className="chooseplatform-platform-grid">
+                    <div className="chooseplatform-platform-card" onClick={handleSelect}>
+                        <div className="chooseplatform-image-container">
+                            <img src={laptop} alt="Website" className="chooseplatform-platform-img" />
                         </div>
                         <h3>Website</h3>
                     </div>
                     
-                    <div className="platform-card" onClick={handleSelect}>
-                        <div className="image-container">
-                            <img src={phones} alt="Application" className="platform-img" />
+                    <div className="chooseplatform-platform-card" onClick={handleSelect}>
+                        <div className="chooseplatform-image-container">
+                            <img src={phones} alt="Application" className="chooseplatform-platform-img" />
                         </div>
                         <h3>Application</h3>
                     </div>

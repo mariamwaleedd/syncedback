@@ -17,36 +17,36 @@ const familyMembers = [
 
 const FamilyHealthOverview = () => {
   return (
-    <div className="family-health-container">
-      <div className="family-health-header">
-        <div className="header-text">
+    <div className="familyhealthoverview-family-health-container">
+      <div className="familyhealthoverview-family-health-header">
+        <div className="familyhealthoverview-header-text">
           <h1>Family Health Overview</h1>
           <p>Average Health Score: 81%</p>
         </div>
-        <div className="filter-tabs">
+        <div className="familyhealthoverview-filter-tabs">
           <button>Week</button>
           <button className="active">Month</button>
           <button>Year</button>
         </div>
       </div>
 
-      <div className="family-grid">
+      <div className="familyhealthoverview-family-grid">
         {familyMembers.map((member, index) => (
-          <div key={index} className="member-card">
-            <div className="member-emoji">{member.emoji}</div>
-            <div className="member-info">
+          <div key={index} className="familyhealthoverview-member-card">
+            <div className="familyhealthoverview-member-emoji">{member.emoji}</div>
+            <div className="familyhealthoverview-member-info">
               <h3>{member.name}</h3>
-              <div className="member-score">
-                <span className={`score-dot ${parseInt(member.score) > 90 ? 'green' : 'yellow'}`}></span>
+              <div className="familyhealthoverview-member-score">
+                <span className={`familyhealthoverview-score-dot ${parseInt(member.score) > 90 ? 'familyhealthoverview-green' : 'familyhealthoverview-yellow'}`}></span>
                 <span>{member.score}</span>
               </div>
-              <span className="member-role">{member.role}</span>
+              <span className="familyhealthoverview-member-role">{member.role}</span>
             </div>
           </div>
         ))}
       </div>
 
-      <button className="view-all-members-btn">
+      <button className="familyhealthoverview-view-all-members-btn">
         <span>View All 15 Members</span>
         <ArrowRight size={18} />
       </button>

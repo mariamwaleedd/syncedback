@@ -18,19 +18,19 @@ const ForgetPass = () => {
     };
 
     return (
-        <div className="forget-container">
-            <div className="forget-card">
-                <div className="forget-header">
-                    <div className="logo-box">
-                        <img src={logo} alt="Logo" className="logo-img" />
+        <div className="forgetpass-forget-container">
+            <div className="forgetpass-forget-card">
+                <div className="forgetpass-forget-header">
+                    <div className="forgetpass-logo-box">
+                        <img src={logo} alt="Logo" className="forgetpass-logo-img" />
                     </div>
                     <h1>Reset account password</h1>
-                    <p className="subtitle">Enter the verification code sent to your email</p>
+                    <p className="forgetpass-subtitle">Enter the verification code sent to your email</p>
                 </div>
 
-                <form className="forget-form" onSubmit={handleSubmit}>
-                    <div className="input-group">
-                        <User className="input-icon" size={20} />
+                <form className="forgetpass-forget-form" onSubmit={handleSubmit}>
+                    <div className="forgetpass-input-group">
+                        <User className="forgetpass-input-icon" size={20} />
                         <input 
                             type="text" 
                             placeholder="Enter Verification Code" 
@@ -40,12 +40,12 @@ const ForgetPass = () => {
                         />
                     </div>
 
-                    <div className="separator">
+                    <div className="forgetpass-separator">
                         <span>Reset Password</span>
                     </div>
 
-                    <div className="input-group">
-                        <User className="input-icon" size={20} />
+                    <div className="forgetpass-input-group">
+                        <User className="forgetpass-input-icon" size={20} />
                         <input 
                             type={showNewPassword ? "text" : "password"} 
                             placeholder="Enter new password" 
@@ -55,15 +55,15 @@ const ForgetPass = () => {
                         />
                         <button 
                             type="button" 
-                            className="toggle-password"
+                            className="forgetpass-toggle-password"
                             onClick={() => setShowNewPassword(!showNewPassword)}
                         >
                             {showNewPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </button>
                     </div>
 
-                    <div className="input-group">
-                        <Lock className="input-icon" size={20} />
+                    <div className="forgetpass-input-group">
+                        <Lock className="forgetpass-input-icon" size={20} />
                         <input 
                             type={showConfirmPassword ? "text" : "password"} 
                             placeholder="Confirm password" 
@@ -73,19 +73,19 @@ const ForgetPass = () => {
                         />
                         <button 
                             type="button" 
-                            className="toggle-password"
+                            className="forgetpass-toggle-password"
                             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         >
                             {showConfirmPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </button>
                     </div>
 
-                    <button type="submit" className="reset-btn">
+                    <button type="submit" className="forgetpass-reset-btn">
                         Reset Password
                     </button>
                 </form>
 
-                <p className="back-footer">
+                <p className="forgetpass-back-footer">
                     Remembered your password? <Link to="/login">Login</Link>
                 </p>
             </div>

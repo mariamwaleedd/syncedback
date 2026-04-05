@@ -22,66 +22,66 @@ const chartData = [
 const Hero = () => {
   return (
     <div className="hero-container">
-      <div className="stats-grid">
-        <div className="stat-card">
-          <div className="stat-header">
-            <div className="stat-icon-box blue"><Eye size={20} /></div>
-            <TrendingUp size={16} className="trend-up" />
+      <div className="hero-stats-grid">
+        <div className="hero-stat-card">
+          <div className="hero-stat-header">
+            <div className="hero-stat-icon-box blue"><Eye size={20} /></div>
+            <TrendingUp size={16} className="hero-trend-up" />
           </div>
           <h2>48.2K</h2>
           <p>Total Page Views</p>
-          <span className="stat-change positive">+12.5% <small>vs last week</small></span>
+          <span className="hero-stat-change hero-positive">+12.5% <small>vs last week</small></span>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-header">
-            <div className="stat-icon-box purple"><Users size={20} /></div>
-            <TrendingUp size={16} className="trend-up" />
+        <div className="hero-stat-card">
+          <div className="hero-stat-header">
+            <div className="hero-stat-icon-box hero-purple"><Users size={20} /></div>
+            <TrendingUp size={16} className="hero-trend-up" />
           </div>
           <h2>3,847</h2>
           <p>Active Users</p>
-          <span className="stat-change positive">+8.2% <small>vs last week</small></span>
+          <span className="hero-stat-change hero-positive">+8.2% <small>vs last week</small></span>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-header">
-            <div className="stat-icon-box green"><FileCode size={20} /></div>
-            <CheckCircle size={16} className="trend-check" />
+        <div className="hero-stat-card">
+          <div className="hero-stat-header">
+            <div className="hero-stat-icon-box hero-green"><FileCode size={20} /></div>
+            <CheckCircle size={16} className="hero-trend-check" />
           </div>
           <h2>54</h2>
           <p>Total Pages</p>
-          <span className="stat-change active">All Active <small>No errors</small></span>
+          <span className="hero-stat-change active">All Active <small>No errors</small></span>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-header">
-            <div className="stat-icon-box orange"><Zap size={20} /></div>
-            <TrendingUp size={16} className="trend-up" />
+        <div className="hero-stat-card">
+          <div className="hero-stat-header">
+            <div className="hero-stat-icon-box hero-orange"><Zap size={20} /></div>
+            <TrendingUp size={16} className="hero-trend-up" />
           </div>
           <h2>23</h2>
           <p>Active Features</p>
-          <span className="stat-change active">100% <small>Operational</small></span>
+          <span className="hero-stat-change active">100% <small>Operational</small></span>
         </div>
 
-        <div className="stat-card">
-          <div className="stat-header">
-            <div className="stat-icon-box cyan"><Activity size={20} /></div>
-            <Activity size={16} className="trend-pulse" />
+        <div className="hero-stat-card">
+          <div className="hero-stat-header">
+            <div className="hero-stat-icon-box hero-cyan"><Activity size={20} /></div>
+            <Activity size={16} className="hero-trend-pulse" />
           </div>
           <h2>99.9%</h2>
           <p>Uptime</p>
-          <span className="stat-change active">Healthy <small>All systems</small></span>
+          <span className="hero-stat-change active">Healthy <small>All systems</small></span>
         </div>
       </div>
 
-      <div className="main-dashboard-grid">
-        <div className="chart-section">
-          <div className="section-header">
+      <div className="hero-main-dashboard-grid">
+        <div className="hero-chart-section">
+          <div className="hero-section-header">
             <div>
               <h3>Traffic Analytics</h3>
               <p>Page views over time</p>
             </div>
-            <div className="filter-tabs">
+            <div className="hero-filter-tabs">
               <button>24h</button>
               <button className="active">7 Days</button>
               <button>30 Days</button>
@@ -109,21 +109,21 @@ const Hero = () => {
             </ResponsiveContainer>
           </div>
           
-          <div className="device-distribution">
+          <div className="hero-device-distribution">
             <h3>Device Distribution</h3>
-            <div className="device-grid">
-              <div className="device-item">
-                <Smartphone size={24} className="device-icon" />
+            <div className="hero-device-grid">
+              <div className="hero-device-item">
+                <Smartphone size={24} className="hero-device-icon" />
                 <h4>68%</h4>
                 <p>Mobile</p>
               </div>
-              <div className="device-item">
-                <Monitor size={24} className="device-icon" />
+              <div className="hero-device-item">
+                <Monitor size={24} className="hero-device-icon" />
                 <h4>24%</h4>
                 <p>Desktop</p>
               </div>
-              <div className="device-item">
-                <Tablet size={24} className="device-icon" />
+              <div className="hero-device-item">
+                <Tablet size={24} className="hero-device-icon" />
                 <h4>8%</h4>
                 <p>Tablet</p>
               </div>
@@ -131,9 +131,9 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="activity-section">
+        <div className="hero-activity-section">
           <h3>Recent Activity</h3>
-          <div className="activity-list">
+          <div className="hero-activity-list">
             {[
               { icon: <FileCode />, title: 'Page Updated', sub: 'Family Dashboard', time: '5 min ago', type: 'Admin' },
               { icon: <Activity />, title: 'Feature Enabled', sub: 'AI Assistant', time: '23 min ago', type: 'System' },
@@ -141,14 +141,14 @@ const Hero = () => {
               { icon: <FileCode />, title: 'Settings Modified', sub: 'Notification System', time: '2 hours ago', type: 'Admin' },
               { icon: <Activity />, title: 'Database Backup', sub: 'Full Backup', time: '3 hours ago', type: 'System' },
             ].map((item, i) => (
-              <div key={i} className="activity-item">
-                <div className="activity-icon">{item.icon}</div>
+              <div key={i} className="hero-activity-item">
+                <div className="hero-activity-icon">{item.icon}</div>
                 <div className="activity-content">
                   <div className="activity-row">
-                    <span className="activity-title">{item.title}</span>
+                    <span className="hero-activity-title">{item.title}</span>
                   </div>
-                  <span className="activity-sub">{item.sub}</span>
-                  <div className="activity-meta">
+                  <span className="hero-activity-sub">{item.sub}</span>
+                  <div className="hero-activity-meta">
                     {item.type} • {item.time}
                   </div>
                 </div>

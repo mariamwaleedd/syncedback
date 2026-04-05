@@ -22,23 +22,23 @@ const AddFeature = ({ isCollapsed }) => {
     };
 
     return (
-        <div className={`add-feature-container ${isCollapsed ? 'collapsed' : ''}`}>
-            <header className="add-feature-header">
-                <button className="back-circle-btn" onClick={() => navigate(-1)}>
+        <div className={`addfeature-add-feature-container ${isCollapsed ? 'collapsed' : ''}`}>
+            <header className="addfeature-add-feature-header">
+                <button className="addfeature-back-circle-btn" onClick={() => navigate(-1)}>
                     <ArrowLeft size={20} />
                 </button>
-                <div className="header-titles">
+                <div className="addfeature-header-titles">
                     <h1>Add New Feature</h1>
                     <p>Create and configure a new feature for your application</p>
                 </div>
             </header>
 
-            <div className="feature-grid">
+            <div className="addfeature-feature-grid">
                 <div className="form-column">
-                    <section className="form-section-card">
-                        <h2 className="section-title">Basic Information</h2>
+                    <section className="addfeature-form-section-card">
+                        <h2 className="addfeature-section-title">Basic Information</h2>
                         
-                        <div className="input-field">
+                        <div className="addfeature-input-field">
                             <label>Feature Name EN</label>
                             <input 
                                 type="text" 
@@ -48,12 +48,12 @@ const AddFeature = ({ isCollapsed }) => {
                             />
                         </div>
 
-                        <div className="input-field">
+                        <div className="addfeature-input-field">
                             <label>Category EN</label>
                             <input type="text" name="categoryEn" onChange={handleChange} />
                         </div>
 
-                        <div className="input-field">
+                        <div className="addfeature-input-field">
                             <label>Description EN</label>
                             <textarea 
                                 name="descEn"
@@ -62,7 +62,7 @@ const AddFeature = ({ isCollapsed }) => {
                             />
                         </div>
 
-                        <div className="input-field rtl-field">
+                        <div className="addfeature-input-field addfeature-rtl-field">
                             <label>Feature Name AR</label>
                             <input 
                                 type="text" 
@@ -72,12 +72,12 @@ const AddFeature = ({ isCollapsed }) => {
                             />
                         </div>
 
-                        <div className="input-field rtl-field">
+                        <div className="addfeature-input-field addfeature-rtl-field">
                             <label>Category AR</label>
                             <input type="text" name="categoryAr" onChange={handleChange} />
                         </div>
 
-                        <div className="input-field rtl-field">
+                        <div className="addfeature-input-field addfeature-rtl-field">
                             <label>Description AR</label>
                             <textarea 
                                 name="descAr"
@@ -87,23 +87,23 @@ const AddFeature = ({ isCollapsed }) => {
                         </div>
                     </section>
 
-                    <section className="form-section-card">
-                        <h2 className="section-title">Configuration</h2>
-                        <div className="config-split">
-                            <div className="input-field">
+                    <section className="addfeature-form-section-card">
+                        <h2 className="addfeature-section-title">Configuration</h2>
+                        <div className="addfeature-config-split">
+                            <div className="addfeature-input-field">
                                 <label>Initial Status</label>
-                                <div className="status-radio-group">
-                                    <label className="radio-item">
+                                <div className="addfeature-status-radio-group">
+                                    <label className="addfeature-radio-item">
                                         <input type="radio" name="status" value="enabled" defaultChecked />
-                                        <span className="dot dot-enabled"></span> Enabled
+                                        <span className="addfeature-dot addfeature-addfeature-dot-enabled"></span> Enabled
                                     </label>
-                                    <label className="radio-item">
+                                    <label className="addfeature-radio-item">
                                         <input type="radio" name="status" value="disabled" />
-                                        <span className="dot dot-disabled"></span> Disabled
+                                        <span className="addfeature-dot addfeature-addfeature-dot-disabled"></span> Disabled
                                     </label>
                                 </div>
                             </div>
-                            <div className="input-field">
+                            <div className="addfeature-input-field">
                                 <label>Access Level</label>
                                 <select name="accessLevel">
                                     <option value="">Select Level</option>
@@ -114,60 +114,60 @@ const AddFeature = ({ isCollapsed }) => {
                             </div>
                         </div>
 
-                        <div className="input-field">
+                        <div className="addfeature-input-field">
                             <label>Dependencies (Optional)</label>
-                            <div className="input-with-btn">
+                            <div className="addfeature-input-with-btn">
                                 <input type="text" placeholder="e.g., Health Questionnaire" />
-                                <button className="add-input-btn"><Plus size={20} /></button>
+                                <button className="addfeature-add-input-btn"><Plus size={20} /></button>
                             </div>
                         </div>
                     </section>
 
-                    <section className="form-section-card">
-                        <h2 className="section-title">Meta Tags (Optional)</h2>
-                        <div className="meta-row">
+                    <section className="addfeature-form-section-card">
+                        <h2 className="addfeature-section-title">Meta Tags (Optional)</h2>
+                        <div className="addfeature-meta-row">
                             <input type="text" placeholder="Property (e.g., og:image)" />
                             <input type="text" placeholder="Content value" />
-                            <button className="add-input-btn"><Plus size={20} /></button>
+                            <button className="addfeature-add-input-btn"><Plus size={20} /></button>
                         </div>
                     </section>
                 </div>
 
-                <aside className="preview-column">
-                    <div className="preview-sticky">
-                        <div className="preview-block">
-                            <h3 className="preview-label">Preview</h3>
-                            <div className="feature-card-mock">
-                                <div className="mock-top">
-                                    <div className="mock-icon"><Zap size={20} fill="#fff" /></div>
-                                    <div className="mock-switch"></div>
+                <aside className="addfeature-preview-column">
+                    <div className="addfeature-preview-sticky">
+                        <div className="addfeature-preview-block">
+                            <h3 className="addfeature-preview-label">Preview</h3>
+                            <div className="addfeature-feature-card-mock">
+                                <div className="addfeature-mock-top">
+                                    <div className="addfeature-mock-icon"><Zap size={20} fill="#fff" /></div>
+                                    <div className="addfeature-mock-switch"></div>
                                 </div>
-                                <h4 className="mock-title">{formData.nameEn || 'Feature Name'}</h4>
-                                <div className="mock-bottom">
+                                <h4 className="addfeature-mock-title">{formData.nameEn || 'Feature Name'}</h4>
+                                <div className="addfeature-mock-bottom">
                                     <span className="mock-cat">{formData.categoryEn || 'Category'}</span>
                                     <span className="mock-users">0 users</span>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="stats-block">
-                            <h3 className="preview-label">Feature Stats</h3>
-                            <div className="stat-row">
+                        <div className="addfeature-stats-block">
+                            <h3 className="addfeature-preview-label">Feature Stats</h3>
+                            <div className="addfeature-stat-row">
                                 <Users size={16} /> <span>Users</span> <strong>0</strong>
                             </div>
-                            <div className="stat-row">
+                            <div className="addfeature-stat-row">
                                 <Eye size={16} /> <span>Views</span> <strong>0</strong>
                             </div>
-                            <div className="stat-row">
+                            <div className="addfeature-stat-row">
                                 <BarChart3 size={16} /> <span>Engagement</span> <strong>0%</strong>
                             </div>
                         </div>
 
-                        <div className="action-stack">
-                            <button className="submit-btn">
+                        <div className="addfeature-action-stack">
+                            <button className="addfeature-submit-btn">
                                 <Save size={18} /> Create Feature
                             </button>
-                            <button className="cancel-btn" onClick={() => navigate(-1)}>
+                            <button className="addfeature-cancel-btn" onClick={() => navigate(-1)}>
                                 <X size={18} /> Cancel
                             </button>
                         </div>

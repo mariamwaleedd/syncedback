@@ -1,4 +1,4 @@
-.app-pages-container {
+.applicationpages-app-pages-container {
   background: var(--bg-card);
   border: 1px solid var(--border-main);
   border-radius: 28px;
@@ -7,14 +7,14 @@
   transition: var(--transition-main);
 }
 
-.app-pages-header {
+.applicationpages-app-pages-header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 30px;
 }
 
-.header-left h1 {
+.applicationpages-header-left h1 {
   font-family: var(--font-title);
   font-size: 32px;
   margin-bottom: 8px;
@@ -22,17 +22,17 @@
   font-weight: 500;
 }
 
-.header-left p {
+.applicationpages-header-left p {
   color: var(--text-muted);
   font-size: 14px;
 }
 
-.header-actions {
+.applicationpages-header-actions {
   display: flex;
   gap: 12px;
 }
 
-.filter-btn {
+.applicationpages-filter-btn {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -47,12 +47,12 @@
   font-family: var(--font-body);
 }
 
-.filter-btn:hover {
+.applicationpages-filter-btn:hover {
   background: var(--bg-card-hover);
   transform: translateY(-2px);
 }
 
-.new-page-btn {
+.applicationpages-new-page-btn {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -69,23 +69,23 @@
   font-family: var(--font-body);
 }
 
-.new-page-btn:hover {
+.applicationpages-new-page-btn:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
   box-shadow: 0 10px 25px rgba(43, 127, 255, 0.3);
 }
 
-.table-wrapper {
+.applicationpages-table-wrapper {
   overflow-x: auto;
 }
 
-.pages-table {
+.applicationpages-pages-table {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
 }
 
-.pages-table th {
+.applicationpages-pages-table th {
   padding: 15px 10px;
   color: var(--text-dim);
   font-size: 13px;
@@ -93,30 +93,30 @@
   border-bottom: 1px solid var(--border-main);
 }
 
-.pages-table td {
+.applicationpages-pages-table td {
   padding: 20px 10px;
   color: var(--text-muted);
   font-size: 14px;
   border-bottom: 1px solid var(--border-thin);
 }
 
-.pages-table tr:last-child td {
+.applicationpages-pages-table tr:last-child td {
   border-bottom: none;
 }
 
-.page-name-cell {
+.applicationpages-page-name-cell {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
-.page-name-cell span {
+.applicationpages-page-name-cell span {
   color: var(--text-main);
   font-weight: 500;
   font-size: 15px;
 }
 
-.page-icon {
+.applicationpages-page-icon {
   width: 38px;
   height: 38px;
   background: var(--primary);
@@ -128,7 +128,7 @@
   flex-shrink: 0;
 }
 
-.path-chip {
+.applicationpages-path-chip {
   background: var(--bg-chip);
   color: var(--primary);
   padding: 6px 12px;
@@ -137,7 +137,7 @@
   font-weight: 500;
 }
 
-.status-badge {
+.applicationpages-status-badge {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -150,7 +150,7 @@
   text-transform: capitalize;
 }
 
-.dot {
+.applicationpages-dot {
   width: 6px;
   height: 6px;
   background: var(--success);
@@ -158,12 +158,12 @@
   box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
 }
 
-.action-btns {
+.applicationpages-action-btns {
   display: flex;
   gap: 8px;
 }
 
-.icon-action {
+.applicationpages-icon-action {
   width: 36px;
   height: 36px;
   background: var(--bg-card);
@@ -177,35 +177,35 @@
   transition: var(--transition-fast);
 }
 
-.icon-action:hover {
+.applicationpages-icon-action:hover {
   background: var(--bg-card-hover);
   color: var(--text-main);
   border-color: rgba(255, 255, 255, 0.2);
 }
 
 @media (max-width: 768px) {
-  .app-pages-container {
+  .applicationpages-app-pages-container {
     padding: 20px;
   }
   
-  .app-pages-header {
+  .applicationpages-app-pages-header {
     flex-direction: column;
     gap: 20px;
   }
   
-  .header-actions {
+  .applicationpages-header-actions {
     width: 100%;
   }
 
-  .filter-btn, .new-page-btn {
+  .applicationpages-filter-btn, .applicationpages-new-page-btn {
     flex: 1;
     justify-content: center;
   }
 
-  .pages-table th:nth-child(4),
-  .pages-table td:nth-child(4),
-  .pages-table th:nth-child(5),
-  .pages-table td:nth-child(5) {
+  .applicationpages-pages-table th:nth-child(4),
+  .applicationpages-pages-table td:nth-child(4),
+  .applicationpages-pages-table th:nth-child(5),
+  .applicationpages-pages-table td:nth-child(5) {
     display: none;
   }
 }

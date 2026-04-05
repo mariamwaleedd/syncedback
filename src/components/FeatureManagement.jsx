@@ -22,13 +22,13 @@ const FeatureManagement = () => {
   };
 
   return (
-    <div className="feature-mgmt-container">
-      <div className="feature-mgmt-header">
-        <div className="header-text">
+    <div className="featuremanagement-feature-mgmt-container">
+      <div className="featuremanagement-feature-mgmt-header">
+        <div className="featuremanagement-header-text">
           <h1>Feature Management</h1>
           <p>Enable/disable features and track usage</p>
         </div>
-        <button className="add-feature-btn">
+        <button className="featuremanagement-add-feature-btn">
           <Plus size={18} />
           <Link to="/add-feature" className="primary-hero-btn">
             <span>Add Feature</span>
@@ -36,27 +36,27 @@ const FeatureManagement = () => {
         </button>
       </div>
 
-      <div className="features-grid">
+      <div className="featuremanagement-features-grid">
         {features.map((feature) => (
-          <div key={feature.id} className="feature-card">
-            <div className="card-top">
-              <div className="feature-icon">
+          <div key={feature.id} className="featuremanagement-feature-card">
+            <div className="featuremanagement-card-top">
+              <div className="featuremanagement-feature-icon">
                 <Zap size={20} fill="currentColor" />
               </div>
-              <label className="toggle-switch">
+              <label className="featuremanagement-toggle-switch">
                 <input 
                   type="checkbox" 
                   checked={feature.active} 
                   onChange={() => toggleFeature(feature.id)}
                 />
-                <span className="slider"></span>
+                <span className="featuremanagement-slider"></span>
               </label>
             </div>
-            <div className="card-content">
+            <div className="featuremanagement-card-content">
               <h3>{feature.name}</h3>
-              <div className="card-footer">
-                <span className="category">{feature.category}</span>
-                <span className="users-count">{feature.users} users</span>
+              <div className="featuremanagement-card-footer">
+                <span className="featuremanagement-category">{feature.category}</span>
+                <span className="featuremanagement-users-count">{feature.users} users</span>
               </div>
             </div>
           </div>

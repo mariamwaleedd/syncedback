@@ -1,4 +1,4 @@
-.compose-message-page {
+.composemessage-compose-message-page {
     padding: 100px 40px 40px 300px;
     min-height: 100vh;
     transition: var(--transition-main);
@@ -7,18 +7,18 @@
     gap: 20px;
 }
 
-.compose-message-page.is-collapsed {
+.composemessage-compose-message-page.is-collapsed {
     padding-left: 120px;
 }
 
-.compose-page-header {
+.composemessage-compose-page-header {
     display: flex;
     align-items: center;
     gap: 15px;
     margin-bottom: 20px;
 }
 
-.back-btn {
+.composemessage-back-btn {
     background: var(--bg-card);
     border: 1px solid var(--border-light);
     color: white;
@@ -32,42 +32,42 @@
     transition: var(--transition-fast);
 }
 
-.back-btn:hover {
+.composemessage-back-btn:hover {
     background: var(--bg-card-hover);
 }
 
-.compose-page-header h1 {
+.composemessage-compose-page-header h1 {
     font-size: 1.5rem;
     color: white;
     margin: 0;
 }
 
-.compose-main-card {
+.composemessage-compose-main-card {
     background: var(--bg-card);
     border: 1px solid var(--border-main);
     border-radius: 20px;
     padding: 30px;
 }
 
-.compose-form-section {
+.composemessage-compose-form-section {
     display: flex;
     flex-direction: column;
     gap: 20px;
 }
 
-.form-row {
+.composemessage-form-row {
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
-.form-row label {
+.composemessage-form-row label {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--text-muted);
 }
 
-.form-row input {
+.composemessage-form-row input {
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--border-light);
@@ -78,11 +78,11 @@
     transition: var(--transition-fast);
 }
 
-.form-row input:focus {
+.composemessage-form-row input:focus {
     border-bottom-color: var(--primary);
 }
 
-.editor-container {
+.composemessage-editor-container {
     border: 1px solid var(--border-light);
     border-radius: 12px;
     overflow: hidden;
@@ -91,7 +91,7 @@
     margin-top: 10px;
 }
 
-.message-textarea {
+.composemessage-message-textarea {
     background: rgba(255, 255, 255, 0.02);
     border: none;
     color: white;
@@ -103,7 +103,7 @@
     line-height: 1.6;
 }
 
-.compose-actions {
+.composemessage-compose-actions {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -112,12 +112,12 @@
     border-top: 1px solid var(--border-light);
 }
 
-.right-actions {
+.composemessage-right-actions {
     display: flex;
     gap: 15px;
 }
 
-.action-btn {
+.composemessage-action-btn {
     display: flex;
     align-items: center;
     gap: 10px;
@@ -129,49 +129,49 @@
     border: none;
 }
 
-.action-btn.discard {
+.composemessage-action-btn.composemessage-discard {
     background: transparent;
     color: var(--text-muted);
     border: 1px solid var(--border-light);
 }
 
-.action-btn.discard:hover {
+.composemessage-action-btn.composemessage-discard:hover {
     background: rgba(239, 68, 68, 0.1);
     color: #ef4444;
     border-color: #ef4444;
 }
 
-.action-btn.attach {
+.composemessage-action-btn.composemessage-attach {
     background: rgba(255, 255, 255, 0.05);
     color: white;
 }
 
-.action-btn.attach:hover {
+.composemessage-action-btn.composemessage-attach:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.action-btn.send {
+.composemessage-action-btn.composemessage-send {
     background: var(--primary);
     color: white;
 }
 
-.action-btn.send:hover {
+.composemessage-action-btn.composemessage-send:hover {
     filter: brightness(1.1);
 }
 
 @media (max-width: 768px) {
-    .compose-message-page, .compose-message-page.is-collapsed {
+    .composemessage-compose-message-page, .composemessage-compose-message-page.is-collapsed {
         padding: 100px 20px 40px 20px;
     }
-    .compose-actions {
+    .composemessage-compose-actions {
         flex-direction: column;
         gap: 20px;
     }
-    .right-actions {
+    .composemessage-right-actions {
         width: 100%;
         justify-content: space-between;
     }
-    .action-btn {
+    .composemessage-action-btn {
         flex: 1;
         justify-content: center;
     }

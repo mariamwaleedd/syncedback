@@ -1,9 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-    Reply, Forward, Archive, Trash2, Mail, Phone, 
-    Building2, Globe, Calendar, Info, Tag, Users, 
-    Paperclip, Download, FileText, FileSpreadsheet, Image as ImageIcon, ArrowLeft
+import {
+    Reply, Forward, Archive, Trash2, Mail, Phone,
+    Building2, Globe, Calendar, Info, Tag, Users,
+    Paperclip, Download, FileText, FileSpreadsheet, Image as ImageIcon
 } from 'lucide-react';
 import './MessageDetail.css';
 
@@ -13,7 +13,6 @@ const MessageDetail = ({ isCollapsed }) => {
     return (
         <div className={`message-detail-page ${isCollapsed ? 'is-collapsed' : ''}`}>
             <div className="action-toolbar">
-                <button className="tool-btn" onClick={() => navigate(-1)}><ArrowLeft size={18} /> Back</button>
                 <button className="tool-btn"><Reply size={18} /> Reply</button>
                 <button className="tool-btn"><Forward size={18} /> Forward</button>
                 <button className="tool-btn"><Archive size={18} /> Archive</button>
@@ -100,7 +99,7 @@ const MessageDetail = ({ isCollapsed }) => {
                         <li>New team member assignments</li>
                     </ul>
                     <p>Please review at your earliest convenience and let me know if you have any questions or concerns.</p>
-                    <p>Best regards,<br/>Sarah</p>
+                    <p>Best regards,<br />Sarah</p>
                 </div>
             </section>
 

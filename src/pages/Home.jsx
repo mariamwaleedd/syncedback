@@ -9,10 +9,10 @@ import './Home.css';
 
 const Home = ({ isCollapsed }) => {
     return (  
-        <div className={`dashboard-container ${isCollapsed ? 'is-collapsed' : ''}`}>
+        <div className={`home-dashboard-container ${isCollapsed ? 'is-collapsed' : ''}`}>
             <Hero />
             
-            <div className="dashboard-row">
+            <div className="home-dashboard-row">
                 <FamilyHealthOverview />
                 <RecentActivity />
             </div>

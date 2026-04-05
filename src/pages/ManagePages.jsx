@@ -21,37 +21,37 @@ const ManagePages = ({ isCollapsed }) => {
     const navigate = useNavigate();
 
     return (
-        <div className={`page-list-container ${isCollapsed ? 'is-collapsed' : ''}`}>
-            <header className="page-list-header">
-                <div className="header-left-side">
-                    <button className="back-circle-btn" onClick={() => navigate(-1)}>
+        <div className={`managepages-page-list-container ${isCollapsed ? 'is-collapsed' : ''}`}>
+            <header className="managepages-page-list-header">
+                <div className="managepages-header-left-side">
+                    <button className="managepages-back-circle-btn" onClick={() => navigate(-1)}>
                         <ArrowLeft size={20} />
                     </button>
-                    <div className="title-area">
+                    <div className="managepages-title-area">
                         <h1>Application Page List</h1>
                         <p>Browse through application pages.</p>
                     </div>
                 </div>
-                <div className="header-right-side">
-                    <button className="filter-outline-btn">
+                <div className="managepages-header-right-side">
+                    <button className="managepages-filter-outline-btn">
                         <Filter size={18} />
                         <span>Filter</span>
                     </button>
-                    <Link to="/add-page" className="new-page-primary-btn">
+                    <Link to="/add-page" className="managepages-new-page-primary-btn">
                         <Plus size={18} />
                         <span>New Page</span>
                     </Link>
                 </div>
             </header>
 
-            <main className="page-list-content-card">
-                <div className="search-input-wrapper">
-                    <Search className="search-icon-inside" size={18} />
+            <main className="managepages-page-list-content-card">
+                <div className="managepages-search-input-wrapper">
+                    <Search className="managepages-search-icon-inside" size={18} />
                     <input type="text" placeholder="Search pages..." />
                 </div>
 
-                <div className="table-responsive-wrapper">
-                    <table className="pages-data-table">
+                <div className="managepages-table-responsive-wrapper">
+                    <table className="managepages-pages-data-table">
                         <thead>
                             <tr>
                                 <th>Page Name</th>
@@ -59,34 +59,34 @@ const ManagePages = ({ isCollapsed }) => {
                                 <th>Status</th>
                                 <th>Views</th>
                                 <th>Last Modified</th>
-                                <th className="text-right">Actions</th>
+                                <th className="managepages-text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {pagesData.map((page) => (
                                 <tr key={page.id}>
                                     <td>
-                                        <div className="page-name-cell">
-                                            <div className="page-icon-square">
+                                        <div className="managepages-page-name-cell">
+                                            <div className="managepages-page-icon-square">
                                                 <FileCode size={18} />
                                             </div>
                                             <span>{page.name}</span>
                                         </div>
                                     </td>
                                     <td>
-                                        <span className="path-badge">{page.path}</span>
+                                        <span className="managepages-path-badge">{page.path}</span>
                                     </td>
                                     <td>
-                                        <div className="status-chip-active">
-                                            <span className="dot"></span>
+                                        <div className="managepages-status-chip-active">
+                                            <span className="managepages-dot"></span>
                                             <span>{page.status}</span>
                                         </div>
                                     </td>
-                                    <td className="views-cell">{page.views}</td>
-                                    <td className="modified-cell">{page.modified}</td>
-                                    <td className="actions-cell">
-                                        <button className="action-btn-gray"><Edit2 size={16} /></button>
-                                        <button className="action-btn-gray"><MoreVertical size={16} /></button>
+                                    <td className="managepages-views-cell">{page.views}</td>
+                                    <td className="managepages-modified-cell">{page.modified}</td>
+                                    <td className="managepages-actions-cell">
+                                        <button className="managepages-action-btn-gray"><Edit2 size={16} /></button>
+                                        <button className="managepages-action-btn-gray"><MoreVertical size={16} /></button>
                                     </td>
                                 </tr>
                             ))}

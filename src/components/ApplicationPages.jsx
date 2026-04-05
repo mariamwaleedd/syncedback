@@ -18,18 +18,18 @@ const pagesData = [
 
 const ApplicationPages = () => {
   return (
-    <div className="app-pages-container">
-      <div className="app-pages-header">
-        <div className="header-left">
+    <div className="applicationpages-app-pages-container">
+      <div className="applicationpages-app-pages-header">
+        <div className="applicationpages-header-left">
           <h1>Application Pages</h1>
           <p>Manage and edit all pages in your application</p>
         </div>
-        <div className="header-actions">
-          <button className="filter-btn">
+        <div className="applicationpages-header-actions">
+          <button className="applicationpages-filter-btn">
             <Filter size={18} />
             <span>Filter</span>
           </button>
-          <button className="new-page-btn">
+          <button className="applicationpages-new-page-btn">
             <Plus size={18} />
             <Link to="/add-page" className="primary-hero-btn">
             <span>New Page</span></Link>
@@ -37,8 +37,8 @@ const ApplicationPages = () => {
         </div>
       </div>
 
-      <div className="table-wrapper">
-        <table className="pages-table">
+      <div className="applicationpages-table-wrapper">
+        <table className="applicationpages-pages-table">
           <thead>
             <tr>
               <th>Page Name</th>
@@ -53,28 +53,28 @@ const ApplicationPages = () => {
             {pagesData.map((page, index) => (
               <tr key={index}>
                 <td>
-                  <div className="page-name-cell">
-                    <div className="page-icon">
+                  <div className="applicationpages-page-name-cell">
+                    <div className="applicationpages-page-icon">
                       <FileText size={18} />
                     </div>
                     <span>{page.name}</span>
                   </div>
                 </td>
                 <td>
-                  <span className="path-chip">{page.path}</span>
+                  <span className="applicationpages-path-chip">{page.path}</span>
                 </td>
                 <td>
-                  <div className="status-badge">
-                    <span className="dot"></span>
+                  <div className="applicationpages-status-badge">
+                    <span className="applicationpages-dot"></span>
                     <span>{page.status}</span>
                   </div>
                 </td>
                 <td>{page.views}</td>
                 <td>{page.modified}</td>
                 <td>
-                  <div className="action-btns">
-                    <button className="icon-action"><Edit2 size={16} /></button>
-                    <button className="icon-action"><MoreVertical size={16} /></button>
+                  <div className="applicationpages-action-btns">
+                    <button className="applicationpages-icon-action"><Edit2 size={16} /></button>
+                    <button className="applicationpages-icon-action"><MoreVertical size={16} /></button>
                   </div>
                 </td>
               </tr>

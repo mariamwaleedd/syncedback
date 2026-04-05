@@ -1,4 +1,4 @@
-.choose-container {
+.chooseplatform-choose-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
@@ -7,11 +7,11 @@
     padding: 20px;
 }
 
-.choose-content {
+.chooseplatform-choose-content {
     text-align: center;
     width: 100%;
     max-width: 900px;
-    animation: fadeIn 0.8s ease-out;
+    animation: fadeIn 0.chooseplatform-8s ease-out;
 }
 
 @keyframes fadeIn {
@@ -19,7 +19,7 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-.choose-title {
+.chooseplatform-choose-title {
     font-family: var(--font-title);
     font-size: 42px;
     color: var(--text-main);
@@ -27,14 +27,14 @@
     font-weight: 500;
 }
 
-.platform-grid {
+.chooseplatform-platform-grid {
     display: flex;
     gap: 30px;
     justify-content: center;
     flex-wrap: wrap;
 }
 
-.platform-card {
+.chooseplatform-platform-card {
     background: var(--bg-card);
     border: 1px solid var(--border-light);
     border-radius: 20px;
@@ -50,7 +50,7 @@
     gap: 24px;
 }
 
-.platform-card::after {
+.chooseplatform-platform-card::after {
     content: '';
     position: absolute;
     inset: 0;
@@ -59,17 +59,17 @@
     transition: var(--transition-fast);
 }
 
-.platform-card:hover {
+.chooseplatform-platform-card:hover {
     transform: translateY(-8px);
     border-color: var(--primary);
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px var(--primary-glow);
 }
 
-.platform-card:hover::after {
+.chooseplatform-platform-card:hover::after {
     opacity: 1;
 }
 
-.image-container {
+.chooseplatform-image-container {
     height: 160px;
     display: flex;
     align-items: center;
@@ -77,18 +77,18 @@
     width: 100%;
 }
 
-.platform-img {
+.chooseplatform-platform-img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
     transition: var(--transition-fast);
 }
 
-.platform-card:hover .platform-img {
+.chooseplatform-platform-card:hover .chooseplatform-platform-img {
     transform: scale(1.1);
 }
 
-.platform-card h3 {
+.chooseplatform-platform-card h3 {
     font-size: 24px;
     color: var(--text-main);
     margin: 0;
@@ -96,12 +96,12 @@
 }
 
 @media (max-width: 768px) {
-    .choose-title {
+    .chooseplatform-choose-title {
         font-size: 32px;
         margin: 30px 0 40px;
     }
     
-    .platform-card {
+    .chooseplatform-platform-card {
         width: 100%;
         max-width: 340px;
     }

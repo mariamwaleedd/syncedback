@@ -11,14 +11,14 @@ const actionsData = [
 
 const QuickActions = () => {
   return (
-    <div className="quick-actions-container">
-      <div className="quick-actions-grid">
+    <div className="quickactions-quick-actions-container">
+      <div className="quickactions-quick-actions-grid">
         {actionsData.map((action) => (
-          <div key={action.id} className="quick-action-card">
-            <div className="action-icon-box" style={{ color: action.color }}>
+          <div key={action.id} className="quickactions-quick-action-card">
+            <div className="quickactions-action-icon-box" style={{ color: action.color }}>
               {action.icon}
             </div>
-            <div className="action-content">
+            <div className="quickactions-action-content">
               <h3>{action.name}</h3>
               <p>{action.sub}</p>
             </div>
