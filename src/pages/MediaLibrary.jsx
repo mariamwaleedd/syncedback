@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Upload, Search, Grid, List, 
     Image as ImageIcon, Video, FileText, MoreVertical, 
-    Download, Trash2, HardDrive, Plus, X, File, FileArchive, Folder, ChevronRight, RefreshCw, CornerUpLeft
+    Download, Trash2, HardDrive, Plus, X, File, FileArchive, Folder, ChevronRight, RefreshCw, CornerUpLeft, AlertCircle
 } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './MediaLibrary.css';
@@ -21,6 +21,7 @@ const MediaLibrary = ({ isCollapsed }) => {
     const [currentPath, setCurrentPath] = useState(''); 
     const [allMediaFlat, setAllMediaFlat] = useState([]);
     const [isFetchingFlat, setIsFetchingFlat] = useState(false);
+    const [replaceModalOpen, setReplaceModalOpen] = useState(false);
 
     const BUCKET_NAME = 'Synced';
 
@@ -279,7 +280,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                         </div>
                         <div className="detail-actions">
                             {['image', 'video', 'document', 'archive'].includes(selectedItem.type) && (
-                                <button className="btn-detail-outline" onClick={() => replaceInputRef.current.click()}>
+                                <button className="btn-detail-outline" onClick={() => setReplaceModalOpen(true)}>
                                     <RefreshCw size={18} /> Replace File
                                 </button>
                             )}
@@ -289,6 +290,26 @@ const MediaLibrary = ({ isCollapsed }) => {
                     </aside>
                 )}
             </div>
+
+            {replaceModalOpen && (
+                <div className="media-modal-overlay">
+                    <div className="media-modal-card">
+                        <div className="media-modal-icon warning">
+                            <AlertCircle size={32} />
+                         </div>
+                        <h2>Replace Asset?</h2>
+                        <p>Are you sure you want to replace this file? It will be updated instantly everywhere it's being used across your application.</p>
+                        <div className="media-modal-actions">
+                            <button className="media-modal-btn-secondary" onClick={() => setReplaceModalOpen(false)}>
+                                Cancel
+                            </button>
+                            <button className="media-modal-btn-warning" onClick={() => { setReplaceModalOpen(false); replaceInputRef.current.click(); }}>
+                                Yes, Replace File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
