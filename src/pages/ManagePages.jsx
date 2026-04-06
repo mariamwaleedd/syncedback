@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Filter, Plus, Search, FileCode, Edit2, Trash2, MoreVertical } from 'lucide-react';
+import { ArrowLeft, Filter, Plus, Search, FileCode, Edit2, Trash2, MoreVertical, RefreshCw } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './ManagePages.css';
 
@@ -9,6 +9,7 @@ const ManagePages = ({ isCollapsed }) => {
     const [pages, setPages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         fetchPages();
@@ -32,6 +33,12 @@ const ManagePages = ({ isCollapsed }) => {
 
     const filtered = pages.filter(p => p.name_en?.toLowerCase().includes(searchTerm.toLowerCase()));
 
+    const handleRefresh = async () => {
+        setRefreshing(true);
+        await fetchPages();
+        setRefreshing(false);
+    };
+
     return (
         <div className={`managepages-page-list-container ${isCollapsed ? 'is-collapsed' : ''}`}>
             <header className="managepages-page-list-header">
@@ -43,6 +50,13 @@ const ManagePages = ({ isCollapsed }) => {
                     </div>
                 </div>
                 <div className="managepages-header-right-side">
+                    <button 
+                        className={`managepages-refresh-circle-btn ${refreshing ? 'spinning' : ''}`} 
+                        onClick={handleRefresh}
+                        title="Refresh Pages Data"
+                    >
+                        <RefreshCw size={18} />
+                    </button>
                     <Link to="/add-page" className="managepages-new-page-primary-btn"><Plus size={18} /><span>New Page</span></Link>
                 </div>
             </header>
