@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Upload, Search, Grid, List, 
     Image as ImageIcon, Video, FileText, MoreVertical, 
-    Download, Trash2, HardDrive, Plus, X, File, FileArchive, Folder, ChevronRight, RefreshCw
+    Download, Trash2, HardDrive, Plus, X, File, FileArchive, Folder, ChevronRight, RefreshCw, CornerUpLeft
 } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './MediaLibrary.css';
@@ -152,7 +152,11 @@ const MediaLibrary = ({ isCollapsed }) => {
                     </div>
                 </div>
                 <div className="media-header-actions">
-                    {currentPath && <button className="media-filter-btn" onClick={goBack}>Back</button>}
+                    {currentPath && (
+                        <button className="media-folder-back-btn" onClick={goBack}>
+                            <CornerUpLeft size={18} /> Back
+                        </button>
+                    )}
                     <button className="upload-main-btn" onClick={() => fileInputRef.current.click()}>
                         <Upload size={18} /><span>Upload Here</span>
                     </button>
