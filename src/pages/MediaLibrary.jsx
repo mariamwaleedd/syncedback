@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Upload, Search, Grid, List, 
     Image as ImageIcon, Video, FileText, MoreVertical, 
-    Download, Trash2, HardDrive, Plus, X, File, FileArchive, Folder, ChevronRight
+    Download, Trash2, HardDrive, Plus, X, File, FileArchive, Folder, ChevronRight, RefreshCw
 } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './MediaLibrary.css';
@@ -11,6 +11,7 @@ import './MediaLibrary.css';
 const MediaLibrary = ({ isCollapsed }) => {
     const navigate = useNavigate();
     const fileInputRef = useRef(null);
+    const replaceInputRef = useRef(null);
     const [viewMode, setViewMode] = useState('grid');
     const [activeTab, setActiveTab] = useState('all');
     const [selectedItem, setSelectedItem] = useState(null);
@@ -95,6 +96,27 @@ const MediaLibrary = ({ isCollapsed }) => {
         else fetchFiles(currentPath);
     };
 
+    const handleReplace = async (e) => {
+        const file = e.target.files[0];
+        if (!file || !selectedItem) return;
+        
+        setLoading(true);
+        const { error } = await supabase.storage.from(BUCKET_NAME).upload(selectedItem.fullPath, file, {
+            cacheControl: '3600',
+            upsert: true
+        });
+        
+        if (error) {
+            alert("Failed to replace image: " + error.message);
+            setLoading(false);
+        } else {
+            // Append a timestamp parameter to break the browser cache for the newly replaced image
+            const updatedUrl = selectedItem.url ? `${selectedItem.url.split('?')[0]}?t=${Date.now()}` : null;
+            setSelectedItem({ ...selectedItem, url: updatedUrl });
+            fetchFiles(currentPath);
+        }
+    };
+
     const handleDelete = async (item) => {
         if (!window.confirm('Delete this item?')) return;
         const { error } = await supabase.storage.from(BUCKET_NAME).remove([item.fullPath]);
@@ -111,6 +133,7 @@ const MediaLibrary = ({ isCollapsed }) => {
     return (
         <div className={`media-library-page ${isCollapsed ? 'is-collapsed' : ''}`}>
             <input type="file" ref={fileInputRef} style={{ display: 'none' }} onChange={handleUpload} />
+            <input type="file" ref={replaceInputRef} style={{ display: 'none' }} onChange={handleReplace} />
             
             <header className="media-header">
                 <div className="media-header-left">
@@ -209,6 +232,9 @@ const MediaLibrary = ({ isCollapsed }) => {
                             <div className="detail-row"><label>Size</label><span>{formatSize(selectedItem.metadata?.size)}</span></div>
                         </div>
                         <div className="detail-actions">
+                            {selectedItem.type === 'image' && (
+                                <button className="btn-detail-outline" onClick={() => replaceInputRef.current.click()}><RefreshCw size={18} /> Replace Image</button>
+                            )}
                             <a href={selectedItem.url} download target="_blank" rel="noreferrer" className="btn-detail-primary"><Download size={18} /> Download</a>
                             <button className="btn-detail-secondary" onClick={() => handleDelete(selectedItem)}><Trash2 size={18} /> Delete</button>
                         </div>
