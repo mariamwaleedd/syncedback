@@ -21,6 +21,7 @@ import MessageDetail from './pages/MessageDetail';
 import Profile from './pages/Profile';
 import AddFeature from './pages/AddFeature';
 import AddPage from './pages/AddPage';
+import ErrorPage from './pages/ErrorPage';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -89,7 +90,7 @@ const Routing = () => {
                 <Route path="/media-library" element={<MediaLibrary isCollapsed={isCollapsed} />} />
                 <Route path="/profile" element={<Profile isCollapsed={isCollapsed} />} />
                 <Route path="/ui-elements" element={<UIElements isCollapsed={isCollapsed} />} />
-
+                <Route path="*" element={<ErrorPage type="404" />} />
             </Routes>
         </>
     );
