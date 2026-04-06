@@ -169,9 +169,9 @@ const MediaLibrary = ({ isCollapsed }) => {
         return matchesTab && matchesSearch;
     }).sort((a, b) => {
         if (sortBy === 'sizeDesc') {
-            return (b.metadata?.size || 0) - (a.metadata?.size || 0);
+            return Number(b.metadata?.size || 0) - Number(a.metadata?.size || 0);
         } else if (sortBy === 'sizeAsc') {
-            return (a.metadata?.size || 0) - (b.metadata?.size || 0);
+            return Number(a.metadata?.size || 0) - Number(b.metadata?.size || 0);
         }
         return 0; // Default sort
     });
@@ -258,7 +258,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                             {viewMode === 'grid' ? (
                                 <>
                                     {filteredMedia.map(item => (
-                                        <div key={item.name} className={`media-card ${selectedItem?.name === item.name ? 'selected' : ''} ${item.isFolder ? 'folder-type' : ''}`} onClick={() => handleItemClick(item)}>
+                                        <div key={item.fullPath || item.name} className={`media-card ${selectedItem?.fullPath === item.fullPath ? 'selected' : ''} ${item.isFolder ? 'folder-type' : ''}`} onClick={() => handleItemClick(item)}>
                                             <div className="media-thumb">
                                                 {item.type === 'image' ? <img src={item.url} alt="" /> : 
                                                  item.isFolder ? <Folder size={40} fill="rgba(43, 127, 255, 0.2)" /> :
@@ -279,7 +279,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                                     <thead><tr><th>Name</th><th>Type</th><th>Size</th><th>Actions</th></tr></thead>
                                     <tbody>
                                         {filteredMedia.map(item => (
-                                            <tr key={item.name} onClick={() => handleItemClick(item)} className={selectedItem?.name === item.name ? 'selected' : ''}>
+                                            <tr key={item.fullPath || item.name} onClick={() => handleItemClick(item)} className={selectedItem?.fullPath === item.fullPath ? 'selected' : ''}>
                                                 <td><div className="list-name-cell">{item.isFolder ? <Folder size={18}/> : <ImageIcon size={18} />}<span>{item.name}</span></div></td>
                                                 <td><span className={`type-badge ${item.type}`}>{item.type}</span></td>
                                                 <td>{formatSize(item.metadata?.size)}</td>
