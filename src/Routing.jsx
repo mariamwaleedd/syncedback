@@ -88,6 +88,8 @@ const Routing = () => {
                 <Route path="/add-page" element={<AddPage isCollapsed={isCollapsed} />} />
                 <Route path="/media-library" element={<MediaLibrary isCollapsed={isCollapsed} />} />
                 <Route path="/profile" element={<Profile isCollapsed={isCollapsed} />} />
+                <Route path="/ui-elements" element={<UIElements isCollapsed={isCollapsed} />} />
+
             </Routes>
         </>
     );

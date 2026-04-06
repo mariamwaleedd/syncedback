@@ -1,46 +1,162 @@
-.uielements-dashboard-container {
-    padding: 32px 40px;
-    transition: margin-left 0.uielements-3s ease;
+.ui-elements-page {
+    padding: 100px 40px 40px 300px;
     min-height: 100vh;
+    transition: var(--transition-main);
 }
 
-.uielements-dashboard-container.is-collapsed {
-    margin-left: 80px;
+.ui-elements-page.is-collapsed {
+    padding-left: 120px;
 }
 
-.uielements-page-header {
+.ui-header {
     margin-bottom: 40px;
-    animation: fadeInDown 0.uielements-6s ease-out;
 }
 
-.uielements-page-content-placeholder {
-    margin-top: 40px;
-    padding: 100px 40px;
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.back-circle-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
     background: var(--bg-card);
-    border-radius: 24px;
     border: 1px solid var(--border-light);
-    text-align: center;
-    color: var(--text-muted);
-    animation: fadeInUp 0.uielements-8s ease-out;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
-@keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+.titles h1 { font-size: 2.2rem; margin: 0; }
+.titles p { color: var(--text-muted); margin-top: 5px; }
+
+.ui-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
 }
 
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+.ui-card-group {
+    background: var(--bg-card);
+    border: 1px solid var(--border-main);
+    border-radius: 24px;
+    padding: 30px;
+}
+
+.ui-card-group.wide {
+    grid-column: span 2;
+}
+
+.group-title {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    color: white;
+    font-weight: 600;
+}
+
+.elements-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.elements-stack.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.mt-20 { margin-top: 20px; }
+.mt-30 { margin-top: 30px; }
+.mb-20 { margin-bottom: 20px; }
+.gap-30 { gap: 30px; }
+.gap-20 { gap: 20px; }
+.space-between { justify-content: space-between; }
+.align-center { align-items: center; }
+
+/* Buttons */
+.btn-solid-primary { background: var(--primary); color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-primary); }
+.btn-solid-secondary { background: rgba(255, 255, 255, 0.05); color: white; border: 1px solid var(--border-light); padding: 12px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; }
+.btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); padding: 12px 20px; border-radius: 12px; font-weight: 600; cursor: pointer; }
+.btn-danger { background: #ef4444; color: white; border: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.btn-icon-square { background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-light); color: white; width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+.btn-glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.05); color: white; padding: 12px 20px; border-radius: 12px; cursor: pointer; }
+.btn-link { background: transparent; border: none; color: var(--primary); display: flex; align-items: center; gap: 6px; font-weight: 600; cursor: pointer; }
+
+/* Badges */
+.badge-ui { padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+.badge-ui.success { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.badge-ui.warning { background: rgba(249, 115, 22, 0.1); color: #f97316; }
+.badge-ui.danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.badge-ui.info { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+.badge-ui.default { background: rgba(255, 255, 255, 0.05); color: #94a3b8; }
+
+.status-indicator { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--text-muted); }
+.status-indicator .dot { width: 8px; height: 8px; border-radius: 50%; }
+.status-indicator.active .dot { background: #10b981; box-shadow: 0 0 8px #10b981; }
+.status-indicator.inactive .dot { background: #64748b; }
+.status-indicator.busy .dot { background: #ef4444; }
+
+/* Form Controls */
+.input-wrap-ui { display: flex; flex-direction: column; gap: 8px; }
+.input-wrap-ui label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+.input-wrap-ui input, .select-ui { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-light); border-radius: 10px; padding: 12px 15px; color: white; outline: none; }
+.icon-field { position: relative; }
+.icon-field svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); }
+.icon-field input { padding-left: 40px; width: 100%; }
+
+/* Switches & Checkboxes */
+.ui-switch { width: 48px; height: 24px; background: #1e2139; border-radius: 20px; padding: 2px; cursor: pointer; transition: 0.3s; }
+.ui-switch.active { background: var(--primary); }
+.ui-switch .handle { width: 20px; height: 20px; background: white; border-radius: 50%; transition: 0.3s; }
+.ui-switch.active .handle { transform: translateX(24px); }
+
+.checkbox-ui { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.9rem; position: relative; }
+.checkbox-ui input { display: none; }
+.checkmark { width: 20px; height: 20px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-light); border-radius: 6px; display: inline-block; position: relative; }
+.checkbox-ui input:checked ~ .checkmark { background: var(--primary); border-color: var(--primary); }
+.checkbox-ui input:checked ~ .checkmark::after { content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+
+/* Progress */
+.progress-item { margin-bottom: 15px; }
+.progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-muted); }
+.progress-bg { height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; transition: 1s ease; }
+.progress-fill.blue { background: var(--primary); }
+.progress-fill.green { background: #10b981; }
+.progress-fill.danger { background: #ef4444; }
+
+/* Alerts */
+.alert-ui { padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; font-size: 0.9rem; }
+.alert-ui.success { background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); color: #10b981; }
+.alert-ui.info { background: rgba(43, 127, 255, 0.1); border: 1px solid rgba(43, 127, 255, 0.2); color: var(--primary); }
+.alert-ui.danger { background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); color: #ef4444; }
+
+/* Avatars & Icons */
+.avatar-ui { border-radius: 50%; overflow: hidden; border: 2px solid var(--border-light); }
+.avatar-ui img { width: 100%; height: 100%; object-fit: cover; }
+.avatar-ui.sm { width: 32px; height: 32px; }
+.avatar-ui.md { width: 44px; height: 44px; }
+.avatar-ui.lg { width: 60px; height: 60px; }
+.avatar-ui.xl { width: 80px; height: 80px; }
+
+.icon-box-ui { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; }
+.icon-box-ui.blue { background: rgba(43, 127, 255, 0.1); color: var(--primary); }
+.icon-box-ui.green { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+.icon-box-ui.purple { background: rgba(147, 51, 234, 0.1); color: #9333ea; }
+.icon-box-ui.dark { background: rgba(255, 255, 255, 0.05); color: white; }
+
+@media (max-width: 1200px) {
+    .ui-grid { grid-template-columns: 1fr; }
+    .ui-card-group.wide { grid-column: span 1; }
 }
 
 @media (max-width: 768px) {
-    .uielements-dashboard-container {
-        margin-left: 0;
-        padding: 24px 20px;
-    }
-    
-    .uielements-dashboard-container.is-collapsed {
-        margin-left: 0;
-    }
+    .ui-elements-page, .ui-elements-page.is-collapsed { padding: 100px 20px 40px 20px; }
+    .titles h1 { font-size: 1.8rem; }
+    .btn-solid-primary, .btn-solid-secondary, .btn-outline, .btn-danger { width: 100%; justify-content: center; }
 }
