@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Layout, Layers, Monitor, Smartphone, Tablet, Save, X, Plus, Info, FileText, Globe } from 'lucide-react';
+import { ArrowLeft, Layout, Layers, Monitor, Smartphone, Tablet, Save, X, Plus, Info, FileText, Globe, AlertCircle, CheckCircle } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './AddPage.css';
 
@@ -9,6 +9,12 @@ const AddPage = ({ isCollapsed }) => {
     const location = useLocation();
     const editData = location.state?.editData;
     const [loading, setLoading] = useState(false);
+    
+    const [statusModal, setStatusModal] = useState({
+        isOpen: false,
+        type: 'warning',
+        message: ''
+    });
 
     const [selectedLayout, setSelectedLayout] = useState('default');
     const [devices, setDevices] = useState({ mobile: true, tablet: true, desktop: true });
@@ -68,6 +74,14 @@ const AddPage = ({ isCollapsed }) => {
         setMetaTags(updated);
     };
 
+    const closeStatusModal = () => {
+        setStatusModal({ ...statusModal, isOpen: false });
+        // Only navigate away on success
+        if (statusModal.type === 'success') {
+            navigate('/manage-pages');
+        }
+    };
+
     const handleSave = async () => {
         // Convert Meta Tags back to JSONB object
         const metaTagsObject = metaTags.reduce((acc, curr) => {
@@ -85,18 +99,21 @@ const AddPage = ({ isCollapsed }) => {
         };
 
         try {
+            setLoading(true);
             if (editData) {
                 const { error } = await supabase.from('pages').update(payload).eq('id', editData.id);
                 if (error) throw error;
-                navigate('/manage-pages');
+                setStatusModal({ isOpen: true, type: 'success', message: 'Page updated successfully!' });
             } else {
                 const { error } = await supabase.from('pages').insert([payload]);
                 if (error) throw error;
-                navigate('/manage-pages');
+                setStatusModal({ isOpen: true, type: 'success', message: 'New page created successfully!' });
             }
         } catch (err) {
             console.error(err);
-            alert(`Error: ${err.message}`);
+            setStatusModal({ isOpen: true, type: 'warning', message: err.message || 'Failed to save page' });
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -230,6 +247,21 @@ const AddPage = ({ isCollapsed }) => {
                     </div>
                 </aside>
             </div>
+
+            {statusModal.isOpen && (
+                <div className="status-modal-overlay">
+                    <div className="status-modal-card">
+                        <div className={`status-modal-icon ${statusModal.type}`}>
+                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : <AlertCircle size={32} />}
+                        </div>
+                        <h2>{statusModal.type === 'success' ? 'Success' : 'Attention'}</h2>
+                        <p>{statusModal.message}</p>
+                        <button className="status-modal-btn" onClick={closeStatusModal}>
+                            {statusModal.type === 'success' ? 'Perfect' : 'I Understand'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
