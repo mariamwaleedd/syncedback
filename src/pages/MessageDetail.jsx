@@ -11,75 +11,75 @@ const MessageDetail = ({ isCollapsed }) => {
     const navigate = useNavigate();
 
     return (
-        <div className={`message-detail-page ${isCollapsed ? 'is-collapsed' : ''}`}>
-            <div className="action-toolbar">
-                <button className="tool-btn"><Reply size={18} /> Reply</button>
-                <button className="tool-btn"><Forward size={18} /> Forward</button>
-                <button className="tool-btn"><Archive size={18} /> Archive</button>
-                <button className="tool-btn delete"><Trash2 size={18} /> Delete</button>
+        <div className={`messagedetail-message-detail-page ${isCollapsed ? 'is-collapsed' : ''}`}>
+            <div className="messagedetail-action-toolbar">
+                <button className="messagedetail-tool-btn"><Reply size={18} /> Reply</button>
+                <button className="messagedetail-tool-btn"><Forward size={18} /> Forward</button>
+                <button className="messagedetail-tool-btn"><Archive size={18} /> Archive</button>
+                <button className="messagedetail-tool-btn messagedetail-delete"><Trash2 size={18} /> Delete</button>
             </div>
 
-            <section className="detail-card sender-info-card">
-                <h2 className="detail-section-title">Sender Information</h2>
-                <div className="sender-profile">
+            <section className="messagedetail-detail-card messagedetail-sender-info-card">
+                <h2 className="messagedetail-detail-section-title">Sender Information</h2>
+                <div className="messagedetail-sender-profile">
                     <h3>Sarah Johnson</h3>
-                    <p className="company-text">TechCorp Solutions</p>
+                    <p className="messagedetail-company-text">TechCorp Solutions</p>
                 </div>
-                <div className="info-grid">
-                    <div className="info-item">
+                <div className="messagedetail-info-grid">
+                    <div className="messagedetail-info-item">
                         <Mail size={16} /> <span>sarah.johnson@techcorp.com</span>
                     </div>
-                    <div className="info-item">
+                    <div className="messagedetail-info-item">
                         <Phone size={16} /> <span>012 758 43440</span>
                     </div>
-                    <div className="info-item">
+                    <div className="messagedetail-info-item">
                         <Building2 size={16} /> <span>TechCorp Solutions</span>
                     </div>
-                    <div className="info-item">
+                    <div className="messagedetail-info-item">
                         <Globe size={16} /> <span>www.techcorp.com</span>
                     </div>
                 </div>
             </section>
 
-            <div className="dual-info-row">
-                <section className="detail-card">
-                    <div className="card-flex-head">
-                        <div className="icon-wrap-circle"><Calendar size={18} /></div>
-                        <div className="txt-wrap">
+            <div className="messagedetail-dual-info-row">
+                <section className="messagedetail-detail-card">
+                    <div className="messagedetail-card-flex-head">
+                        <div className="messagedetail-icon-wrap-circle"><Calendar size={18} /></div>
+                        <div className="messagedetail-txt-wrap">
                             <label>Date & Time</label>
                             <p>Tuesday, November 25, 2025</p>
-                            <p className="sub">at 9:30 AM</p>
+                            <p className="messagedetail-sub">at 9:30 AM</p>
                         </div>
                     </div>
                 </section>
-                <section className="detail-card">
-                    <div className="card-flex-head">
-                        <div className="icon-wrap-circle"><Info size={18} /></div>
-                        <div className="txt-wrap">
+                <section className="messagedetail-detail-card">
+                    <div className="messagedetail-card-flex-head">
+                        <div className="messagedetail-icon-wrap-circle"><Info size={18} /></div>
+                        <div className="messagedetail-txt-wrap">
                             <label>Priority Level</label>
-                            <span className="priority-badge high">High Priority</span>
+                            <span className="messagedetail-priority-badge high">High Priority</span>
                         </div>
                     </div>
                 </section>
             </div>
 
-            <section className="detail-card label-section">
-                <div className="card-flex-head">
+            <section className="messagedetail-detail-card messagedetail-label-section">
+                <div className="messagedetail-card-flex-head">
                     <Tag size={18} />
-                    <div className="label-content">
+                    <div className="messagedetail-label-content">
                         <label>Labels & Tags</label>
-                        <div className="pill-group">
-                            <span className="pill">Important</span>
-                            <span className="pill">Project</span>
+                        <div className="messagedetail-pill-group">
+                            <span className="messagedetail-pill">Important</span>
+                            <span className="messagedetail-pill">Project</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section className="detail-card cc-section">
-                <div className="card-flex-head">
+            <section className="messagedetail-detail-card messagedetail-cc-section">
+                <div className="messagedetail-card-flex-head">
                     <Users size={18} />
-                    <div className="cc-content">
+                    <div className="messagedetail-cc-content">
                         <label>CC Recipients</label>
                         <p>john.doe@techcorp.com</p>
                         <p>mike.smith@techcorp.com</p>
@@ -87,9 +87,9 @@ const MessageDetail = ({ isCollapsed }) => {
                 </div>
             </section>
 
-            <section className="detail-card message-body-card">
-                <h2 className="detail-section-title">Message Content</h2>
-                <div className="message-text">
+            <section className="messagedetail-detail-card messagedetail-message-body-card">
+                <h2 className="messagedetail-detail-section-title">Message Content</h2>
+                <div className="messagedetail-message-text">
                     <p>Hi there,</p>
                     <p>I hope this email finds you well. I wanted to follow up on the Q4 project proposal we discussed last week. I've attached the updated documents with the revisions we talked about.</p>
                     <p>The main changes include:</p>
@@ -103,35 +103,35 @@ const MessageDetail = ({ isCollapsed }) => {
                 </div>
             </section>
 
-            <section className="detail-card attachments-card">
-                <div className="attach-head">
+            <section className="messagedetail-detail-card messagedetail-attachments-card">
+                <div className="messagedetail-attach-head">
                     <Paperclip size={20} />
-                    <h2 className="detail-section-title">Attachments (3)</h2>
+                    <h2 className="messagedetail-detail-section-title">Attachments (3)</h2>
                 </div>
-                <div className="attachments-grid">
-                    <div className="file-card">
-                        <div className="file-icon pdf"><FileText size={20} /></div>
-                        <div className="file-info">
+                <div className="messagedetail-attachments-grid">
+                    <div className="messagedetail-file-card">
+                        <div className="messagedetail-file-icon pdf"><FileText size={20} /></div>
+                        <div className="messagedetail-file-info">
                             <strong>Q4_Proposal_Final.pdf</strong>
                             <span>2.4 MB</span>
                         </div>
-                        <button className="download-btn"><Download size={16} /></button>
+                        <button className="messagedetail-download-btn"><Download size={16} /></button>
                     </div>
-                    <div className="file-card">
-                        <div className="file-icon excel"><FileSpreadsheet size={20} /></div>
-                        <div className="file-info">
+                    <div className="messagedetail-file-card">
+                        <div className="messagedetail-file-icon excel"><FileSpreadsheet size={20} /></div>
+                        <div className="messagedetail-file-info">
                             <strong>Budget_Breakdown.xlsx</strong>
                             <span>1.1 MB</span>
                         </div>
-                        <button className="download-btn"><Download size={16} /></button>
+                        <button className="messagedetail-download-btn"><Download size={16} /></button>
                     </div>
-                    <div className="file-card">
-                        <div className="file-icon img"><ImageIcon size={20} /></div>
-                        <div className="file-info">
+                    <div className="messagedetail-file-card">
+                        <div className="messagedetail-file-icon img"><ImageIcon size={20} /></div>
+                        <div className="messagedetail-file-info">
                             <strong>Timeline_Chart.png</strong>
                             <span>856 KB</span>
                         </div>
-                        <button className="download-btn"><Download size={16} /></button>
+                        <button className="messagedetail-download-btn"><Download size={16} /></button>
                     </div>
                 </div>
             </section>
