@@ -34,6 +34,10 @@ const Routing = () => {
     const isAuthPage = ['/login', '/signup', '/forget-password', '/choose-platform'].includes(location.pathname);
 
     useEffect(() => {
+        document.title = `Synced | ${getPageTitle(location.pathname)}`;
+    }, [location.pathname]);
+
+    useEffect(() => {
         setLoading(true);
         const timer = setTimeout(() => {
             setLoading(false);
