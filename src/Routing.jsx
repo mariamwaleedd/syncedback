@@ -28,9 +28,18 @@ const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+    const [loading, setLoading] = useState(true);
     const location = useLocation();
 
     const isAuthPage = ['/login', '/signup', '/forget-password', '/choose-platform'].includes(location.pathname);
+
+    useEffect(() => {
+        setLoading(true);
+        const timer = setTimeout(() => {
+            setLoading(false);
+        }, 1200);
+        return () => clearTimeout(timer);
+    }, [location.pathname]);
 
     useEffect(() => {
         const handleResize = () => {
@@ -54,6 +63,7 @@ const Routing = () => {
 
     return (
         <>
+            {loading && <PreLoader />}
             {!isAuthPage && (
                 <SideMenu 
                     isCollapsed={isCollapsed} 

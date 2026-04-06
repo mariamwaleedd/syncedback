@@ -1,20 +1,12 @@
 import React from 'react';
+import logo from '../imgs/logowhite.png';
 import './PreLoader.css';
 
 const PreLoader = () => {
     return (
-        <div className="preloader-overlay">
-            <div className="loader-content">
-                <div className="loader-ring">
-                    <div className="ring-inner"></div>
-                </div>
-                <div className="loader-logo">
-                    <div className="logo-pulse"></div>
-                    <span className="logo-text">H</span>
-                </div>
-            </div>
-            <div className="loading-bar">
-                <div className="loading-fill"></div>
+        <div className="simple-preloader">
+            <div className="logo-container">
+                <img src={logo} alt="Loading..." className="rotate-logo" />
             </div>
         </div>
     );
