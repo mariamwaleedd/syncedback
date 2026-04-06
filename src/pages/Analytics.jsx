@@ -46,7 +46,7 @@ const Analytics = ({ isCollapsed }) => {
     return (
         <div className={`analytics-page ${isCollapsed ? 'is-collapsed' : ''}`}>
             <header className="analytics-header">
-                <div className="analytics-header-analytics-left">
+                <div className="analytics-header-left">
                     <button className="analytics-back-btn-ui" onClick={() => navigate(-1)}>
                         <ArrowLeft size={20} />
                     </button>
