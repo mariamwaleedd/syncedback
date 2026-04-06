@@ -232,8 +232,10 @@ const MediaLibrary = ({ isCollapsed }) => {
                             <div className="detail-row"><label>Size</label><span>{formatSize(selectedItem.metadata?.size)}</span></div>
                         </div>
                         <div className="detail-actions">
-                            {selectedItem.type === 'image' && (
-                                <button className="btn-detail-outline" onClick={() => replaceInputRef.current.click()}><RefreshCw size={18} /> Replace Image</button>
+                            {['image', 'video', 'document', 'archive'].includes(selectedItem.type) && (
+                                <button className="btn-detail-outline" onClick={() => replaceInputRef.current.click()}>
+                                    <RefreshCw size={18} /> Replace File
+                                </button>
                             )}
                             <a href={selectedItem.url} download target="_blank" rel="noreferrer" className="btn-detail-primary"><Download size={18} /> Download</a>
                             <button className="btn-detail-secondary" onClick={() => handleDelete(selectedItem)}><Trash2 size={18} /> Delete</button>
