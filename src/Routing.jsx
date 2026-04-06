@@ -22,6 +22,7 @@ import Profile from './pages/Profile';
 import AddFeature from './pages/AddFeature';
 import AddPage from './pages/AddPage';
 import ErrorPage from './pages/ErrorPage';
+import PreLoader from './common/PreLoader';
 
 const Routing = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
@@ -70,6 +71,7 @@ const Routing = () => {
             )}
             <Routes>
                 <Route path="/" element={<Home isCollapsed={isCollapsed} />} />
+                <Route path="/preloader" element={<PreLoader />} />
                 <Route path="/add-feature" element={<AddFeature isCollapsed={isCollapsed} />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
@@ -87,9 +89,7 @@ const Routing = () => {
                 <Route path="/help" element={<HelpPage isCollapsed={isCollapsed} />} />
                 <Route path="/settings" element={<Settings isCollapsed={isCollapsed} />} />
                 <Route path="/add-page" element={<AddPage isCollapsed={isCollapsed} />} />
-                <Route path="/media-library" element={<MediaLibrary isCollapsed={isCollapsed} />} />
                 <Route path="/profile" element={<Profile isCollapsed={isCollapsed} />} />
-                <Route path="/ui-elements" element={<UIElements isCollapsed={isCollapsed} />} />
                 <Route path="*" element={<ErrorPage type="404" />} />
             </Routes>
         </>
