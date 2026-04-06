@@ -33,7 +33,7 @@
     width: 100%;
     height: auto;
     object-fit: contain;
-    animation: simple-rotate 1.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: simple-rotate 1s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     filter: drop-shadow(0 0 20px rgba(43, 127, 255, 0.4));
 }
 
