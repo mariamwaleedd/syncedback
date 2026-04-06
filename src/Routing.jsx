@@ -53,6 +53,31 @@ const Routing = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
+    const getPageTitle = (path) => {
+        const routes = {
+            '/': 'Dashboard',
+            '/analytics': 'Analytics',
+            '/services': 'Services',
+            '/manage-pages': 'Manage Pages',
+            '/about': 'About',
+            '/media-library': 'Media Library',
+            '/ui-elements': 'UI Elements',
+            '/messages': 'Messages Inbox',
+            '/settings': 'Settings',
+            '/help': 'Help Center',
+            '/profile': 'User Profile',
+            '/add-feature': 'Add New Feature',
+            '/add-page': 'Create New Page',
+            '/login': 'Sign In',
+            '/signup': 'Sign Up',
+            '/forget-password': 'Reset Password',
+            '/choose-platform': 'Choose Platform'
+        };
+        
+        if (path.startsWith('/messages/')) return 'Message Details';
+        return routes[path] || 'Synced Backend';
+    };
+
     const toggleNav = () => {
         if (isMobile) {
             setIsMobileOpen(!isMobileOpen);
@@ -63,7 +88,7 @@ const Routing = () => {
 
     return (
         <>
-            {loading && <PreLoader />}
+            {loading && <PreLoader pageTitle={getPageTitle(location.pathname)} />}
             {!isAuthPage && (
                 <SideMenu 
                     isCollapsed={isCollapsed} 
