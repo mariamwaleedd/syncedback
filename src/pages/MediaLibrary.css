@@ -108,6 +108,22 @@
 
 .controls-right { display: flex; align-items: center; gap: 15px; }
 
+.media-sort-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-light);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    outline: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.media-sort-select option {
+    background: var(--bg-sidebar);
+    color: white;
+}
 .media-search {
     position: relative;
     display: flex;

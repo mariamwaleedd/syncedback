@@ -22,6 +22,7 @@ const MediaLibrary = ({ isCollapsed }) => {
     const [allMediaFlat, setAllMediaFlat] = useState([]);
     const [isFetchingFlat, setIsFetchingFlat] = useState(false);
     const [replaceModalOpen, setReplaceModalOpen] = useState(false);
+    const [sortBy, setSortBy] = useState('default');
 
     const BUCKET_NAME = 'Synced';
 
@@ -166,7 +167,18 @@ const MediaLibrary = ({ isCollapsed }) => {
         const matchesTab = activeTab === 'all' || item.type === activeTab;
         const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesTab && matchesSearch;
+    }).sort((a, b) => {
+        if (sortBy === 'sizeDesc') {
+            return (b.metadata?.size || 0) - (a.metadata?.size || 0);
+        } else if (sortBy === 'sizeAsc') {
+            return (a.metadata?.size || 0) - (b.metadata?.size || 0);
+        }
+        return 0; // Default sort
     });
+
+    const totalBytes = allMediaFlat.reduce((acc, item) => acc + (item.metadata?.size || 0), 0);
+    const maxQuota = 5 * 1024 * 1024 * 1024; // 5 GB
+    const fillPercent = Math.min((totalBytes / maxQuota) * 100, 100);
 
     return (
         <div className={`media-library-page ${isCollapsed ? 'is-collapsed' : ''}`}>
@@ -190,6 +202,13 @@ const MediaLibrary = ({ isCollapsed }) => {
                     </div>
                 </div>
                 <div className="media-header-actions">
+                    <div className="storage-summary">
+                        <div className="storage-info">
+                            <HardDrive size={16} />
+                            <span><strong>{formatSize(totalBytes)}</strong> of 5 GB used</span>
+                        </div>
+                        <div className="storage-bar"><div className="fill" style={{width: `${fillPercent}%`}}></div></div>
+                    </div>
                     {currentPath && (
                         <button className="media-folder-back-btn" onClick={goBack}>
                             <CornerUpLeft size={18} /> Back
@@ -217,6 +236,11 @@ const MediaLibrary = ({ isCollapsed }) => {
                     </div>
                 </div>
                 <div className="controls-right">
+                    <select className="media-sort-select" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                        <option value="default">Sort by Size...</option>
+                        <option value="sizeDesc">Largest Size</option>
+                        <option value="sizeAsc">Smallest Size</option>
+                    </select>
                     <div className="media-search">
                         <Search size={18} /><input type="text" placeholder="Search..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
                     </div>
