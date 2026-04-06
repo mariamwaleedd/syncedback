@@ -182,6 +182,121 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
+.readonly-index-chip {
+    background: rgba(43, 127, 255, 0.08);
+    border: 1px dashed rgba(43, 127, 255, 0.3);
+    border-radius: 12px;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #2b7fff;
+}
+
+.readonly-index-chip span {
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.readonly-index-chip small {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* Status Modal Styles */
+.status-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(1, 4, 34, 0.8);
+    backdrop-filter: blur(15px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: modal-fade-in 0.3s ease-out;
+}
+
+.status-modal-card {
+    background: #0a0d28;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 32px;
+    padding: 40px;
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    animation: modal-pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.status-modal-icon {
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.status-modal-icon.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+.status-modal-icon.warning {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+.status-modal-card h2 {
+    font-size: 1.8rem;
+    color: white;
+    margin: 0 0 12px 0;
+}
+
+.status-modal-card p {
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.status-modal-btn {
+    width: 100%;
+    padding: 16px;
+    background: #2b7fff;
+    border: none;
+    border-radius: 14px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.status-modal-btn:hover {
+    background: #1e63d4;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(43, 127, 255, 0.3);
+}
+
+@keyframes modal-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes modal-pop-in {
+    from { 
+        opacity: 0; 
+        transform: scale(0.9) translateY(20px); 
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1) translateY(0); 
+    }
+}
+
 @media (max-width: 1200px) {
     .content-grid {
         grid-template-columns: 1fr;

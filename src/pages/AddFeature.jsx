@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Save, X, Zap } from 'lucide-react';
+import { ArrowLeft, Save, X, Zap, AlertCircle, CheckCircle } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './AddFeature.css';
 
@@ -9,6 +9,13 @@ const AddFeature = ({ isCollapsed }) => {
     const location = useLocation();
     const editData = location.state?.editData;
     const [loading, setLoading] = useState(false);
+    
+    // Status Modal State
+    const [statusModal, setStatusModal] = useState({
+        isOpen: false,
+        type: 'warning',
+        message: ''
+    });
 
     const [formData, setFormData] = useState({
         category_en: '',
@@ -26,8 +33,31 @@ const AddFeature = ({ isCollapsed }) => {
     useEffect(() => {
         if (editData) {
             setFormData(editData);
+        } else {
+            fetchNextIndex();
         }
     }, [editData]);
+
+    const fetchNextIndex = async () => {
+        const { data, error } = await supabase
+            .from('features')
+            .select('order_index')
+            .order('order_index', { ascending: false })
+            .limit(1);
+
+        if (error) {
+            console.error('Error fetching max index:', error);
+            setFormData(prev => ({ ...prev, order_index: 1 }));
+        } else {
+            const nextIndex = data.length > 0 ? (Number(data[0].order_index) || 0) + 1 : 1;
+            setFormData(prev => ({ ...prev, order_index: nextIndex }));
+        }
+    };
+
+    const closeStatusModal = () => {
+        setStatusModal({ ...statusModal, isOpen: false });
+        if (statusModal.type === 'success') navigate('/services');
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -51,7 +81,11 @@ const AddFeature = ({ isCollapsed }) => {
                 
                 if (error) throw error;
                 console.log('Update successful:', data);
-                navigate('/services');
+                setStatusModal({
+                    isOpen: true,
+                    type: 'success',
+                    message: 'Feature updated successfully!'
+                });
             } else {
                 const { data, error } = await supabase
                     .from('features')
@@ -60,11 +94,19 @@ const AddFeature = ({ isCollapsed }) => {
                 
                 if (error) throw error;
                 console.log('Insert successful:', data);
-                navigate('/services');
+                setStatusModal({
+                    isOpen: true,
+                    type: 'success',
+                    message: 'New feature created successfully!'
+                });
             }
         } catch (err) {
             console.error('Supabase operation failed:', err);
-            alert(`Error: ${err.message || 'Operation failed. Check console for details.'}`);
+            setStatusModal({
+                isOpen: true,
+                type: 'warning',
+                message: err.message || 'Operation failed. Check your connection or database permissions.'
+            });
         } finally {
             setLoading(false);
         }
@@ -127,7 +169,11 @@ const AddFeature = ({ isCollapsed }) => {
                         <h3>Configuration</h3>
                         <div className="input-group">
                             <label>Order Index</label>
-                            <input type="number" name="order_index" value={formData.order_index} onChange={handleChange} />
+                            <div className="readonly-index-chip">
+                                <Zap size={14} />
+                                <span>{formData.order_index}</span>
+                                <small>(Automatic)</small>
+                            </div>
                         </div>
                         <div className="input-group">
                             <label>Image URL</label>
@@ -144,6 +190,21 @@ const AddFeature = ({ isCollapsed }) => {
                     </div>
                 </aside>
             </div>
+
+            {statusModal.isOpen && (
+                <div className="status-modal-overlay">
+                    <div className="status-modal-card">
+                        <div className={`status-modal-icon ${statusModal.type}`}>
+                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : <AlertCircle size={32} />}
+                        </div>
+                        <h2>{statusModal.type === 'success' ? 'Success' : 'Attention'}</h2>
+                        <p>{statusModal.message}</p>
+                        <button className="status-modal-btn" onClick={closeStatusModal}>
+                            {statusModal.type === 'success' ? 'Perfect' : 'I Understand'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
