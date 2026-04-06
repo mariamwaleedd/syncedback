@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Filter, Plus, Search, FileCode, Edit2, Trash2, MoreVertical } from 'lucide-react';
-import { supabase } from '../supabaseClient';
+import { supabase } from '../Supabase';
 import './ManagePages.css';
 
 const ManagePages = ({ isCollapsed }) => {
@@ -60,7 +60,7 @@ const ManagePages = ({ isCollapsed }) => {
                                 <th>Page Name</th>
                                 <th>Path</th>
                                 <th>Status</th>
-                                <th>Views</th>
+                                <th>Type</th>
                                 <th className="managepages-text-right">Actions</th>
                             </tr>
                         </thead>
@@ -75,8 +75,8 @@ const ManagePages = ({ isCollapsed }) => {
                                         </div>
                                     </td>
                                     <td><span className="managepages-path-badge">{page.path_en}</span></td>
-                                    <td><div className="managepages-status-chip-active"><span className="managepages-dot"></span>{page.status}</div></td>
-                                    <td>{page.views.toLocaleString()}</td>
+                                    <td><div className="managepages-status-chip-active"><span className="managepages-dot"></span>{page.status || 'active'}</div></td>
+                                    <td><span className={`managepages-type-badge ${page.type || 'standard'}`}>{page.type || 'standard'}</span></td>
                                     <td className="managepages-actions-cell">
                                         <button className="managepages-action-btn-gray" onClick={() => navigate('/add-page', { state: { editData: page } })}><Edit2 size={16} /></button>
                                         <button className="managepages-action-btn-gray" style={{color:'#ef4444'}} onClick={() => handleDelete(page.id)}><Trash2 size={16} /></button>
