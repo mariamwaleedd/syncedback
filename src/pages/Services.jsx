@@ -11,7 +11,6 @@ const Services = ({ isCollapsed }) => {
     const [refreshing, setRefreshing] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     
-    // Modal State
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [itemToDelete, setItemToDelete] = useState(null);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -85,7 +84,7 @@ const Services = ({ isCollapsed }) => {
                     </button>
                     <div className="services-title-area">
                         <h1>Application Features</h1>
-                        <p>Total: {features.length} / 15 features configured.</p>
+                        <p>Total: {features.length} /  features configured.</p>
                     </div>
                 </div>
                 <div className="services-header-right-side">

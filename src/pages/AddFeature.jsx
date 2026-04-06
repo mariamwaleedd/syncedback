@@ -31,7 +31,6 @@ const AddFeature = ({ isCollapsed }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        // Cast order_index to a number if it exists
         const processedValue = name === 'order_index' ? (value === '' ? null : Number(value)) : value;
         setFormData({ ...formData, [name]: processedValue });
     };
@@ -40,7 +39,6 @@ const AddFeature = ({ isCollapsed }) => {
         setLoading(true);
         console.log('Attempting to save feature:', formData);
 
-        // Remove ID from payload to avoid Supabase primary key conflicts
         const { id, ...savePayload } = formData;
         
         try {
