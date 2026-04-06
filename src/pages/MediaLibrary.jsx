@@ -19,12 +19,48 @@ const MediaLibrary = ({ isCollapsed }) => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPath, setCurrentPath] = useState(''); 
+    const [allMediaFlat, setAllMediaFlat] = useState([]);
+    const [isFetchingFlat, setIsFetchingFlat] = useState(false);
 
     const BUCKET_NAME = 'Synced';
 
     useEffect(() => {
         fetchFiles(currentPath);
     }, [currentPath]);
+
+    useEffect(() => {
+        fetchAllFlatMedia();
+    }, []);
+
+    const fetchAllFlatMedia = async () => {
+        setIsFetchingFlat(true);
+        let allItems = [];
+        
+        const fetchRecursive = async (path) => {
+            const { data, error } = await supabase.storage.from(BUCKET_NAME).list(path, { limit: 100 });
+            if (error || !data) return;
+            
+            for (let item of data) {
+                if (!item.metadata) {
+                    await fetchRecursive(path ? `${path}/${item.name}` : item.name);
+                } else {
+                    const fullPath = path ? `${path}/${item.name}` : item.name;
+                    const { data: { publicUrl } } = supabase.storage.from(BUCKET_NAME).getPublicUrl(fullPath);
+                    allItems.push({
+                        ...item,
+                        isFolder: false,
+                        fullPath,
+                        url: publicUrl,
+                        type: getFileType(item.name)
+                    });
+                }
+            }
+        };
+
+        await fetchRecursive('');
+        setAllMediaFlat(allItems);
+        setIsFetchingFlat(false);
+    };
 
     const fetchFiles = async (path) => {
         setLoading(true);
@@ -93,7 +129,7 @@ const MediaLibrary = ({ isCollapsed }) => {
         const uploadPath = currentPath ? `${currentPath}/${file.name}` : file.name;
         const { error } = await supabase.storage.from(BUCKET_NAME).upload(uploadPath, file);
         if (error) alert(error.message);
-        else fetchFiles(currentPath);
+        else { fetchFiles(currentPath); fetchAllFlatMedia(); }
     };
 
     const handleReplace = async (e) => {
@@ -114,6 +150,7 @@ const MediaLibrary = ({ isCollapsed }) => {
             const updatedUrl = selectedItem.url ? `${selectedItem.url.split('?')[0]}?t=${Date.now()}` : null;
             setSelectedItem({ ...selectedItem, url: updatedUrl });
             fetchFiles(currentPath);
+            fetchAllFlatMedia();
         }
     };
 
@@ -121,10 +158,10 @@ const MediaLibrary = ({ isCollapsed }) => {
         if (!window.confirm('Delete this item?')) return;
         const { error } = await supabase.storage.from(BUCKET_NAME).remove([item.fullPath]);
         if (error) alert('Delete failed. Note: Folders must be empty to delete.');
-        else { setSelectedItem(null); fetchFiles(currentPath); }
+        else { setSelectedItem(null); fetchFiles(currentPath); fetchAllFlatMedia(); }
     };
 
-    const filteredMedia = files.filter(item => {
+    const filteredMedia = (activeTab === 'all' ? files : allMediaFlat).filter(item => {
         const matchesTab = activeTab === 'all' || item.type === activeTab;
         const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesTab && matchesSearch;
@@ -166,9 +203,14 @@ const MediaLibrary = ({ isCollapsed }) => {
             <div className="media-controls">
                 <div className="controls-left">
                     <div className="media-tabs">
-                        {['all', 'image', 'video', 'folder'].map(tab => (
-                            <button key={tab} className={activeTab === tab ? 'active' : ''} onClick={() => setActiveTab(tab)}>
-                                {tab.charAt(0).toUpperCase() + tab.slice(1)}s
+                        {[
+                            { id: 'all', label: 'All Files' },
+                            { id: 'image', label: 'Images' },
+                            { id: 'video', label: 'Videos' },
+                            { id: 'document', label: 'Documents' }
+                        ].map(tab => (
+                            <button key={tab.id} className={activeTab === tab.id ? 'active' : ''} onClick={() => setActiveTab(tab.id)}>
+                                {tab.label}
                             </button>
                         ))}
                     </div>
@@ -186,7 +228,7 @@ const MediaLibrary = ({ isCollapsed }) => {
 
             <div className="media-content-layout">
                 <div className={`media-display-area ${selectedItem ? 'has-sidebar' : ''}`}>
-                    {loading ? <div className="loading-msg">Syncing Bucket...</div> : (
+                    {(loading || (activeTab !== 'all' && isFetchingFlat)) ? <div className="loading-msg">Fetching Media...</div> : (
                         <div className={viewMode === 'grid' ? "media-grid" : "media-list-view"}>
                             {viewMode === 'grid' ? (
                                 <>
