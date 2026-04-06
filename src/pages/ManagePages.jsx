@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Filter, Plus, Search, FileCode, Edit2, Trash2, MoreVertical, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Filter, Plus, Search, FileCode, Edit2, Trash2, MoreVertical, RefreshCw, AlertCircle } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './ManagePages.css';
 
@@ -10,6 +10,7 @@ const ManagePages = ({ isCollapsed }) => {
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
     const [refreshing, setRefreshing] = useState(false);
+    const [deleteModal, setDeleteModal] = useState({ isOpen: false, pageId: null });
 
     useEffect(() => {
         fetchPages();
@@ -23,12 +24,20 @@ const ManagePages = ({ isCollapsed }) => {
         setLoading(false);
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm("Delete this page forever?")) {
-            const { error } = await supabase.from('pages').delete().eq('id', id);
-            if (error) alert("Error deleting");
-            else fetchPages();
+    const handleDeleteClick = (id) => {
+        setDeleteModal({ isOpen: true, pageId: id });
+    };
+
+    const confirmDelete = async () => {
+        if (!deleteModal.pageId) return;
+        
+        const { error } = await supabase.from('pages').delete().eq('id', deleteModal.pageId);
+        if (error) {
+            alert("Error deleting page");
+        } else {
+            fetchPages();
         }
+        setDeleteModal({ isOpen: false, pageId: null });
     };
 
     const filtered = pages.filter(p => p.name_en?.toLowerCase().includes(searchTerm.toLowerCase()));
@@ -93,7 +102,7 @@ const ManagePages = ({ isCollapsed }) => {
                                     <td><span className={`managepages-type-badge ${page.type || 'standard'}`}>{page.type || 'standard'}</span></td>
                                     <td className="managepages-actions-cell">
                                         <button className="managepages-action-btn-gray" onClick={() => navigate('/add-page', { state: { editData: page } })}><Edit2 size={16} /></button>
-                                        <button className="managepages-action-btn-gray" style={{color:'#ef4444'}} onClick={() => handleDelete(page.id)}><Trash2 size={16} /></button>
+                                        <button className="managepages-action-btn-gray" style={{color:'#ef4444'}} onClick={() => handleDeleteClick(page.id)}><Trash2 size={16} /></button>
                                     </td>
                                 </tr>
                             ))}
@@ -101,6 +110,26 @@ const ManagePages = ({ isCollapsed }) => {
                     </table>
                 </div>
             </main>
+
+            {deleteModal.isOpen && (
+                <div className="managepages-modal-overlay">
+                    <div className="managepages-modal-card">
+                        <div className="managepages-modal-icon danger">
+                            <AlertCircle size={32} />
+                        </div>
+                        <h2>Delete Page?</h2>
+                        <p>This action cannot be undone. This page will be permanently removed from your application and database.</p>
+                        <div className="managepages-modal-actions">
+                            <button className="managepages-modal-btn-secondary" onClick={() => setDeleteModal({ isOpen: false, pageId: null })}>
+                                Cancel
+                            </button>
+                            <button className="managepages-modal-btn-danger" onClick={confirmDelete}>
+                                Yes, Delete Page
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

@@ -318,3 +318,106 @@
         font-size: 1.8rem;
     }
 }
+
+/* Delete Modal Styles */
+.managepages-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(1, 4, 34, 0.7);
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: managepages-modal-bg-fade 0.3s ease-out;
+}
+
+.managepages-modal-card {
+    background: #0a0d28;
+    border: 1px solid var(--border-light);
+    border-radius: 28px;
+    padding: 40px;
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: managepages-modal-card-slide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.managepages-modal-icon {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.managepages-modal-icon.danger {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+.managepages-modal-card h2 {
+    font-size: 1.6rem;
+    margin: 0 0 16px 0;
+    color: white;
+}
+
+.managepages-modal-card p {
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
+
+.managepages-modal-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.managepages-modal-actions button {
+    flex: 1;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.managepages-modal-btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.managepages-modal-btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.managepages-modal-btn-danger {
+    background: #ef4444;
+    border: none;
+    color: white;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.managepages-modal-btn-danger:hover {
+    background: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
+}
+
+@keyframes managepages-modal-bg-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes managepages-modal-card-slide {
+    from { opacity: 0; transform: translateY(20px) scale(0.95); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
