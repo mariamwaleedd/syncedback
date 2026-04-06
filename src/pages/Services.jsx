@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { ArrowLeft, Filter, Plus, Search, Zap, Edit2, Trash2, MoreVertical } from 'lucide-react';
+import { ArrowLeft, Filter, Plus, Search, Zap, Edit2, Trash2, MoreVertical, AlertCircle } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './Services.css';
 
@@ -8,30 +8,68 @@ const Services = ({ isCollapsed }) => {
     const navigate = useNavigate();
     const [features, setFeatures] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
+    
+    // Modal State
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         fetchFeatures();
     }, []);
 
-    const fetchFeatures = async () => {
-        setLoading(true);
+    const fetchFeatures = async (isManual = false) => {
+        if (isManual) setRefreshing(true);
+        else setLoading(true);
+        
+        console.log('Fetching features from Supabase...');
         const { data, error } = await supabase
             .from('features')
             .select('*')
+            .order('order_index', { ascending: true })
             .order('id', { ascending: true });
 
-        if (error) console.error('Error fetching:', error);
-        else setFeatures(data);
+        if (error) {
+            console.error('Error fetching features:', error);
+            alert(`Fetch failed: ${error.message}`);
+        } else {
+            console.log(`Successfully fetched ${data.length} features:`, data);
+            setFeatures(data);
+        }
+        
         setLoading(false);
+        setRefreshing(false);
     };
 
-    const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this feature?')) {
-            const { error } = await supabase.from('features').delete().eq('id', id);
-            if (error) alert('Error deleting feature');
-            else fetchFeatures();
+    const openDeleteModal = (item) => {
+        setItemToDelete(item);
+        setIsModalOpen(true);
+    };
+
+    const closeDeleteModal = () => {
+        setIsModalOpen(false);
+        setItemToDelete(null);
+    };
+
+    const confirmDelete = async () => {
+        if (!itemToDelete) return;
+        
+        setIsDeleting(true);
+        console.log(`Deleting feature ${itemToDelete.id}...`);
+        
+        const { error } = await supabase.from('features').delete().eq('id', itemToDelete.id);
+        
+        if (error) {
+            console.error('Delete failed:', error);
+            alert(`Failed to delete: ${error.message}`);
+        } else {
+            console.log('Delete successful');
+            fetchFeatures();
+            closeDeleteModal();
         }
+        setIsDeleting(false);
     };
 
     const filteredFeatures = features.filter(f => 
@@ -51,6 +89,14 @@ const Services = ({ isCollapsed }) => {
                     </div>
                 </div>
                 <div className="services-header-right-side">
+                    <button 
+                        className={`services-refresh-circle-btn ${refreshing ? 'spinning' : ''}`}
+                        onClick={() => fetchFeatures(true)}
+                        disabled={loading || refreshing}
+                        title="Refresh Data"
+                    >
+                        <Zap size={18} fill={refreshing ? 'currentColor' : 'none'} />
+                    </button>
                     <Link to="/add-feature" className="services-add-feature-primary-btn">
                         <Plus size={18} />
                         <span>Add Feature</span>
@@ -105,7 +151,8 @@ const Services = ({ isCollapsed }) => {
                                         <button 
                                             className="services-action-btn-gray" 
                                             style={{color: '#ef4444'}}
-                                            onClick={() => handleDelete(feature.id)}
+                                            onClick={() => openDeleteModal(feature)}
+                                            title="Delete Feature"
                                         >
                                             <Trash2 size={16} />
                                         </button>
@@ -116,6 +163,35 @@ const Services = ({ isCollapsed }) => {
                     </table>
                 </div>
             </main>
+
+            {isModalOpen && (
+                <div className="services-modal-overlay">
+                    <div className="services-modal-card">
+                        <div className="services-modal-icon danger">
+                            <AlertCircle size={32} />
+                        </div>
+                        <h2>Confirm Deletion</h2>
+                        <p>Are you sure you want to delete <strong>"{itemToDelete?.title_en}"</strong>? This action will remove the feature permanently from the system and cannot be undone.</p>
+                        
+                        <div className="services-modal-actions">
+                            <button 
+                                className="services-modal-btn-secondary" 
+                                onClick={closeDeleteModal}
+                                disabled={isDeleting}
+                            >
+                                Cancel
+                            </button>
+                            <button 
+                                className="services-modal-btn-danger" 
+                                onClick={confirmDelete}
+                                disabled={isDeleting}
+                            >
+                                {isDeleting ? 'Deleting...' : 'Delete Feature'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

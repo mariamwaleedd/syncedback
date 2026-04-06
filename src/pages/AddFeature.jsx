@@ -8,6 +8,7 @@ const AddFeature = ({ isCollapsed }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const editData = location.state?.editData;
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
         category_en: '',
@@ -29,23 +30,45 @@ const AddFeature = ({ isCollapsed }) => {
     }, [editData]);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        // Cast order_index to a number if it exists
+        const processedValue = name === 'order_index' ? (value === '' ? null : Number(value)) : value;
+        setFormData({ ...formData, [name]: processedValue });
     };
 
     const handleSave = async () => {
-        if (editData) {
-            const { error } = await supabase
-                .from('features')
-                .update(formData)
-                .eq('id', editData.id);
-            if (error) alert("Error updating");
-            else navigate('/services');
-        } else {
-            const { error } = await supabase
-                .from('features')
-                .insert([formData]);
-            if (error) alert("Error creating");
-            else navigate('/services');
+        setLoading(true);
+        console.log('Attempting to save feature:', formData);
+
+        // Remove ID from payload to avoid Supabase primary key conflicts
+        const { id, ...savePayload } = formData;
+        
+        try {
+            if (editData) {
+                const { data, error } = await supabase
+                    .from('features')
+                    .update(savePayload)
+                    .eq('id', editData.id)
+                    .select();
+                
+                if (error) throw error;
+                console.log('Update successful:', data);
+                navigate('/services');
+            } else {
+                const { data, error } = await supabase
+                    .from('features')
+                    .insert([savePayload])
+                    .select();
+                
+                if (error) throw error;
+                console.log('Insert successful:', data);
+                navigate('/services');
+            }
+        } catch (err) {
+            console.error('Supabase operation failed:', err);
+            alert(`Error: ${err.message || 'Operation failed. Check console for details.'}`);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -106,8 +129,12 @@ const AddFeature = ({ isCollapsed }) => {
                         </div>
                     </div>
                     <div className="action-buttons">
-                        <button className="btn-primary" onClick={handleSave}><Save size={18} /> Save Feature</button>
-                        <button className="btn-secondary" onClick={() => navigate(-1)}><X size={18} /> Cancel</button>
+                        <button className="btn-primary" onClick={handleSave} disabled={loading}>
+                            {loading ? 'Saving...' : 'Save Feature'}
+                        </button>
+                        <button className="btn-secondary" onClick={() => navigate(-1)} disabled={loading}>
+                            Cancel
+                        </button>
                     </div>
                 </aside>
             </div>
