@@ -95,6 +95,10 @@ const AddFeature = ({ isCollapsed }) => {
                             <label>Description EN</label>
                             <textarea name="desc_en" value={formData.desc_en} onChange={handleChange} />
                         </div>
+                        <div className="input-group">
+                            <label>Button Text EN</label>
+                            <input name="btn_text_en" value={formData.btn_text_en} onChange={handleChange} placeholder="e.g. Explore Now" />
+                        </div>
                     </section>
 
                     <section className="form-card">
@@ -110,6 +114,10 @@ const AddFeature = ({ isCollapsed }) => {
                         <div className="input-group is-rtl">
                             <label>الوصف</label>
                             <textarea name="desc_ar" value={formData.desc_ar} onChange={handleChange} />
+                        </div>
+                        <div className="input-group is-rtl">
+                            <label>نص الزر</label>
+                            <input name="btn_text_ar" value={formData.btn_text_ar} onChange={handleChange} placeholder="مثال: اكتشف الآن" />
                         </div>
                     </section>
                 </div>
