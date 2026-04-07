@@ -22,11 +22,20 @@ const familyData = [
 const Family = ({ isCollapsed }) => {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
+  const [members, setMembers] = useState(familyData);
+  const [menuOpenId, setMenuOpenId] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
 
-  const filteredMembers = familyData.filter(member => 
+  const filteredMembers = members.filter(member => 
     member.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
     member.role.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleDelete = () => {
+    setMembers(members.filter(m => m.id !== deleteId));
+    setDeleteId(null);
+    setMenuOpenId(null);
+  };
 
   return (
     <div className={`family-page-container ${isCollapsed ? 'is-collapsed' : ''}`}>
@@ -56,7 +65,7 @@ const Family = ({ isCollapsed }) => {
       <div className="family-stats-banner">
         <div className="family-stat-card">
           <span>Active Profiles</span>
-          <h2>{familyData.length}</h2>
+          <h2>{members.length}</h2>
         </div>
         <div className="family-stat-card">
           <span>Average Score</span>
@@ -76,9 +85,21 @@ const Family = ({ isCollapsed }) => {
                 <span className="family-emoji">{member.emoji}</span>
                 <span className={`family-status-indicator ${member.status.toLowerCase().replace(' ', '-')}`}></span>
               </div>
-              <button className="family-more-btn">
-                <MoreVertical size={18} />
-              </button>
+              <div className="family-more-actions">
+                <button className="family-more-btn" onClick={() => setMenuOpenId(menuOpenId === member.id ? null : member.id)}>
+                  <MoreVertical size={18} />
+                </button>
+                {menuOpenId === member.id && (
+                  <div className="family-dropdown-menu">
+                    <button className="family-dropdown-item" onClick={() => navigate(`/family-profile/${member.id}`)}>
+                      View Details
+                    </button>
+                    <button className="family-dropdown-item delete" onClick={() => setDeleteId(member.id)}>
+                      Delete Member
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
 
             <div className="family-card-body">
@@ -111,11 +132,29 @@ const Family = ({ isCollapsed }) => {
             </div>
 
             <div className="family-card-footer">
-              <button className="family-profile-btn">View Full Profile</button>
+              <button className="family-profile-btn" onClick={() => navigate(`/family-profile/${member.id}`)}>
+                View Full Profile
+              </button>
             </div>
           </div>
         ))}
       </main>
+
+      {deleteId && (
+        <div className="family-modal-overlay">
+          <div className="family-delete-modal">
+            <div className="family-modal-icon-danger">
+              <Heart size={40} />
+            </div>
+            <h2>Remove Family Member?</h2>
+            <p>This action will permanently delete this member's health data and profile records. This cannot be undone.</p>
+            <div className="family-modal-actions">
+              <button className="family-cancel-btn" onClick={() => setDeleteId(null)}>Cancel</button>
+              <button className="family-confirm-delete-btn" onClick={handleDelete}>Delete Permanently</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

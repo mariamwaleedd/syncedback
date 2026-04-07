@@ -23,6 +23,7 @@ import AddFeature from './pages/AddFeature';
 import AddPage from './pages/AddPage';
 import Activities from './pages/Activities';
 import Family from './pages/Family';
+import FamilyProfile from './pages/FamilyProfile';
 import ErrorPage from './pages/ErrorPage';
 import PreLoader from './common/PreLoader';
 
@@ -135,6 +136,7 @@ const Routing = () => {
                 <Route path="/profile" element={<Profile isCollapsed={isCollapsed} />} />
                 <Route path="/activities" element={<Activities isCollapsed={isCollapsed} />} />
                 <Route path="/family" element={<Family isCollapsed={isCollapsed} />} />
+                <Route path="/family-profile/:id" element={<FamilyProfile isCollapsed={isCollapsed} />} />
                 <Route path="*" element={<ErrorPage type="404" />} />
             </Routes>
         </>
