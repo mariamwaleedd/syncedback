@@ -9,14 +9,45 @@ import './HelpPage.css';
 const HelpPage = ({ isCollapsed }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFaq, setActiveFaq] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState(null);
 
     const categories = [
-        { icon: <Zap size={24} />, title: 'Features', desc: 'Managing application features and toggles' },
-        { icon: <Layers size={24} />, title: 'Pages', desc: 'Creating and configuring SEO-friendly pages' },
-        { icon: <BarChart3 size={24} />, title: 'Analytics', desc: 'Understanding traffic and user behavior' },
-        { icon: <Mail size={24} />, title: 'Messaging', desc: 'Inbox management and email campaigns' },
-        { icon: <Settings size={24} />, title: 'System', desc: 'Platform settings and profile management' },
-        { icon: <BookOpen size={24} />, title: 'Guides', desc: 'Step-by-step video tutorials' }
+        { 
+            icon: <Zap size={24} />, 
+            title: 'Features', 
+            desc: 'Managing application features and toggles',
+            explanation: 'System for managing core application modules, enabling/disabling functionalities, and setting user permissions across the platform.'
+        },
+        { 
+            icon: <Layers size={24} />, 
+            title: 'Pages', 
+            desc: 'Creating and configuring SEO-friendly pages',
+            explanation: 'Dynamic page creation tool for SEO optimization, allowing you to define URL paths, manage content, and control how pages appear in search results.'
+        },
+        { 
+            icon: <BarChart3 size={24} />, 
+            title: 'Analytics', 
+            desc: 'Understanding traffic and user behavior',
+            explanation: 'Real-time traffic monitoring and behavioral analysis dashboard to track user engagement, popular content, and session metrics.'
+        },
+        { 
+            icon: <Mail size={24} />, 
+            title: 'Messaging', 
+            desc: 'Inbox management and email campaigns',
+            explanation: 'Centralized communication hub for managing incoming user queries, automating email campaigns, and maintaining direct support channels.'
+        },
+        { 
+            icon: <Settings size={24} />, 
+            title: 'System', 
+            desc: 'Platform settings and profile management',
+            explanation: 'Core platform configuration area for managing security protocols, user profiles, administrative roles, and global application settings.'
+        },
+        { 
+            icon: <BookOpen size={24} />, 
+            title: 'Guides', 
+            desc: 'Step-by-step video tutorials',
+            explanation: 'Comprehensive library of walkthroughs and video tutorials designed to help you master every aspect of the Synced platform efficiently.'
+        }
     ];
 
     const faqs = [
@@ -59,7 +90,11 @@ const HelpPage = ({ isCollapsed }) => {
             <div className="helppage-help-content-body">
                 <div className="helppage-category-grid">
                     {categories.map((cat, idx) => (
-                        <div key={idx} className="helppage-category-card">
+                        <div 
+                            key={idx} 
+                            className={`helppage-category-card ${selectedCategory?.title === cat.title ? 'is-active' : ''}`}
+                            onClick={() => setSelectedCategory(cat)}
+                        >
                             <div className="helppage-cat-icon-box">{cat.icon}</div>
                             <h3>{cat.title}</h3>
                             <p>{cat.desc}</p>
@@ -69,6 +104,24 @@ const HelpPage = ({ isCollapsed }) => {
                         </div>
                     ))}
                 </div>
+
+                {selectedCategory && (
+                    <div className="helppage-modal-overlay" onClick={() => setSelectedCategory(null)}>
+                        <div className="helppage-modal-content" onClick={e => e.stopPropagation()}>
+                            <button className="helppage-modal-close" onClick={() => setSelectedCategory(null)}>&times;</button>
+                            <div className="helppage-modal-header">
+                                <div className="helppage-modal-icon-box">{selectedCategory.icon}</div>
+                                <h2>{selectedCategory.title} Overview</h2>
+                            </div>
+                            <div className="helppage-modal-body">
+                                <p>{selectedCategory.explanation}</p>
+                            </div>
+                            <div className="helppage-modal-footer">
+                                <button className="helppage-modal-btn" onClick={() => setSelectedCategory(null)}>Got it</button>
+                            </div>
+                        </div>
+                    </div>
+                )}
 
                 <section className="helppage-instructions-section">
                     <div className="helppage-section-header">
