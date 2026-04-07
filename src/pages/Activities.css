@@ -205,7 +205,3 @@
   .activities-card-header { flex-direction: column; gap: 10px; }
   .activities-card-meta { width: 100%; justify-content: space-between; }
 }
-
-.activities-list-container {
-gap: 20px;
-}

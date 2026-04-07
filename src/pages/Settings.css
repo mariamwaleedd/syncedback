@@ -217,6 +217,7 @@
     align-items: center;
     background: var(--primary-05);
     padding: 25px;
+    margin-top: 2%;
     border-radius: 18px;
     border: 1px solid var(--primary-10);
 }
