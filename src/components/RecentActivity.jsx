@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Bell, Activity, Clock, ShieldAlert, Heart } from 'lucide-react';
 import './RecentActivity.css';
 
@@ -11,6 +12,8 @@ const activities = [
 ];
 
 const RecentActivity = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="recentactivity-recent-activity-container">
       <div className="recentactivity-activity-header">
@@ -36,7 +39,7 @@ const RecentActivity = () => {
         ))}
       </div>
 
-      <button className="recentactivity-see-all-activity-btn">See All Activity</button>
+      <button className="recentactivity-see-all-activity-btn" onClick={() => navigate('/activities')}>See All Activity</button>
     </div>
   );
 };
