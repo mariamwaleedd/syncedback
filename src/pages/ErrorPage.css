@@ -10,7 +10,7 @@
     overflow: hidden;
     padding: 20px;
     margin-top: 2%;
-    color: white;
+    color: var(--text-main);
 }
 
 .error-bg-glow {
@@ -71,7 +71,7 @@
     line-height: 1;
     margin: 0;
     position: relative;
-    color: white;
+    color: var(--text-main);
     text-shadow: 0 0 20px var(--primary-glow);
 }
 
@@ -97,7 +97,7 @@
 
 .btn-go-home {
     background: var(--primary);
-    color: white;
+    color: var(--text-main);
     border: none;
     padding: 16px 32px;
     border-radius: 14px;
@@ -111,9 +111,9 @@
 }
 
 .btn-refresh {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--white-05);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     padding: 16px 32px;
     border-radius: 14px;
     font-weight: 700;
@@ -125,7 +125,7 @@
 }
 
 .btn-go-home:hover { transform: translateY(-3px); opacity: 0.9; }
-.btn-refresh:hover { background: rgba(255, 255, 255, 0.1); }
+.btn-refresh:hover { background: var(--white-10); }
 
 .btn-back-link {
     background: transparent;
@@ -141,7 +141,7 @@
     transition: var(--transition-fast);
 }
 
-.btn-back-link:hover { color: white; }
+.btn-back-link:hover {color: var(--text-main);}
 
 .error-footer {
     position: absolute;

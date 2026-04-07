@@ -43,9 +43,9 @@
 }
 
 .messages-msg-filter-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--white-05);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     padding: 10px 20px;
     border-radius: 10px;
     display: flex;
@@ -56,7 +56,7 @@
 
 .messages-msg-new-page-btn {
     background: var(--primary);
-    color: white;
+    color: var(--text-main);
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
@@ -86,7 +86,7 @@
     border: 1px solid var(--border-main);
     border-radius: 12px;
     padding: 18px 18px 18px 55px;
-    color: white;
+    color: var(--text-main);
     font-family: var(--font-body);
     outline: none;
 }
@@ -113,13 +113,13 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 15px;
-    color: white;
+    color: var(--text-main);
 }
 
-.messages-msg-icon-box.blue { background: #2b7fff; }
-.messages-msg-icon-box.light-blue { background: #60a5fa; }
-.messages-msg-icon-box.messages-blue-grad { background: linear-gradient(135deg, #3b82f6, #1d4ed8); }
-.messages-msg-icon-box.messages-sparkle { background: #2b7fff; position: relative; }
+.messages-msg-icon-box.blue { background: var(--primary); }
+.messages-msg-icon-box.light-blue { background: var(--accent-sky); }
+.messages-msg-icon-box.messages-blue-grad { background: linear-gradient(135deg, var(--accent-blue), #1d4ed8); }
+.messages-msg-icon-box.messages-sparkle { background: var(--primary); position: relative; }
 
 .messages-msg-stat-card h3 { font-size: 0.9rem; color: var(--text-muted); margin: 0 0 10px 0; font-family: var(--font-body); font-weight: 600; }
 .messages-msg-stat-val { font-size: 1.4rem; font-weight: 600; }
@@ -142,8 +142,8 @@
 .messages-inbox-header-row h2 { font-size: 1.8rem; margin: 0; }
 
 .messages-compose-btn {
-    background: #60a5fa;
-    color: white;
+    background: var(--accent-sky);
+    color: var(--text-main);
     border: none;
     padding: 12px 20px;
     border-radius: 10px;
@@ -186,8 +186,8 @@
     font-weight: 600;
 }
 
-.messages-status-badge.messages-read { background: rgba(255,255,255,0.05); color: #94a3b8; border: 1px solid var(--border-light); }
-.messages-status-badge.messages-new { background: #2b7fff; color: white; }
+.messages-status-badge.messages-read { background: var(--white-05); color: var(--text-muted); border: 1px solid var(--border-light); }
+.messages-status-badge.messages-new { background: var(--primary); color: white; }
 
 .messages-sender-name { font-weight: 600; }
 .messages-sender-email, .messages-msg-date { color: var(--text-muted); }
@@ -220,11 +220,11 @@
 .messages-compose-field label { font-size: 0.9rem; font-weight: 600; color: var(--text-muted); }
 
 .messages-compose-field input, .messages-compose-field textarea {
-    background: white;
-    border: 1px solid #ddd;
+    color: var(--text-main);
+    border: 1px solid var(--gray-border);
     border-radius: 10px;
     padding: 15px;
-    color: #333;
+    color: var(--gray-text);
     font-family: var(--font-body);
     outline: none;
 }
@@ -232,18 +232,18 @@
 .messages-compose-field textarea { min-height: 150px; }
 
 .messages-rich-text-toolbar {
-    background: #1e2139;
+    background: var(--bg-darker);
     border-radius: 10px;
     padding: 12px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 15px;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin-bottom: 15px;
 }
 
-.messages-toolbar-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.1); }
+.messages-toolbar-sep { width: 1px; height: 20px; background: var(--white-10); }
 
 @media (max-width: 1200px) {
     .messages-msg-stats-grid { grid-template-columns: repeat(2, 1fr); }

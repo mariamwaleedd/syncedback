@@ -72,7 +72,7 @@
 .applicationpages-new-page-btn:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(43, 127, 255, 0.3);
+  box-shadow: 0 10px 25px var(--primary-glow);
 }
 
 .applicationpages-table-wrapper {
@@ -142,7 +142,7 @@
   align-items: center;
   gap: 8px;
   padding: 6px 12px;
-  background: rgba(16, 185, 129, 0.08);
+  background: var(--success-08);
   border-radius: 100px;
   color: var(--success);
   font-size: 12px;
@@ -155,7 +155,7 @@
   height: 6px;
   background: var(--success);
   border-radius: 50%;
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 10px var(--success-50);
 }
 
 .applicationpages-action-btns {
@@ -180,7 +180,7 @@
 .applicationpages-icon-action:hover {
   background: var(--bg-card-hover);
   color: var(--text-main);
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: var(--white-20);
 }
 
 @media (max-width: 768px) {

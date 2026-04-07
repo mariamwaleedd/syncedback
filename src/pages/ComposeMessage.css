@@ -21,7 +21,7 @@
 .composemessage-back-btn {
     background: var(--bg-card);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     width: 40px;
     height: 40px;
     border-radius: 12px;
@@ -38,7 +38,7 @@
 
 .composemessage-compose-page-header h1 {
     font-size: 1.5rem;
-    color: white;
+    color: var(--text-main);
     margin: 0;
 }
 
@@ -71,7 +71,7 @@
     background: transparent;
     border: none;
     border-bottom: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     padding: 10px 0;
     font-size: 1rem;
     outline: none;
@@ -92,9 +92,9 @@
 }
 
 .composemessage-message-textarea {
-    background: rgba(255, 255, 255, 0.02);
+    background: var(--white-02);
     border: none;
-    color: white;
+    color: var(--text-main);
     padding: 20px;
     min-height: 300px;
     resize: vertical;
@@ -136,23 +136,23 @@
 }
 
 .composemessage-action-btn.composemessage-discard:hover {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
-    border-color: #ef4444;
+    background: var(--danger-10);
+    color: var(--danger);
+    border-color: var(--danger);
 }
 
 .composemessage-action-btn.composemessage-attach {
-    background: rgba(255, 255, 255, 0.05);
-    color: white;
+    background: var(--white-05);
+    color: var(--text-main);
 }
 
 .composemessage-action-btn.composemessage-attach:hover {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--white-10);
 }
 
 .composemessage-action-btn.composemessage-send {
     background: var(--primary);
-    color: white;
+    color: var(--text-main);
 }
 
 .composemessage-action-btn.composemessage-send:hover {
@@ -176,3 +176,4 @@
         justify-content: center;
     }
 }
+

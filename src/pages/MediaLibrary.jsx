@@ -173,7 +173,7 @@ const MediaLibrary = ({ isCollapsed }) => {
         } else if (sortBy === 'sizeAsc') {
             return Number(a.metadata?.size || 0) - Number(b.metadata?.size || 0);
         }
-        return 0; // Default sort
+        return 0;
     });
 
     const totalBytes = allMediaFlat.reduce((acc, item) => acc + (item.metadata?.size || 0), 0);

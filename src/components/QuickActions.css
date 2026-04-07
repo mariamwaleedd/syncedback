@@ -27,13 +27,13 @@
   background: var(--bg-card-hover);
   border-color: var(--border-light);
   transform: translateY(-8px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 15px 30px var(--black-20);
 }
 
 .quickactions-action-icon-box {
   width: 54px;
   height: 54px;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--white-03);
   border-radius: 16px;
   display: flex;
   align-items: center;
@@ -43,7 +43,7 @@
 }
 
 .quickactions-quick-action-card:hover .quickactions-action-icon-box {
-  background: rgba(255, 255, 255, 0.06);
+  background: var(--white-06);
   transform: scale(1.1);
 }
 

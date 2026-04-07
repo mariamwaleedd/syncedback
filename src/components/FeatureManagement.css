@@ -47,7 +47,7 @@
 .featuremanagement-add-feature-btn:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(43, 127, 255, 0.35);
+  box-shadow: 0 10px 25px var(--primary-glow);
 }
 
 .featuremanagement-features-grid {
@@ -57,7 +57,7 @@
 }
 
 .featuremanagement-feature-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--white-02);
   border: 1px solid var(--border-thin);
   border-radius: 24px;
   padding: 24px;

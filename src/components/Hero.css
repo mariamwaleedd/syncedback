@@ -179,7 +179,7 @@
 .hero-activity-icon {
   width: 40px;
   height: 40px;
-  background: rgba(43, 127, 255, 0.1);
+  background: var(--primary-10);
   color: var(--primary);
   border-radius: 100px;
   display: flex;
@@ -189,7 +189,7 @@
 
 .hero-activity-title { font-size: 14px; font-weight: 600; }
 .hero-activity-sub { font-size: 13px; color: var(--text-dim); display: block; }
-.hero-activity-meta { font-size: 11px; color: #475569; margin-top: 4px; }
+.hero-activity-meta { font-size: 11px; color: var(--text-meta); margin-top: 4px; }
 
 @media (max-width: 1400px) {
   .hero-stats-grid { grid-template-columns: repeat(3, 1fr); }

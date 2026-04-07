@@ -43,7 +43,7 @@
 .btn-primary-save {
     background: var(--primary);
     border: none;
-    color: white;
+    color: var(--text-main);
     padding: 12px 25px;
     border-radius: 12px;
     font-weight: 600;
@@ -98,7 +98,7 @@
 }
 
 .nav-item.active {
-    background: rgba(43, 127, 255, 0.1);
+    background: var(--primary-10);
     color: var(--primary);
 }
 
@@ -215,10 +215,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(43, 127, 255, 0.05);
+    background: var(--primary-05);
     padding: 25px;
     border-radius: 18px;
-    border: 1px solid rgba(43, 127, 255, 0.1);
+    border: 1px solid var(--primary-10);
 }
 
 .security-toggle-card .text { display: flex; gap: 20px; align-items: center; }

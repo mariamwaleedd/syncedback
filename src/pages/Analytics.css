@@ -27,7 +27,7 @@
     border-radius: 50%;
     background: var(--bg-card);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,9 +38,9 @@
 .analytics-titles p { color: var(--text-muted); margin: 4px 0 0 0; font-size: 0.9rem; }
 
 .analytics-filter-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--white-05);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     padding: 10px 20px;
     border-radius: 10px;
     display: flex;
@@ -86,8 +86,8 @@
 
 .analytics-legend-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); }
 .analytics-dot { width: 10px; height: 10px; border-radius: 50%; }
-.analytics-dot.analytics-users { background: #60a5fa; }
-.analytics-dot.analytics-views { background: #2b7fff; }
+.analytics-dot.analytics-users { background: var(--accent-sky); }
+.analytics-dot.analytics-views { background: var(--primary); }
 
 .analytics-pie-legend {
     display: flex;
@@ -118,7 +118,7 @@
     width: 34px;
     height: 34px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.05);
+    background: var(--white-05);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -154,7 +154,7 @@
 .analytics-rotate-down { transform: rotate(90deg); color: var(--danger); }
 .analytics-stat-mini-card .analytics-val { font-size: 1.6rem; font-weight: 600; margin-bottom: 15px; }
 
-.analytics-progress-bar { height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; }
+.analytics-progress-bar { height: 6px; background: var(--white-10); border-radius: 3px; overflow: hidden; }
 .analytics-progress-bar .analytics-fill { height: 100%; background: var(--primary); }
 
 .analytics-dual-lists-grid {
@@ -179,8 +179,8 @@
 .analytics-list-items { flex: 1; display: flex; flex-direction: column; gap: 12px; }
 
 .analytics-list-item-row {
-    background: white;
-    color: #333;
+    color: var(--text-main);
+    color: var(--gray-text);
     padding: 15px;
     border-radius: 12px;
     display: flex;
@@ -190,8 +190,8 @@
 }
 
 .analytics-list-item-row-between {
-    background: white;
-    color: #333;
+    color: var(--text-main);
+    color: var(--gray-text);
     padding: 12px 15px;
     border-radius: 12px;
     display: flex;
@@ -202,11 +202,11 @@
 .analytics-list-item-row-between .analytics-left { display: flex; gap: 12px; align-items: center; }
 .analytics-list-item-row-between .analytics-txt { display: flex; flex-direction: column; }
 .analytics-list-item-row-between .analytics-txt strong { font-size: 0.9rem; }
-.analytics-list-item-row-between .analytics-txt span { font-size: 0.75rem; color: #666; }
+.analytics-list-item-row-between .analytics-txt span { font-size: 0.75rem; color: var(--gray-text-dim); }
 
 .analytics-badge-complete {
-    background: #2b7fff;
-    color: white;
+    background: var(--primary);
+    color: var(--text-main);
     font-size: 0.7rem;
     padding: 4px 12px;
     border-radius: 20px;
@@ -216,7 +216,7 @@
 .analytics-view-all-link {
     background: transparent;
     border: none;
-    color: white;
+    color: var(--text-main);
     font-size: 0.9rem;
     display: flex;
     align-items: center;
@@ -246,26 +246,26 @@
 .analytics-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
 
 .analytics-field input, .analytics-field textarea {
-    background: white;
-    border: 1px solid #ddd;
+    color: var(--text-main);
+    border: 1px solid var(--gray-border);
     border-radius: 10px;
     padding: 15px;
-    color: #333;
+    color: var(--gray-text);
     font-family: var(--font-body);
 }
 
 .analytics-editor-toolbar {
-    background: #1e2139;
+    background: var(--bg-darker);
     border-radius: 10px;
     padding: 12px 20px;
     display: flex;
     align-items: center;
     gap: 15px;
-    color: #94a3b8;
+    color: var(--text-muted);
     margin-bottom: 15px;
 }
 
-.analytics-editor-toolbar .analytics-sep { width: 1px; height: 20px; background: rgba(255,255,255,0.1); }
+.analytics-editor-toolbar .analytics-sep { width: 1px; height: 20px; background: var(--white-10); }
 .analytics-field textarea { min-height: 100px; }
 
 @media (max-width: 1200px) {

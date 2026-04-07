@@ -32,7 +32,7 @@
 }
 
 .messagedetail-tool-btn:hover { background: var(--bg-card-hover); }
-.messagedetail-tool-btn.messagedetail-delete { background: #3b82f6; border: none; }
+.messagedetail-tool-btn.messagedetail-delete { background: var(--accent-blue); border: none; }
 
 .messagedetail-detail-card {
     background: var(--bg-card);
@@ -44,7 +44,7 @@
 .messagedetail-detail-section-title {
     font-size: 1.1rem;
     margin: 0 0 25px 0;
-    color: white;
+    color: var(--text-main);
     font-weight: 600;
 }
 
@@ -80,7 +80,7 @@
 .messagedetail-icon-wrap-circle {
     width: 40px;
     height: 40px;
-    background: rgba(255,255,255,0.05);
+    background: var(--white-05);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -93,7 +93,7 @@
     font-size: 0.9rem;
     font-weight: 600;
     margin-bottom: 8px;
-    color: white;
+    color: var(--text-main);
 }
 
 .messagedetail-txt-wrap p { margin: 0; font-size: 0.95rem; }
@@ -106,11 +106,11 @@
     font-weight: 600;
 }
 
-.messagedetail-priority-badge.high { background: #60a5fa; color: white; }
+.messagedetail-priority-badge.high { background: var(--accent-sky); color: white; }
 
 .messagedetail-pill-group { display: flex; gap: 10px; }
 .messagedetail-pill {
-    background: white;
+    color: var(--text-main);
     color: #1a1c3d;
     padding: 6px 20px;
     border-radius: 8px;
@@ -122,7 +122,7 @@
 
 .messagedetail-message-body-card .messagedetail-message-text {
     line-height: 1.8;
-    color: #94a3b8;
+    color: var(--text-muted);
     font-size: 0.95rem;
 }
 
@@ -140,7 +140,7 @@
 }
 
 .messagedetail-file-card {
-    background: rgba(255,255,255,0.05);
+    background: var(--white-05);
     border-radius: 16px;
     padding: 15px;
     display: flex;
@@ -155,7 +155,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.05);
+    background: var(--white-05);
     color: var(--primary);
 }
 
@@ -166,7 +166,7 @@
 .messagedetail-download-btn {
     width: 36px;
     height: 36px;
-    background: white;
+    color: var(--text-main);
     border: none;
     border-radius: 10px;
     display: flex;

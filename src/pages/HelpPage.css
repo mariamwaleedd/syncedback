@@ -10,7 +10,7 @@
 }
 
 .helppage-help-hero {
-    background: linear-gradient(rgba(1, 4, 34, 0.8), rgba(1, 4, 34, 0.95)), url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop');
+    background: linear-gradient(var(--bg-dark), var(--bg-dark)), url('https://images.unsplash.com/photo-1557683316-973673baf926?q=80&w=2029&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     padding: 120px 40px 80px 40px;
@@ -45,14 +45,14 @@
 
 .helppage-help-search-wrapper input {
     width: 100%;
-    background: white;
+    color: var(--text-main);
     border: none;
     border-radius: 16px;
     padding: 22px 22px 22px 60px;
-    color: #333;
+    color: var(--gray-text);
     font-size: 1.1rem;
     font-family: var(--font-body);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 30px var(--black-30);
     outline: none;
 }
 
@@ -86,7 +86,7 @@
 .helppage-cat-icon-box {
     width: 54px;
     height: 54px;
-    background: rgba(43, 127, 255, 0.1);
+    background: var(--primary-10);
     color: var(--primary);
     border-radius: 14px;
     display: flex;
@@ -138,7 +138,7 @@
 
 .helppage-badge {
     background: var(--success);
-    color: white;
+    color: var(--text-main);
     font-size: 0.75rem;
     font-weight: 600;
     padding: 4px 12px;
@@ -227,7 +227,7 @@
 
 .helppage-support-card-blue {
     background: var(--primary);
-    color: white;
+    color: var(--text-main);
     border-radius: 24px;
     padding: 40px 30px;
     text-align: center;
@@ -239,7 +239,7 @@
 
 .helppage-contact-btn {
     width: 100%;
-    background: white;
+    color: var(--text-main);
     color: var(--primary);
     border: none;
     padding: 15px;
@@ -249,7 +249,7 @@
     transition: var(--transition-fast);
 }
 
-.helppage-contact-btn:hover { background: #f0f0f0; transform: scale(1.02); }
+.helppage-contact-btn:hover { background: var(--gray-light); transform: scale(1.02); }
 
 .helppage-resource-list {
     background: var(--bg-card);

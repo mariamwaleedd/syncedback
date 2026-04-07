@@ -135,8 +135,8 @@
 
 .signup-btn:hover {
     transform: translateY(-2px);
-    background: #4791ff;
-    box-shadow: 0 12px 25px rgba(43, 127, 255, 0.35);
+    background: var(--primary-bright);
+    box-shadow: 0 12px 25px var(--primary-glow);
 }
 
 .signup-forgot-link {
@@ -176,3 +176,4 @@
         font-size: 32px;
     }
 }
+

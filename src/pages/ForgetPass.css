@@ -132,7 +132,7 @@
     background: var(--primary);
     border: none;
     border-radius: 14px;
-    color: white;
+    color: var(--text-main);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -143,8 +143,8 @@
 
 .forgetpass-reset-btn:hover {
     transform: translateY(-2px);
-    background: #4791ff;
-    box-shadow: 0 12px 25px rgba(43, 127, 255, 0.35);
+    background: var(--primary-bright);
+    box-shadow: 0 12px 25px var(--primary-glow);
 }
 
 .forgetpass-back-footer {
@@ -167,3 +167,4 @@
         font-size: 32px;
     }
 }
+

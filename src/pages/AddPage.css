@@ -21,7 +21,7 @@
     border-radius: 50%;
     background: var(--bg-card);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -79,11 +79,11 @@
 .addpage-ui-input-group input, 
 .addpage-ui-input-group textarea,
 .addpage-meta-tag-row input {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--white-04);
     border: 1px solid var(--border-light);
     border-radius: 12px;
     padding: 15px 18px;
-    color: white;
+    color: var(--text-main);
     font-family: var(--font-body);
     outline: none;
     transition: var(--transition-fast);
@@ -92,7 +92,7 @@
 .addpage-ui-input-group input:focus, 
 .addpage-ui-input-group textarea:focus {
     border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.07);
+    background: var(--white-07);
 }
 
 .addpage-ui-input-group textarea {
@@ -103,7 +103,7 @@
 .addpage-url-input-wrapper {
     display: flex;
     align-items: center;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--white-04);
     border: 1px solid var(--border-light);
     border-radius: 12px;
     overflow: hidden;
@@ -167,7 +167,7 @@
 }
 
 .addpage-layout-option-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--white-03);
     border: 1px solid var(--border-light);
     border-radius: 16px;
     padding: 25px;
@@ -181,8 +181,8 @@
 
 .addpage-layout-option-card.active {
     border-color: var(--primary);
-    background: rgba(43, 127, 255, 0.1);
-    box-shadow: 0 0 20px rgba(43, 127, 255, 0.1);
+    background: var(--primary-10);
+    box-shadow: 0 0 20px var(--primary-10);
 }
 
 .addpage-option-icon {
@@ -200,7 +200,7 @@
 }
 
 .addpage-device-card {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--white-03);
     border: 1px solid var(--border-light);
     border-radius: 16px;
     padding: 20px;
@@ -214,7 +214,7 @@
 
 .addpage-device-card.active {
     border-color: var(--success);
-    background: rgba(16, 185, 129, 0.08);
+    background: var(--success-08);
 }
 
 .addpage-device-card.active svg {
@@ -231,7 +231,7 @@
 
 
 .addpage-ui-select {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--white-04);
     border: 1px solid var(--border-light);
     border-radius: 12px;
     padding: 15px 18px;
@@ -263,19 +263,19 @@
 }
 
 .addpage-meta-tag-pair input {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--white-03);
     border: 1px solid var(--border-light);
     border-radius: 10px;
     padding: 10px 14px;
-    color: white;
+    color: var(--text-main);
     font-size: 0.85rem;
 }
 
 .addpage-meta-remove-btn {
-    background: rgba(239, 68, 68, 0.1);
+    background: var(--danger-10);
     border: none;
     border-radius: 10px;
-    color: #ef4444;
+    color: var(--danger);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -284,8 +284,8 @@
 }
 
 .addpage-meta-remove-btn:hover {
-    background: #ef4444;
-    color: white;
+    background: var(--danger);
+    color: var(--text-main);
 }
 
 .addpage-meta-add-btn {
@@ -308,7 +308,7 @@
 .addpage-meta-add-btn:hover {
     border-color: var(--primary);
     color: var(--primary);
-    background: rgba(43, 127, 255, 0.05);
+    background: var(--primary-05);
 }
 
 .addpage-aside-sticky-content {
@@ -332,7 +332,7 @@
 }
 
 .addpage-page-preview-widget {
-    background: #0d1026;
+    background: var(--bg-darkest);
     border: 1px solid var(--border-light);
     border-radius: 20px;
     padding: 20px;
@@ -368,7 +368,7 @@
     display: inline-flex;
     align-items: center;
     gap: 5px;
-    background: rgba(16, 185, 129, 0.15);
+    background: var(--success-15);
     color: var(--success);
     padding: 4px 10px;
     border-radius: 20px;
@@ -385,8 +385,8 @@
 }
 
 .addpage-seo-tip-card {
-    background: rgba(43, 127, 255, 0.1);
-    border: 1px solid rgba(43, 127, 255, 0.2);
+    background: var(--primary-10);
+    border: 1px solid var(--primary-20);
     border-radius: 20px;
     padding: 20px;
     display: flex;
@@ -441,15 +441,15 @@
 
 .addpage-primary-submit-btn {
     background: var(--primary);
-    color: white;
+    color: var(--text-main);
     border: none;
     box-shadow: var(--shadow-primary);
 }
 
 .addpage-secondary-cancel-btn {
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--white-04);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
 }
 
 .addpage-primary-submit-btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
@@ -477,7 +477,7 @@
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(1, 4, 34, 0.8);
+    background: var(--bg-dark);
     backdrop-filter: blur(8px);
     z-index: 1000;
     display: flex;
@@ -494,7 +494,7 @@
     width: 100%;
     max-width: 420px;
     text-align: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 25px 50px var(--black-40);
     animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -509,12 +509,12 @@
 }
 
 .status-modal-icon.success {
-    background: rgba(16, 185, 129, 0.1);
+    background: var(--success-10);
     color: var(--success);
 }
 
 .status-modal-icon.warning {
-    background: rgba(239, 68, 68, 0.1);
+    background: var(--danger-10);
     color: var(--danger);
 }
 
@@ -537,7 +537,7 @@
     font-size: 1.05rem;
     font-weight: 600;
     background: var(--primary);
-    color: white;
+    color: var(--text-main);
     border: none;
     cursor: pointer;
     transition: var(--transition-fast);
@@ -551,4 +551,5 @@
 @keyframes slideUpFade {
     from { opacity: 0; transform: translateY(20px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
-}
+}
+

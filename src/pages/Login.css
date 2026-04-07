@@ -33,7 +33,7 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto 24px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 10px 30px var(--black-40);
 }
 
 .login-logo-img {
@@ -58,9 +58,9 @@
 }
 
 .login-error-message {
-    background: rgba(255, 71, 71, 0.1);
-    border: 1px solid rgba(255, 71, 71, 0.3);
-    color: #ff4747;
+    background: var(--danger-10);
+    border: 1px solid var(--danger-25);
+    color: var(--danger-bright);
     padding: 12px;
     border-radius: 12px;
     font-size: 14px;
@@ -134,7 +134,7 @@
     background: var(--primary);
     border: none;
     border-radius: 14px;
-    color: white;
+    color: var(--text-main);
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
@@ -145,8 +145,8 @@
 
 .login-btn:hover {
     transform: translateY(-2px);
-    background: #4791ff;
-    box-shadow: 0 12px 25px rgba(43, 127, 255, 0.35);
+    background: var(--primary-bright);
+    box-shadow: 0 12px 25px var(--primary-glow);
 }
 
 .login-forgot-link {
@@ -226,3 +226,4 @@
         font-size: 32px;
     }
 }
+

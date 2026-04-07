@@ -27,7 +27,7 @@
     border-radius: 50%;
     background: var(--bg-card);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -58,9 +58,9 @@
 }
 
 .services-filter-outline-btn {
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--white-05);
     border: 1px solid var(--border-light);
-    color: white;
+    color: var(--text-main);
     padding: 10px 22px;
     border-radius: 12px;
     display: flex;
@@ -72,12 +72,12 @@
 }
 
 .services-filter-outline-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--white-08);
 }
 
 .services-add-feature-primary-btn {
     background: var(--primary);
-    color: white;
+    color: var(--text-main);
     padding: 10px 22px;
     border-radius: 12px;
     display: flex;
@@ -116,11 +116,11 @@
 
 .services-search-input-wrapper input {
     width: 92%;
-    background: rgba(255, 255, 255, 0.04);
+    background: var(--white-04);
     border: 1px solid var(--border-light);
     border-radius: 14px;
     padding: 16px 16px 16px 55px;
-    color: white;
+    color: var(--text-main);
     font-family: var(--font-body);
     font-size: 1rem;
     outline: none;
@@ -129,7 +129,7 @@
 
 .services-search-input-wrapper input:focus {
     border-color: var(--primary);
-    background: rgba(255, 255, 255, 0.07);
+    background: var(--white-07);
 }
 
 .services-table-responsive-wrapper {
@@ -178,11 +178,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--text-main);
 }
 
 .services-path-badge {
-    background: rgba(43, 127, 255, 0.08);
+    background: var(--primary-08);
     color: var(--accent-cyan);
     padding: 6px 14px;
     border-radius: 8px;
@@ -194,7 +194,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(16, 185, 129, 0.1);
+    background: var(--success-10);
     color: var(--success);
     padding: 4px 14px;
     border-radius: 20px;
@@ -210,7 +210,7 @@
 }
 
 .services-views-cell, .services-modified-cell {
-    color: #cbd5e1;
+    color: var(--border-light);
 }
 
 .services-actions-cell {
@@ -222,9 +222,9 @@
 .services-action-btn-gray, .services-refresh-circle-btn {
     width: 36px;
     height: 36px;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--white-05);
     border: 1px solid var(--border-light);
-    color: #cbd5e1;
+    color: var(--border-light);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -254,8 +254,8 @@
 }
 
 .services-action-btn-gray:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
+    background: var(--white-10);
+    color: var(--text-main);
     border-color: var(--text-muted);
 }
 
@@ -266,7 +266,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(1, 4, 34, 0.7);
+    background: var(--black-70);
     backdrop-filter: blur(12px);
     display: flex;
     align-items: center;
@@ -276,14 +276,14 @@
 }
 
 .services-modal-card {
-    background: #0a0d28;
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: var(--bg-darkest);
+    border: 1px solid var(--white-10);
     border-radius: 28px;
     padding: 40px;
     width: 100%;
     max-width: 450px;
     text-align: center;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 25px 50px -12px var(--black-50);
     animation: modal-card-slide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -298,24 +298,24 @@
 }
 
 .services-modal-icon.danger {
-    background: rgba(239, 68, 68, 0.1);
-    color: #ef4444;
+    background: var(--danger-10);
+    color: var(--danger);
 }
 
 .services-modal-card h2 {
     font-size: 1.6rem;
     margin: 0 0 16px 0;
-    color: white;
+    color: var(--text-main);
 }
 
 .services-modal-card p {
-    color: #94a3b8;
+    color: var(--text-muted);
     line-height: 1.6;
     margin-bottom: 32px;
 }
 
 .services-modal-card p strong {
-    color: white;
+    color: var(--text-main);
 }
 
 .services-modal-actions {
@@ -334,26 +334,26 @@
 }
 
 .services-modal-btn-secondary {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: white;
+    background: var(--white-05);
+    border: 1px solid var(--white-10);
+    color: var(--text-main);
 }
 
 .services-modal-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: var(--white-08);
 }
 
 .services-modal-btn-danger {
-    background: #ef4444;
+    background: var(--danger);
     border: none;
-    color: white;
-    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+    color: var(--text-main);
+    box-shadow: 0 4px 12px var(--danger-25);
 }
 
 .services-modal-btn-danger:hover {
-    background: #dc2626;
+    background: var(--danger-dark);
     transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(239, 68, 68, 0.35);
+    box-shadow: 0 6px 15px var(--danger-35);
 }
 
 .services-modal-btn-danger:disabled, 
@@ -404,3 +404,4 @@
         font-size: 1.8rem;
     }
 }
+
