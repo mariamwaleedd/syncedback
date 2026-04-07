@@ -1,17 +1,18 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { 
     ArrowLeft, Filter, TrendingUp, Globe, BarChart2, 
     Activity, User, MessageSquare, ExternalLink, 
     Download, Share2, FileText, ChevronRight,
     Bold, Italic, Strikethrough, Heading1, Heading2, 
-    Heading3, Pencil, Code, Link as LinkIcon, Image, Search
+    Heading3, Pencil, Code, Link as LinkIcon, Image, Search, Zap
 } from 'lucide-react';
 import { 
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
     PieChart, Pie, Cell, 
     BarChart, Bar
 } from 'recharts';
+import { supabase } from '../Supabase';
 import './Analytics.css';
 
 const trafficData = [
@@ -42,6 +43,30 @@ const pageData = [
 
 const Analytics = ({ isCollapsed }) => {
     const navigate = useNavigate();
+    const [recentPages, setRecentPages] = useState([]);
+    const [recentServices, setRecentServices] = useState([]);
+
+    useEffect(() => {
+        fetchRecentData();
+    }, []);
+
+    const fetchRecentData = async () => {
+        const { data: pagesData } = await supabase
+            .from('pages')
+            .select('id, name_en, path_en, status')
+            .order('created_at', { ascending: false })
+            .limit(2);
+        
+        if (pagesData) setRecentPages(pagesData);
+
+        const { data: servicesData } = await supabase
+            .from('features')
+            .select('id, title_en, category_en')
+            .order('created_at', { ascending: false })
+            .limit(2);
+        
+        if (servicesData) setRecentServices(servicesData);
+    };
 
     return (
         <div className={`analytics-page ${isCollapsed ? 'is-collapsed' : ''}`}>
@@ -220,18 +245,22 @@ const Analytics = ({ isCollapsed }) => {
             <div className="analytics-dual-lists-grid">
                 <div className="analytics-list-card-box">
                     <div className="analytics-box-head">
-                        <h3>Recent Projects</h3>
-                        <p>Latest projects added to the system</p>
+                        <h3>Recent Services</h3>
+                        <p>Latest services added to the system</p>
                     </div>
                     <div className="analytics-list-items">
-                        <div className="analytics-list-item-row">
-                            <FileText size={16} /> <span>UX/UI</span>
-                        </div>
-                        <div className="analytics-list-item-row">
-                            <FileText size={16} /> <span>Graphic Design</span>
-                        </div>
+                        {recentServices.map(service => (
+                            <div key={service.id} className="analytics-list-item-row">
+                                <Zap size={16} /> <span>{service.title_en}</span>
+                            </div>
+                        ))}
+                        {recentServices.length === 0 && (
+                             <div className="analytics-list-item-row">
+                                <Zap size={16} /> <span>No services found</span>
+                            </div>
+                        )}
                     </div>
-                    <button className="analytics-view-all-link">View All Projects <ChevronRight size={14}/></button>
+                    <button className="analytics-view-all-link" onClick={() => navigate('/services')}>View All Services <ChevronRight size={14}/></button>
                 </div>
 
                 <div className="analytics-list-card-box">
@@ -240,28 +269,30 @@ const Analytics = ({ isCollapsed }) => {
                         <p>Latest static pages in the system</p>
                     </div>
                     <div className="analytics-list-items">
-                        <div className="analytics-analytics-list-item-row-between">
-                            <div className="analytics-left">
-                                <FileText size={16} /> 
-                                <div className="analytics-txt">
-                                    <strong>Contact Us</strong>
-                                    <span>/contact</span>
+                        {recentPages.map(page => (
+                            <div key={page.id} className="analytics-list-item-row-between">
+                                <div className="analytics-left">
+                                    <FileText size={16} /> 
+                                    <div className="analytics-txt">
+                                        <strong>{page.name_en}</strong>
+                                        <span>{page.path_en}</span>
+                                    </div>
+                                </div>
+                                <span className="analytics-badge-complete">{page.status || 'Complete'}</span>
+                            </div>
+                        ))}
+                        {recentPages.length === 0 && (
+                            <div className="analytics-list-item-row-between">
+                                <div className="analytics-left">
+                                    <FileText size={16} /> 
+                                    <div className="analytics-txt">
+                                        <strong>No pages found</strong>
+                                    </div>
                                 </div>
                             </div>
-                            <span className="analytics-badge-complete">Complete</span>
-                        </div>
-                        <div className="analytics-analytics-list-item-row-between">
-                            <div className="analytics-left">
-                                <FileText size={16} /> 
-                                <div className="analytics-txt">
-                                    <strong>About Us</strong>
-                                    <span>/about</span>
-                                </div>
-                            </div>
-                            <span className="analytics-badge-complete">Complete</span>
-                        </div>
+                        )}
                     </div>
-                    <button className="analytics-view-all-link">View All Pages <ChevronRight size={14}/></button>
+                    <button className="analytics-view-all-link" onClick={() => navigate('/manage-pages')}>View All Pages <ChevronRight size={14}/></button>
                 </div>
             </div>
 
