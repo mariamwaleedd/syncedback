@@ -22,6 +22,7 @@ import Profile from './pages/Profile';
 import AddFeature from './pages/AddFeature';
 import AddPage from './pages/AddPage';
 import Activities from './pages/Activities';
+import Family from './pages/Family';
 import ErrorPage from './pages/ErrorPage';
 import PreLoader from './common/PreLoader';
 
@@ -65,6 +66,7 @@ const Routing = () => {
             '/services': 'Services',
             '/manage-pages': 'Manage Pages',
             '/activities': 'Activity Tracking',
+            '/family': 'Family Members',
             '/about': 'About',
             '/media-library': 'Media Library',
             '/ui-elements': 'UI Elements',
@@ -132,6 +134,7 @@ const Routing = () => {
                 <Route path="/add-page" element={<AddPage isCollapsed={isCollapsed} />} />
                 <Route path="/profile" element={<Profile isCollapsed={isCollapsed} />} />
                 <Route path="/activities" element={<Activities isCollapsed={isCollapsed} />} />
+                <Route path="/family" element={<Family isCollapsed={isCollapsed} />} />
                 <Route path="*" element={<ErrorPage type="404" />} />
             </Routes>
         </>

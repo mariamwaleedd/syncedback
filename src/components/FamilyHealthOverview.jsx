@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import './FamilyHealthOverview.css';
 
@@ -16,6 +17,9 @@ const familyMembers = [
 ];
 
 const FamilyHealthOverview = () => {
+  const navigate = useNavigate();
+  const [activeFilter, setActiveFilter] = useState('Month');
+
   return (
     <div className="familyhealthoverview-family-health-container">
       <div className="familyhealthoverview-family-health-header">
@@ -24,9 +28,24 @@ const FamilyHealthOverview = () => {
           <p>Average Health Score: 81%</p>
         </div>
         <div className="familyhealthoverview-filter-tabs">
-          <button>Week</button>
-          <button className="active">Month</button>
-          <button>Year</button>
+          <button 
+            className={activeFilter === 'Day' ? 'active' : ''} 
+            onClick={() => setActiveFilter('Day')}
+          >
+            Day
+          </button>
+          <button 
+            className={activeFilter === 'Week' ? 'active' : ''} 
+            onClick={() => setActiveFilter('Week')}
+          >
+            Week
+          </button>
+          <button 
+            className={activeFilter === 'Month' ? 'active' : ''} 
+            onClick={() => setActiveFilter('Month')}
+          >
+            Month
+          </button>
         </div>
       </div>
 
@@ -46,7 +65,7 @@ const FamilyHealthOverview = () => {
         ))}
       </div>
 
-      <button className="familyhealthoverview-view-all-members-btn">
+      <button className="familyhealthoverview-view-all-members-btn" onClick={() => navigate('/family')}>
         <span>View All 15 Members</span>
         <ArrowRight size={18} />
       </button>

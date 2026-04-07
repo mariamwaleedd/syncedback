@@ -1,0 +1,254 @@
+.family-page-container {
+  padding: 100px 40px 40px 300px;
+  min-height: 100vh;
+  transition: var(--transition-main);
+  background: var(--bg-dark);
+}
+
+.family-page-container.is-collapsed {
+  padding-left: 120px;
+}
+
+.family-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.family-header-left {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.family-back-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.family-back-btn:hover {
+  background: var(--primary-10);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateX(-3px);
+}
+
+.family-page-titles h1 { font-size: 2.2rem; margin: 0; color: var(--text-main); }
+.family-page-titles p { color: var(--text-muted); margin: 5px 0 0 0; font-size: 0.95rem; }
+
+.family-search-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-main);
+  border-radius: 16px;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 350px;
+  transition: all 0.3s ease;
+}
+
+.family-search-box:focus-within {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary-10);
+}
+
+.family-search-box input {
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-size: 14px;
+  width: 100%;
+  outline: none;
+}
+
+.family-stats-banner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.family-stat-card {
+  background: linear-gradient(135deg, var(--bg-card), var(--bg-card-hover));
+  border: 1px solid var(--border-main);
+  padding: 24px;
+  border-radius: 24px;
+  text-align: center;
+}
+
+.family-stat-card span {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.family-stat-card h2 {
+  font-size: 2rem;
+  color: var(--primary);
+  margin: 0;
+}
+
+.family-members-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.family-profile-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-main);
+  border-radius: 28px;
+  padding: 24px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.family-profile-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary-40);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.family-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.family-avatar-box {
+  width: 70px;
+  height: 70px;
+  background: var(--white-05);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  position: relative;
+}
+
+.family-status-indicator {
+  position: absolute;
+  bottom: -4px;
+  right: -4px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 3px solid var(--bg-card);
+}
+
+.family-status-indicator.healthy { background: var(--success); }
+.family-status-indicator.active { background: var(--primary); }
+.family-status-indicator.checkup-due { background: var(--warning); }
+.family-status-indicator.resting { background: var(--purple-10); border-color: var(--accent-purple); border-width: 1px; }
+
+.family-more-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.family-more-btn:hover { background: var(--white-05); color: var(--text-main); }
+
+.family-name-role { margin-bottom: 16px; }
+.family-name-role h3 { font-size: 1.4rem; margin: 0 0 4px 0; color: var(--text-main); }
+.family-role-badge { 
+  font-size: 0.75rem; 
+  color: var(--primary); 
+  background: var(--primary-10); 
+  padding: 4px 12px; 
+  border-radius: 100px; 
+  font-weight: 600;
+}
+
+.family-health-insight {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 12px;
+  background: var(--white-03);
+  border-radius: 16px;
+}
+
+.family-insight-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.family-insight-item span { font-size: 0.85rem; font-weight: 500; color: var(--text-main); }
+.heart-icon { color: var(--danger); }
+.activity-icon { color: var(--success); }
+
+.family-contact-brief {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.family-card-footer {
+  padding-top: 15px;
+  border-top: 1px solid var(--border-light);
+}
+
+.family-profile-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border-light);
+  color: var(--text-muted);
+  padding: 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.family-profile-btn:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+@media (max-width: 1200px) {
+  .family-page-container { padding-left: 120px; }
+}
+
+@media (max-width: 992px) {
+  .family-stats-banner { grid-template-columns: 1fr; }
+  .family-search-box { width: 100%; }
+}
+
+@media (max-width: 768px) {
+  .family-page-container { padding: 90px 20px 40px 20px; }
+  .family-page-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .family-members-grid { grid-template-columns: 1fr; }
+}
