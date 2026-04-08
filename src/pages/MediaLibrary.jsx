@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Upload, Search, Grid, List, 
     Image as ImageIcon, Video, FileText, MoreVertical, 
-    Download, Trash2, HardDrive, Plus, X, File, FileArchive, Folder, ChevronRight, RefreshCw, CornerUpLeft, AlertCircle
+    Download, Trash2, HardDrive, Plus, X, RefreshCw, CornerUpLeft, AlertCircle, ChevronRight, Folder
 } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './MediaLibrary.css';
@@ -52,7 +52,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                         ...item,
                         isFolder: false,
                         fullPath,
-                        url: publicUrl,
+                        url: `${publicUrl}?t=${Date.now()}`,
                         type: getFileType(item.name)
                     });
                 }
@@ -72,9 +72,7 @@ const MediaLibrary = ({ isCollapsed }) => {
             sortBy: { column: 'name', order: 'asc' }
         });
 
-        if (error) {
-            console.error(error);
-        } else {
+        if (!error) {
             const processedFiles = data.map(item => {
                 const isFolder = !item.metadata;
                 const fullPath = path ? `${path}/${item.name}` : item.name;
@@ -84,7 +82,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                     ...item, 
                     isFolder,
                     fullPath,
-                    url: isFolder ? null : publicUrl, 
+                    url: isFolder ? null : `${publicUrl}?t=${Date.now()}`, 
                     type: isFolder ? 'folder' : getFileType(item.name) 
                 };
             });
@@ -140,26 +138,28 @@ const MediaLibrary = ({ isCollapsed }) => {
         
         setLoading(true);
         const { error } = await supabase.storage.from(BUCKET_NAME).upload(selectedItem.fullPath, file, {
-            cacheControl: '3600',
+            cacheControl: '0',
             upsert: true
         });
         
         if (error) {
-            alert("Failed to replace image: " + error.message);
+            alert("Failed to replace asset: " + error.message);
             setLoading(false);
         } else {
-            // Append a timestamp parameter to break the browser cache for the newly replaced image
-            const updatedUrl = selectedItem.url ? `${selectedItem.url.split('?')[0]}?t=${Date.now()}` : null;
-            setSelectedItem({ ...selectedItem, url: updatedUrl });
-            fetchFiles(currentPath);
-            fetchAllFlatMedia();
+            const { data: { publicUrl } } = supabase.storage.from(BUCKET_NAME).getPublicUrl(selectedItem.fullPath);
+            const freshUrl = `${publicUrl}?t=${Date.now()}`;
+            
+            setSelectedItem(prev => ({ ...prev, url: freshUrl }));
+            await fetchFiles(currentPath);
+            await fetchAllFlatMedia();
+            setLoading(false);
         }
     };
 
     const handleDelete = async (item) => {
         if (!window.confirm('Delete this item?')) return;
         const { error } = await supabase.storage.from(BUCKET_NAME).remove([item.fullPath]);
-        if (error) alert('Delete failed. Note: Folders must be empty to delete.');
+        if (error) alert('Delete failed.');
         else { setSelectedItem(null); fetchFiles(currentPath); fetchAllFlatMedia(); }
     };
 
@@ -168,16 +168,13 @@ const MediaLibrary = ({ isCollapsed }) => {
         const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesTab && matchesSearch;
     }).sort((a, b) => {
-        if (sortBy === 'sizeDesc') {
-            return Number(b.metadata?.size || 0) - Number(a.metadata?.size || 0);
-        } else if (sortBy === 'sizeAsc') {
-            return Number(a.metadata?.size || 0) - Number(b.metadata?.size || 0);
-        }
+        if (sortBy === 'sizeDesc') return Number(b.metadata?.size || 0) - Number(a.metadata?.size || 0);
+        if (sortBy === 'sizeAsc') return Number(a.metadata?.size || 0) - Number(b.metadata?.size || 0);
         return 0;
     });
 
     const totalBytes = allMediaFlat.reduce((acc, item) => acc + (item.metadata?.size || 0), 0);
-    const maxQuota = 5 * 1024 * 1024 * 1024; // 5 GB
+    const maxQuota = 5 * 1024 * 1024 * 1024;
     const fillPercent = Math.min((totalBytes / maxQuota) * 100, 100);
 
     return (
@@ -223,12 +220,7 @@ const MediaLibrary = ({ isCollapsed }) => {
             <div className="media-controls">
                 <div className="controls-left">
                     <div className="media-tabs">
-                        {[
-                            { id: 'all', label: 'All Files' },
-                            { id: 'image', label: 'Images' },
-                            { id: 'video', label: 'Videos' },
-                            { id: 'document', label: 'Documents' }
-                        ].map(tab => (
+                        {[{ id: 'all', label: 'All Files' }, { id: 'image', label: 'Images' }, { id: 'video', label: 'Videos' }, { id: 'document', label: 'Documents' }].map(tab => (
                             <button key={tab.id} className={activeTab === tab.id ? 'active' : ''} onClick={() => setActiveTab(tab.id)}>
                                 {tab.label}
                             </button>
@@ -253,12 +245,12 @@ const MediaLibrary = ({ isCollapsed }) => {
 
             <div className="media-content-layout">
                 <div className={`media-display-area ${selectedItem ? 'has-sidebar' : ''}`}>
-                    {(loading || (activeTab !== 'all' && isFetchingFlat)) ? <div className="loading-msg">Fetching Media...</div> : (
+                    {loading ? <div className="loading-msg">Refreshing Library...</div> : (
                         <div className={viewMode === 'grid' ? "media-grid" : "media-list-view"}>
                             {viewMode === 'grid' ? (
                                 <>
                                     {filteredMedia.map(item => (
-                                        <div key={item.fullPath || item.name} className={`media-card ${selectedItem?.fullPath === item.fullPath ? 'selected' : ''} ${item.isFolder ? 'folder-type' : ''}`} onClick={() => handleItemClick(item)}>
+                                        <div key={item.fullPath} className={`media-card ${selectedItem?.fullPath === item.fullPath ? 'selected' : ''} ${item.isFolder ? 'folder-type' : ''}`} onClick={() => handleItemClick(item)}>
                                             <div className="media-thumb">
                                                 {item.type === 'image' ? <img src={item.url} alt="" /> : 
                                                  item.isFolder ? <Folder size={40} fill="rgba(43, 127, 255, 0.2)" /> :
@@ -279,7 +271,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                                     <thead><tr><th>Name</th><th>Type</th><th>Size</th><th>Actions</th></tr></thead>
                                     <tbody>
                                         {filteredMedia.map(item => (
-                                            <tr key={item.fullPath || item.name} onClick={() => handleItemClick(item)} className={selectedItem?.fullPath === item.fullPath ? 'selected' : ''}>
+                                            <tr key={item.fullPath} onClick={() => handleItemClick(item)} className={selectedItem?.fullPath === item.fullPath ? 'selected' : ''}>
                                                 <td><div className="list-name-cell">{item.isFolder ? <Folder size={18}/> : <ImageIcon size={18} />}<span>{item.name}</span></div></td>
                                                 <td><span className={`type-badge ${item.type}`}>{item.type}</span></td>
                                                 <td>{formatSize(item.metadata?.size)}</td>
@@ -296,16 +288,16 @@ const MediaLibrary = ({ isCollapsed }) => {
                 {selectedItem && (
                     <aside className="media-details-sidebar">
                         <div className="sidebar-head"><h3>Details</h3><button onClick={() => setSelectedItem(null)}><X size={18} /></button></div>
-                        <div className="detail-preview">{selectedItem.type === 'image' ? <img src={selectedItem.url} alt="" /> : <FileText size={48} />}</div>
+                        <div className="detail-preview">{selectedItem.type === 'image' ? <img src={selectedItem.url} key={selectedItem.url} alt="" /> : <FileText size={48} />}</div>
                         <div className="detail-list">
                             <div className="detail-row"><label>Name</label><span>{selectedItem.name}</span></div>
                             <div className="detail-row"><label>Path</label><span style={{fontSize: '11px'}}>{selectedItem.fullPath}</span></div>
                             <div className="detail-row"><label>Size</label><span>{formatSize(selectedItem.metadata?.size)}</span></div>
                         </div>
                         <div className="detail-actions">
-                            {['image', 'video', 'document', 'archive'].includes(selectedItem.type) && (
+                            {!selectedItem.isFolder && (
                                 <button className="btn-detail-outline" onClick={() => setReplaceModalOpen(true)}>
-                                    <RefreshCw size={18} /> Replace File
+                                    <RefreshCw size={18} /> Replace Asset
                                 </button>
                             )}
                             <a href={selectedItem.url} download target="_blank" rel="noreferrer" className="btn-detail-primary"><Download size={18} /> Download</a>
@@ -318,18 +310,12 @@ const MediaLibrary = ({ isCollapsed }) => {
             {replaceModalOpen && (
                 <div className="media-modal-overlay">
                     <div className="media-modal-card">
-                        <div className="media-modal-icon warning">
-                            <AlertCircle size={32} />
-                         </div>
+                        <div className="media-modal-icon warning"><AlertCircle size={32} /></div>
                         <h2>Replace Asset?</h2>
-                        <p>Are you sure you want to replace this file? It will be updated instantly everywhere it's being used across your application.</p>
+                        <p>This action will overwrite the existing file at this path instantly across the whole application.</p>
                         <div className="media-modal-actions">
-                            <button className="media-modal-btn-secondary" onClick={() => setReplaceModalOpen(false)}>
-                                Cancel
-                            </button>
-                            <button className="media-modal-btn-warning" onClick={() => { setReplaceModalOpen(false); replaceInputRef.current.click(); }}>
-                                Yes, Replace File
-                            </button>
+                            <button className="media-modal-btn-secondary" onClick={() => setReplaceModalOpen(false)}>Cancel</button>
+                            <button className="media-modal-btn-warning" onClick={() => { setReplaceModalOpen(false); replaceInputRef.current.click(); }}>Yes, Replace</button>
                         </div>
                     </div>
                 </div>
