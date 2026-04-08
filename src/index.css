@@ -7,9 +7,13 @@
   --font-title: 'Instrument Serif', serif;
 
   /* Colors - Brand (Base) */
-  --primary: #2B7FFF;
-  --primary-glow: rgba(43, 127, 255, 0.25);
+  --primary: #2b7fff;
+  --primary-transparent: rgba(43, 127, 255, 0.1);
   --success: #10b981;
+  --toggle-off: #374151;
+  --toggle-on: var(--success);
+  --toggle-handle: #ffffff;
+  --primary-glow: rgba(43, 127, 255, 0.25);
   --danger: #ef4444;
   --warning: #f97316;
   

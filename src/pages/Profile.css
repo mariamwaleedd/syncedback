@@ -336,29 +336,7 @@
   font-size: 13px;
 }
 
-/* Switch Styles */
-.profile-toggle-box { position: relative; width: 50px; height: 26px; }
-.profile-toggle-box input { opacity: 0; width: 0; height: 0; }
-.profile-toggle-box label {
-  position: absolute;
-  cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: var(--bg-card-hover);
-  transition: .3s;
-  border-radius: 34px;
-  border: 1px solid var(--border-light);
-}
-.profile-toggle-box label::before {
-  position: absolute;
-  content: "";
-  height: 18px; width: 18px;
-  left: 3px; bottom: 3px;
-    color: var(--text-main);
-  transition: .3s;
-  border-radius: 50%;
-}
-.profile-toggle-box input:checked + label { background-color: var(--primary); border-color: var(--primary); }
-.profile-toggle-box input:checked + label::before { transform: translateX(24px); }
+.profile-sec-action-btn:hover { background: var(--white-12); }
 
 @media (max-width: 1200px) {
   .profile-grid { grid-template-columns: 1fr; gap: 20px; }

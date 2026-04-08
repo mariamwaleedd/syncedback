@@ -7,6 +7,16 @@ import {
 import './Profile.css';
 
 const Profile = ({ isCollapsed }) => {
+  const [toggleStates, setToggleStates] = React.useState({
+    tfa: true,
+    email: true,
+    push: true
+  });
+
+  const handleToggle = (key) => {
+    setToggleStates(prev => ({ ...prev, [key]: !prev[key] }));
+  };
+
   return (
     <div className={`dashboard-container profile-page ${isCollapsed ? 'is-collapsed' : ''}`}>
       <div className="profile-header-banner">
@@ -146,9 +156,8 @@ const Profile = ({ isCollapsed }) => {
                     <p>Enabled for extra safety</p>
                   </div>
                 </div>
-                <div className="profile-toggle-box">
-                  <input type="checkbox" id="2fa-toggle" defaultChecked />
-                  <label htmlFor="2fa-toggle"></label>
+                <div className={`custom-toggle ${toggleStates.tfa ? 'active' : ''}`} onClick={() => handleToggle('tfa')}>
+                  <div className="handle"></div>
                 </div>
               </div>
             </div>
@@ -162,16 +171,14 @@ const Profile = ({ isCollapsed }) => {
             <div className="profile-pref-list">
               <div className="profile-pref-row">
                 <span>Email Notifications</span>
-                <div className="profile-toggle-box">
-                  <input type="checkbox" id="pref-email" defaultChecked />
-                  <label htmlFor="pref-email"></label>
+                <div className={`custom-toggle ${toggleStates.email ? 'active' : ''}`} onClick={() => handleToggle('email')}>
+                  <div className="handle"></div>
                 </div>
               </div>
               <div className="profile-pref-row">
                 <span>Push Updates</span>
-                <div className="profile-toggle-box">
-                  <input type="checkbox" id="pref-push" defaultChecked />
-                  <label htmlFor="pref-push"></label>
+                <div className={`custom-toggle ${toggleStates.push ? 'active' : ''}`} onClick={() => handleToggle('push')}>
+                  <div className="handle"></div>
                 </div>
               </div>
             </div>

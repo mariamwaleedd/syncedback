@@ -243,27 +243,6 @@
 .notif-info h4 { margin: 0; font-size: 1rem; }
 .notif-info p { margin: 5px 0 0 0; font-size: 0.85rem; color: var(--text-dim); }
 
-.custom-toggle {
-    width: 50px;
-    height: 26px;
-    background: var(--border-light);
-    border-radius: 20px;
-    padding: 3px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.custom-toggle.active { background: var(--success); }
-.custom-toggle .handle {
-    width: 20px;
-    height: 20px;
-    background: white;
-    border-radius: 50%;
-    transition: 0.3s;
-}
-
-.custom-toggle.active .handle { transform: translateX(24px); }
-
 .appearance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
 .appearance-option label { display: block; margin-bottom: 15px; font-weight: 600; color: var(--text-muted); }
 

@@ -223,8 +223,13 @@
 .security-card svg { color: var(--primary); }
 .emergency-alert-card svg { color: var(--danger); }
 
+.alert-info { flex: 1; min-width: 0; }
 .security-info h4, .alert-info h4 { margin: 0 0 5px 0; color: var(--text-main); }
 .security-info p, .alert-info p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
+
+.emergency-alert-card .custom-toggle {
+  margin-left: auto;
+}
 
 .security-btn {
   margin-left: auto;

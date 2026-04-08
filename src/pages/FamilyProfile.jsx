@@ -20,6 +20,8 @@ const FamilyProfile = ({ isCollapsed }) => {
   const navigate = useNavigate();
   const member = familyData.find(m => m.id === parseInt(id));
 
+  const [emergencyAlert, setEmergencyAlert] = React.useState(true);
+
   if (!member) {
     return <div className="profile-error">Member not found</div>;
   }
@@ -151,7 +153,9 @@ const FamilyProfile = ({ isCollapsed }) => {
               <h4>Emergency Contact</h4>
               <p>Notify primary health provider in case of score drop below 70%.</p>
             </div>
-            <div className="toggle-switch"></div>
+            <div className={`custom-toggle ${emergencyAlert ? 'active' : ''}`} onClick={() => setEmergencyAlert(!emergencyAlert)}>
+              <div className="handle"></div>
+            </div>
           </div>
         </section>
       </div>
