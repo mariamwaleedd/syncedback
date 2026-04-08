@@ -86,25 +86,20 @@ const Messages = ({ isCollapsed }) => {
                 <div className="confirm-modal-overlay">
                     <div className="confirm-modal-content">
                         <AlertCircle size={40} color="#f87171" />
-                        <h3>Are you sure?</h3>
-                        <p>Do you really want to {confirmModal.action} this {confirmModal.category}? This action might be permanent.</p>
+                        <h3>Confirm Action</h3>
+                        <p>Are you sure you want to {confirmModal.action} this {confirmModal.category}?</p>
                         <div className="confirm-modal-btns">
                             <button className="cancel-confirm" onClick={() => setConfirmModal({ show: false })}>Cancel</button>
-                            <button className="execute-confirm" onClick={executeAction}>Confirm {confirmModal.action}</button>
+                            <button className="execute-confirm" onClick={executeAction}>Confirm</button>
                         </div>
                     </div>
                 </div>
             )}
 
             <header className="messages-msg-header">
-                <div className="messages-messages-msg-header-left">
-                    <button className="messages-msg-back-btn" onClick={() => navigate(-1)}>
-                        <ArrowLeft size={20} />
-                    </button>
-                    <div className="messages-msg-titles">
-                        <h1>Management Center</h1>
-                        <p>Handle your website reviews and inquiries</p>
-                    </div>
+                <div className="messages-msg-titles">
+                    <h1>Management Center</h1>
+                    <p>Manage all reviews and contact form submissions</p>
                 </div>
             </header>
 
@@ -116,38 +111,36 @@ const Messages = ({ isCollapsed }) => {
                 </div>
                 <div className="messages-msg-stat-card">
                     <div className="messages-msg-icon-box light-blue"><Mail size={20} /></div>
-                    <h3>Inbox Messages</h3>
-                    <div className="messages-msg-stat-val">{contactMessages.filter(m => m.status_en !== 'Archived').length}</div>
+                    <h3>Contact Messages</h3>
+                    <div className="messages-msg-stat-val">{contactMessages.length}</div>
+                </div>
+                <div className="messages-msg-stat-card">
+                    <div className="messages-msg-icon-box messages-blue-grad"><Check size={20} /></div>
+                    <h3>Live Reviews</h3>
+                    <div className="messages-msg-stat-val">{approvedReviews.length}</div>
                 </div>
             </div>
 
             <section className="messages-inbox-container review-section-box">
-                <div className="messages-inbox-header-row">
-                    <h2 className="section-title pending-title">Pending Reviews</h2>
-                </div>
-                <div className="messages-messages-inbox-table-wrapper">
+                <h2 className="section-title pending-title">Pending Reviews (Approval Required)</h2>
+                <div className="messages-inbox-table-wrapper">
                     <table className="messages-inbox-table">
                         <thead>
-                            <tr>
-                                <th>Sender</th>
-                                <th>Role</th>
-                                <th>Content</th>
-                                <th>Actions</th>
-                            </tr>
+                            <tr><th>Sender</th><th>Role</th><th>Content</th><th>Actions</th></tr>
                         </thead>
                         <tbody>
                             {pendingReviews.length === 0 ? (
-                                <tr><td colSpan="4" className="empty-row">No reviews waiting</td></tr>
+                                <tr><td colSpan="4" className="empty-row">No pending reviews found.</td></tr>
                             ) : (
-                                pendingReviews.map((review) => (
-                                    <tr key={review.id} onClick={() => goToDetails(review, true)}>
-                                        <td>{review.name_en}</td>
-                                        <td>{review.role_en}</td>
-                                        <td className="msg-subject">{review.content_en?.substring(0, 40)}...</td>
+                                pendingReviews.map((r) => (
+                                    <tr key={r.id} onClick={() => goToDetails(r, true)}>
+                                        <td>{r.name_en}</td>
+                                        <td>{r.role_en}</td>
+                                        <td>{r.content_en?.substring(0, 40)}...</td>
                                         <td>
                                             <div className="action-btn-group">
-                                                <button className="btn-approve" onClick={(e) => triggerConfirm(e, review.id, 'review', 'approve')}><Check size={16} /></button>
-                                                <button className="btn-delete" onClick={(e) => triggerConfirm(e, review.id, 'review', 'delete')}><Trash2 size={16} /></button>
+                                                <button className="btn-approve" onClick={(e) => triggerConfirm(e, r.id, 'review', 'approve')}><Check size={16} /></button>
+                                                <button className="btn-delete" onClick={(e) => triggerConfirm(e, r.id, 'review', 'delete')}><Trash2 size={16} /></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -159,64 +152,53 @@ const Messages = ({ isCollapsed }) => {
             </section>
 
             <section className="messages-inbox-container review-section-box">
-                <div className="messages-inbox-header-row">
-                    <h2 className="section-title live-title">Website Messages</h2>
-                </div>
-                <div className="messages-messages-inbox-table-wrapper">
+                <h2 className="section-title live-title">Website Contact Inquiries</h2>
+                <div className="messages-inbox-table-wrapper">
                     <table className="messages-inbox-table">
                         <thead>
-                            <tr>
-                                <th>Status</th>
-                                <th>Sender</th>
-                                <th>Subject</th>
-                                <th>Date</th>
-                                <th>Actions</th>
-                            </tr>
+                            <tr><th>Status</th><th>Sender</th><th>Subject</th><th>Date</th><th>Actions</th></tr>
                         </thead>
                         <tbody>
-                            {contactMessages.map((msg) => (
-                                <tr key={msg.id} onClick={() => goToDetails(msg, false, true)}>
-                                    <td><span className={`messages-status-badge ${msg.status_en?.toLowerCase()}`}>{msg.status_en}</span></td>
-                                    <td>{msg.sender_name_en}</td>
-                                    <td className="msg-subject">{msg.subject_en}</td>
-                                    <td>{new Date(msg.created_at).toLocaleDateString()}</td>
-                                    <td>
-                                        <div className="action-btn-group">
-                                            <button className="btn-archive" onClick={(e) => triggerConfirm(e, msg.id, 'message', 'archive')}><Archive size={16} /></button>
-                                            <button className="btn-delete" onClick={(e) => triggerConfirm(e, msg.id, 'message', 'delete')}><Trash2 size={16} /></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            ))}
+                            {contactMessages.length === 0 ? (
+                                <tr><td colSpan="5" className="empty-row">No contact messages found.</td></tr>
+                            ) : (
+                                contactMessages.map((msg) => (
+                                    <tr key={msg.id} onClick={() => goToDetails(msg, false, true)}>
+                                        <td><span className={`messages-status-badge ${(msg.status_en || 'New').toLowerCase()}`}>{msg.status_en || 'New'}</span></td>
+                                        <td>{msg.sender_name_en}</td>
+                                        <td>{msg.subject_en}</td>
+                                        <td>{new Date(msg.created_at).toLocaleDateString()}</td>
+                                        <td>
+                                            <div className="action-btn-group">
+                                                <button className="btn-archive" onClick={(e) => triggerConfirm(e, msg.id, 'message', 'archive')}><Archive size={16} /></button>
+                                                <button className="btn-delete" onClick={(e) => triggerConfirm(e, msg.id, 'message', 'delete')}><Trash2 size={16} /></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
                         </tbody>
                     </table>
                 </div>
             </section>
 
             <section className="messages-inbox-container review-section-box">
-                <div className="messages-inbox-header-row">
-                    <h2 className="section-title live-title">Live Website Reviews</h2>
-                </div>
-                <div className="messages-messages-inbox-table-wrapper">
+                <h2 className="section-title live-title">Approved Live Reviews</h2>
+                <div className="messages-inbox-table-wrapper">
                     <table className="messages-inbox-table">
                         <thead>
-                            <tr>
-                                <th>Sender</th>
-                                <th>Role</th>
-                                <th>Content</th>
-                                <th>Actions</th>
-                            </tr>
+                            <tr><th>Sender</th><th>Role</th><th>Content</th><th>Actions</th></tr>
                         </thead>
                         <tbody>
-                            {approvedReviews.map((review) => (
-                                <tr key={review.id} onClick={() => goToDetails(review, true)}>
-                                    <td>{review.name_en}</td>
-                                    <td>{review.role_en}</td>
-                                    <td className="msg-subject">{review.content_en?.substring(0, 40)}...</td>
+                            {approvedReviews.map((r) => (
+                                <tr key={r.id} onClick={() => goToDetails(r, true)}>
+                                    <td>{r.name_en}</td>
+                                    <td>{r.role_en}</td>
+                                    <td>{r.content_en?.substring(0, 40)}...</td>
                                     <td>
                                         <div className="action-btn-group">
-                                            <button className="btn-archive" onClick={(e) => triggerConfirm(e, review.id, 'review', 'archive')}><Archive size={16} /></button>
-                                            <button className="btn-delete" onClick={(e) => triggerConfirm(e, review.id, 'review', 'delete')}><Trash2 size={16} /></button>
+                                            <button className="btn-archive" onClick={(e) => triggerConfirm(e, r.id, 'review', 'archive')}><Archive size={16} /></button>
+                                            <button className="btn-delete" onClick={(e) => triggerConfirm(e, r.id, 'review', 'delete')}><Trash2 size={16} /></button>
                                         </div>
                                     </td>
                                 </tr>
