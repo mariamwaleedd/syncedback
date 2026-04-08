@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Filter, Plus, Search, Eye, Users, 
-    TrendingUp, MousePointer2, Mail, MoreVertical, Check, Trash2, Archive, AlertCircle, X
+    TrendingUp, MousePointer2, Mail, MoreVertical, Check, Trash2, Archive, AlertCircle, X, RotateCcw
 } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './Messages.css';
@@ -14,6 +14,7 @@ const Messages = ({ isCollapsed }) => {
     const [contactMessages, setContactMessages] = useState([]);
     const [notification, setNotification] = useState({ show: false, message: "", type: "" });
     const [confirmModal, setConfirmModal] = useState({ show: false, id: null, category: null, action: null });
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     const showNotify = (message, type) => {
         setNotification({ show: true, message, type });
@@ -28,6 +29,13 @@ const Messages = ({ isCollapsed }) => {
         setPendingReviews(pending || []);
         setApprovedReviews(approved || []);
         setContactMessages(contacts || []);
+    };
+
+    const handleRefresh = async () => {
+        setIsRefreshing(true);
+        await fetchData();
+        setTimeout(() => setIsRefreshing(false), 600);
+        showNotify("Inbox updated", "success");
     };
 
     useEffect(() => {
@@ -101,6 +109,13 @@ const Messages = ({ isCollapsed }) => {
                     <h1>Management Center</h1>
                     <p>Manage all reviews and contact form submissions</p>
                 </div>
+                <button 
+                    className={`messages-refresh-btn ${isRefreshing ? 'spinning' : ''}`} 
+                    onClick={handleRefresh}
+                    disabled={isRefreshing}
+                >
+                    <RotateCcw size={20} />
+                </button>
             </header>
 
             <div className="messages-msg-stats-grid">
