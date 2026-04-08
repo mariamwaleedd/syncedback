@@ -248,9 +248,11 @@
 }
 
 @media (max-width: 768px) {
-  .family-page-container { padding: 90px 20px 40px 20px; }
+  .family-page-container, .family-page-container.is-collapsed { padding: 90px 15px 40px 15px; }
   .family-page-header { flex-direction: column; align-items: flex-start; gap: 20px; }
   .family-members-grid { grid-template-columns: 1fr; }
+  .family-page-titles h1 { font-size: 1.8rem; }
+  .family-search-box { width: 100%; }
 }
 
 .family-more-actions {

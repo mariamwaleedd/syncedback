@@ -88,8 +88,11 @@
 .execute-confirm { background: #ef4444; color: white; }
 
 @media (max-width: 768px) {
-    .messages-page { padding: 100px 20px; }
+    .messages-page, .messages-page.is-collapsed { padding: 100px 15px 40px 15px; }
     .messages-msg-stats-grid { grid-template-columns: 1fr; }
+    .messages-msg-titles h1 { font-size: 1.8rem; }
+    .messages-msg-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+    .confirm-modal-content { width: 90%; }
 }
 .messages-refresh-btn {
     background: var(--white-05);

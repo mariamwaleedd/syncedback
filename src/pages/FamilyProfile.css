@@ -255,7 +255,9 @@
 }
 
 @media (max-width: 768px) {
-  .family-profile-container { padding: 90px 20px 40px 20px; }
-  .profile-hero-header { flex-direction: column; text-align: center; padding-top: 80px; }
+  .family-profile-container, .family-profile-container.is-collapsed { padding: 90px 15px 40px 15px; }
+  .profile-hero-header { flex-direction: column; text-align: center; padding-top: 80px; gap: 20px; }
+  .profile-hero-content { flex-direction: column; align-items: center; }
   .profile-badges { justify-content: center; }
+  .profile-main-info h1 { font-size: 2rem; }
 }

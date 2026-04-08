@@ -199,9 +199,10 @@
 }
 
 @media (max-width: 768px) {
-  .activities-page-container { padding: 100px 20px 40px 20px; }
+  .activities-page-container, .activities-page-container.is-collapsed { padding: 100px 15px 40px 15px; }
   .activities-page-header { flex-direction: column; align-items: flex-start; gap: 20px; }
   .activities-header-stats { width: 100%; justify-content: center; }
   .activities-card-header { flex-direction: column; gap: 10px; }
   .activities-card-meta { width: 100%; justify-content: space-between; }
+  .activities-titles h1 { font-size: 1.8rem; }
 }

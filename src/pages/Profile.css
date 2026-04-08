@@ -344,11 +344,14 @@
 
 @media (max-width: 768px) {
   .profile-page, .profile-page.is-collapsed { padding: 100px 15px 40px 15px; }
-  .profile-header-banner { height: 200px; padding: 0 25px 25px; }
-  .profile-avatar { width: 100px; height: 100px; font-size: 44px; border-radius: 30px; }
-  .profile-name-section h1 { font-size: 30px; }
-  .profile-grid { margin-top: 60px; }
-  .profile-input-row { grid-template-columns: 1fr; }
+  .profile-header-banner { height: 180px; padding: 0 20px 20px; border-radius: 20px; }
+  .profile-main-info { flex-direction: column; align-items: center; text-align: center; }
+  .profile-name-with-badge { flex-direction: column; align-items: center; gap: 10px; }
+  .profile-avatar { width: 90px; height: 90px; font-size: 40px; border-radius: 28px; }
+  .profile-name-section h1 { font-size: 26px; }
+  .profile-grid { margin-top: 50px; }
+  .profile-input-row { grid-template-columns: 1fr; gap: 20px; }
   .profile-stats-inner-grid { grid-template-columns: repeat(2, 1fr); }
+  .profile-card { padding: 25px; }
 }
 
