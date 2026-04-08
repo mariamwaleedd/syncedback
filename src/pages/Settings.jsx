@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { 
     User, Shield, Bell, Palette, Globe, 
     Save, Trash2, Camera, Lock, Eye, 
-    EyeOff, Check, Moon, Sun, Smartphone,
-    ChevronRight, LogOut
+    EyeOff, Moon, Sun, Smartphone,
+    LogOut
 } from 'lucide-react';
 import './Settings.css';
 

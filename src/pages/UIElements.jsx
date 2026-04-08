@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-    ArrowLeft, Plus, Save, Trash2, Edit2, 
-    Check, X, AlertCircle, Info, Bell, 
-    Search, Mail, Lock, User, Globe, 
-    MoreVertical, Download, ExternalLink,
-    ChevronRight, ChevronDown, Monitor, Smartphone, Tablet
+    ArrowLeft, Plus, Trash2, Edit2,
+    Check, AlertCircle, Info,
+    Search, Globe, ExternalLink,
+    Monitor, Smartphone, Tablet
 } from 'lucide-react';
 import './UIElements.css';
 
