@@ -308,17 +308,26 @@ const MediaLibrary = ({ isCollapsed }) => {
                         <div className={viewMode === 'grid' ? "media-grid" : "media-list-view"}>
                             {viewMode === 'grid' ? (
                                 <>
-                                    {filteredMedia.map(item => (
-                                        <div key={item.fullPath} className={`media-card ${selectedItem?.fullPath === item.fullPath ? 'selected' : ''} ${item.isFolder ? 'folder-type' : ''}`} onClick={() => handleItemClick(item)}>
+                                    {filteredMedia.map(item => item.isFolder ? (
+                                        <div key={item.fullPath} className={`folder-premium-card ${selectedItem?.fullPath === item.fullPath ? 'selected' : ''}`} onClick={() => handleItemClick(item)}>
+                                            <div className="folder-icon-glow">
+                                                <Folder size={32} fill="var(--primary)" stroke="var(--primary)" />
+                                            </div>
+                                            <div className="folder-details">
+                                                <span className="folder-name">{item.name}</span>
+                                                <span className="folder-desc">Double-click or Tap to Open</span>
+                                            </div>
+                                            <ChevronRight size={20} className="folder-arrow" />
+                                        </div>
+                                    ) : (
+                                        <div key={item.fullPath} className={`media-card ${selectedItem?.fullPath === item.fullPath ? 'selected' : ''}`} onClick={() => handleItemClick(item)}>
                                             <div className="media-thumb">
-                                                {item.type === 'image' ? <img src={item.url} alt="" /> : 
-                                                 item.isFolder ? <Folder size={40} fill="rgba(43, 127, 255, 0.2)" /> :
-                                                 <FileText size={32} />}
+                                                {item.type === 'image' ? <img src={item.url} alt="" /> : <FileText size={32} />}
                                             </div>
                                             <div className="media-info">
                                                 <span className="file-name">{item.name}</span>
                                                 <div className="file-meta">
-                                                    <span>{item.isFolder ? 'Folder' : formatSize(item.metadata?.size)}</span>
+                                                    <span>{formatSize(item.metadata?.size)}</span>
                                                 </div>
                                             </div>
                                         </div>
