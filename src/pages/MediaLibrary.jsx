@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Upload, Search, Grid, List, 
     Image as ImageIcon, Video, FileText, MoreVertical, 
-    Download, Trash2, HardDrive, Plus, X, RefreshCw, CornerUpLeft, AlertCircle, ChevronRight, Folder
+    Download, Trash2, HardDrive, Plus, X, RefreshCw, CornerUpLeft, AlertCircle, ChevronRight, Folder,
+    CheckCircle, Loader
 } from 'lucide-react';
 import { supabase } from '../Supabase';
 import './MediaLibrary.css';
@@ -23,8 +24,30 @@ const MediaLibrary = ({ isCollapsed }) => {
     const [isFetchingFlat, setIsFetchingFlat] = useState(false);
     const [replaceModalOpen, setReplaceModalOpen] = useState(false);
     const [sortBy, setSortBy] = useState('default');
+    const [addModalOpen, setAddModalOpen] = useState(false);
+    const [selectedUploadFolder, setSelectedUploadFolder] = useState('General');
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
+    const [toast, setToast] = useState({ visible: false, message: '', type: 'loading' });
 
     const BUCKET_NAME = 'Synced';
+
+    const PREDEFINED_SECTIONS = [
+        { id: 'General', label: 'General / Root' },
+        { id: 'Hero', label: 'Hero Section' },
+        { id: 'Activities', label: 'Activities Page' },
+        { id: 'Analytics', label: 'Analytics System' },
+        { id: 'Family', label: 'Family Profiles' },
+        { id: 'Messages', label: 'Messages System' },
+        { id: 'Help', label: 'Help & Documentation' },
+    ];
+
+    const showToast = (message, type = 'success', duration = 3000) => {
+        setToast({ visible: true, message, type });
+        if (type !== 'loading') {
+            setTimeout(() => setToast({ visible: false, message: '', type: 'loading' }), duration);
+        }
+    };
 
     useEffect(() => {
         fetchFiles(currentPath);
@@ -123,13 +146,34 @@ const MediaLibrary = ({ isCollapsed }) => {
         setCurrentPath(parts.join('/'));
     };
 
+    const handleAddClick = () => {
+        setSelectedUploadFolder(currentPath || 'General'); 
+        setAddModalOpen(true);
+    };
+
+    const handleConfirmAdd = () => {
+        fileInputRef.current.click();
+        setAddModalOpen(false);
+    };
+
     const handleUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        const uploadPath = currentPath ? `${currentPath}/${file.name}` : file.name;
+        
+        const folderPath = selectedUploadFolder !== 'General' ? selectedUploadFolder : '';
+        const uploadPath = folderPath ? `${folderPath}/${file.name}` : file.name;
+        
+        showToast(`Uploading ${file.name}...`, 'loading');
+        
         const { error } = await supabase.storage.from(BUCKET_NAME).upload(uploadPath, file);
-        if (error) alert(error.message);
-        else { fetchFiles(currentPath); fetchAllFlatMedia(); }
+        if (error) {
+            showToast(error.message, 'error');
+        } else {
+            showToast('Media uploaded successfully!', 'success');
+            fetchFiles(currentPath); 
+            fetchAllFlatMedia();
+        }
+        e.target.value = null;
     };
 
     const handleReplace = async (e) => {
@@ -156,11 +200,26 @@ const MediaLibrary = ({ isCollapsed }) => {
         }
     };
 
-    const handleDelete = async (item) => {
-        if (!window.confirm('Delete this item?')) return;
-        const { error } = await supabase.storage.from(BUCKET_NAME).remove([item.fullPath]);
-        if (error) alert('Delete failed.');
-        else { setSelectedItem(null); fetchFiles(currentPath); fetchAllFlatMedia(); }
+    const requestDelete = (item) => {
+        setItemToDelete(item);
+        setDeleteModalOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        if (!itemToDelete) return;
+        setDeleteModalOpen(false);
+        showToast(`Deleting ${itemToDelete.name}...`, 'loading');
+        
+        const { error } = await supabase.storage.from(BUCKET_NAME).remove([itemToDelete.fullPath]);
+        if (error) {
+            showToast('Delete failed: ' + error.message, 'error');
+        } else {
+            showToast('Item deleted successfully!', 'success');
+            setSelectedItem(null); 
+            fetchFiles(currentPath); 
+            fetchAllFlatMedia();
+        }
+        setItemToDelete(null);
     };
 
     const filteredMedia = (activeTab === 'all' ? files : allMediaFlat).filter(item => {
@@ -211,7 +270,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                             <CornerUpLeft size={18} /> Back
                         </button>
                     )}
-                    <button className="upload-main-btn" onClick={() => fileInputRef.current.click()}>
+                    <button className="upload-main-btn" onClick={handleAddClick}>
                         <Upload size={18} /><span>Upload Here</span>
                     </button>
                 </div>
@@ -264,7 +323,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                                             </div>
                                         </div>
                                     ))}
-                                    <div className="add-media-placeholder" onClick={() => fileInputRef.current.click()}><Plus size={32} /><span>Add File</span></div>
+                                    <div className="add-media-placeholder" onClick={handleAddClick}><Plus size={32} /><span>Add File</span></div>
                                 </>
                             ) : (
                                 <table className="media-table">
@@ -275,7 +334,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                                                 <td><div className="list-name-cell">{item.isFolder ? <Folder size={18}/> : <ImageIcon size={18} />}<span>{item.name}</span></div></td>
                                                 <td><span className={`type-badge ${item.type}`}>{item.type}</span></td>
                                                 <td>{formatSize(item.metadata?.size)}</td>
-                                                <td><button className="list-action" onClick={(e) => { e.stopPropagation(); handleDelete(item); }}><Trash2 size={16} /></button></td>
+                                                <td><button className="list-action" onClick={(e) => { e.stopPropagation(); requestDelete(item); }}><Trash2 size={16} /></button></td>
                                             </tr>
                                         ))}
                                     </tbody>
@@ -301,7 +360,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                                 </button>
                             )}
                             <a href={selectedItem.url} download target="_blank" rel="noreferrer" className="btn-detail-primary"><Download size={18} /> Download</a>
-                            <button className="btn-detail-secondary" onClick={() => handleDelete(selectedItem)}><Trash2 size={18} /> Delete</button>
+                            <button className="btn-detail-secondary" onClick={() => requestDelete(selectedItem)}><Trash2 size={18} /> Delete</button>
                         </div>
                     </aside>
                 )}
@@ -318,6 +377,52 @@ const MediaLibrary = ({ isCollapsed }) => {
                             <button className="media-modal-btn-warning" onClick={() => { setReplaceModalOpen(false); replaceInputRef.current.click(); }}>Yes, Replace</button>
                         </div>
                     </div>
+                </div>
+            )}
+
+            {deleteModalOpen && (
+                <div className="media-modal-overlay">
+                    <div className="media-modal-card">
+                        <div className="media-modal-icon danger"><Trash2 size={32} /></div>
+                        <h2>Delete Asset?</h2>
+                        <p>Are you absolutely sure you want to delete <strong>{itemToDelete?.name}</strong>? This action cannot be undone and may break links in your application.</p>
+                        <div className="media-modal-actions">
+                            <button className="media-modal-btn-secondary" onClick={() => setDeleteModalOpen(false)}>Cancel</button>
+                            <button className="media-modal-btn-danger" onClick={confirmDelete}>Yes, Delete It</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {addModalOpen && (
+                <div className="media-modal-overlay">
+                    <div className="media-modal-card">
+                        <div className="media-modal-icon primary"><Upload size={32} /></div>
+                        <h2>Upload Media</h2>
+                        <p>Where would you like to add this new media file? Select the appropriate page or section.</p>
+                        <select 
+                            className="media-modal-select" 
+                            value={selectedUploadFolder} 
+                            onChange={(e) => setSelectedUploadFolder(e.target.value)}
+                        >
+                            {PREDEFINED_SECTIONS.map(sec => (
+                                <option key={sec.id} value={sec.id}>{sec.label}</option>
+                            ))}
+                        </select>
+                        <div className="media-modal-actions">
+                            <button className="media-modal-btn-secondary" onClick={() => setAddModalOpen(false)}>Cancel</button>
+                            <button className="media-modal-btn-primary" onClick={handleConfirmAdd}>Browse File...</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {toast.visible && (
+                <div className={`media-toast ${toast.type}`}>
+                    {toast.type === 'loading' && <Loader className="media-toast-icon loading" size={20} />}
+                    {toast.type === 'success' && <CheckCircle className="media-toast-icon success" size={20} />}
+                    {toast.type === 'error' && <AlertCircle className="media-toast-icon error" size={20} />}
+                    <span>{toast.message}</span>
                 </div>
             )}
         </div>

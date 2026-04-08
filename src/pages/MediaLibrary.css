@@ -421,3 +421,72 @@
     from { opacity: 0; transform: translateY(20px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* Base Modal Icons / Buttons additions */
+.media-modal-icon.danger { background: var(--danger-10); color: var(--danger); }
+.media-modal-btn-danger { background: var(--danger); border: none; color: white; box-shadow: 0 4px 12px var(--danger-25); }
+.media-modal-btn-danger:hover { background: #dc2626; transform: translateY(-2px); box-shadow: 0 6px 15px var(--danger-35); }
+
+.media-modal-icon.primary { background: var(--primary-10); color: var(--primary); }
+.media-modal-btn-primary { background: var(--primary); border: none; color: white; box-shadow: 0 4px 12px var(--primary-25); }
+.media-modal-btn-primary:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 6px 15px var(--primary-35); }
+
+.media-modal-select {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 25px;
+    background: var(--bg-sidebar);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    color: var(--text-main);
+    font-size: 1rem;
+    outline: none;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: auto;
+}
+.media-modal-select:focus {
+    border-color: var(--primary);
+}
+.media-modal-select option { 
+    background: var(--bg-card); 
+}
+
+/* Toast Notifications */
+.media-toast {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px var(--black-50);
+    z-index: 10500;
+    animation: slideUpToast 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.media-toast.loading { border-left: 4px solid var(--primary); }
+.media-toast.success { border-left: 4px solid var(--success); }
+.media-toast.error { border-left: 4px solid var(--danger); }
+
+.media-toast-icon.loading { animation: spin 1s linear infinite; color: var(--primary); }
+.media-toast-icon.success { color: var(--success); }
+.media-toast-icon.error { color: var(--danger); }
+
+.media-toast span {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+@keyframes slideUpToast { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+@keyframes spin { 
+    100% { transform: rotate(360deg); } 
+}
