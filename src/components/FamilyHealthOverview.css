@@ -39,16 +39,24 @@
   background: transparent;
   border: none;
   color: var(--text-muted);
-  padding: 10px 20px;
+  padding: 10px 24px;
   border-radius: 10px;
   cursor: pointer;
   font-size: 14px;
-  transition: var(--transition-fast);
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.familyhealthoverview-filter-tabs button:hover {
+  color: var(--text-main);
+  background: var(--white-05);
 }
 
 .familyhealthoverview-filter-tabs button.active {
-  background: var(--primary);
+  background: linear-gradient(135deg, var(--primary), var(--accent-blue));
   color: white;
+  box-shadow: 0 4px 15px rgba(43, 127, 255, 0.3);
+  transform: translateY(-1px);
 }
 
 .familyhealthoverview-family-grid {
@@ -65,12 +73,16 @@
   padding: 24px;
   text-align: center;
   transition: var(--transition-main);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 
 .familyhealthoverview-member-card:hover {
   background: var(--bg-card-hover);
-  border-color: var(--border-light);
-  transform: translateY(-5px);
+  border-color: var(--primary);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 15px 35px var(--black-20);
 }
 
 .familyhealthoverview-member-emoji {

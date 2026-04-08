@@ -4,16 +4,16 @@ import { ArrowRight } from 'lucide-react';
 import './FamilyHealthOverview.css';
 
 const familyMembers = [
-  { name: 'Mona', score: '92%', role: 'Mother', emoji: '😊' },
-  { name: 'Ahmed', score: '85%', role: 'Father', emoji: '👨' },
-  { name: 'Maya', score: '98%', role: 'Daughter', emoji: '😁' },
-  { name: 'Grandpa', score: '78%', role: 'Grandfather', emoji: '👴' },
-  { name: 'Grandma', score: '88%', role: 'Grandmother', emoji: '👵' },
-  { name: 'Omar', score: '95%', role: 'Son', emoji: '👦' },
-  { name: 'Aunt', score: '91%', role: 'Aunt', emoji: '👩' },
-  { name: 'Uncle', score: '82%', role: 'Uncle', emoji: '👨' },
-  { name: 'Cousin', score: '94%', role: 'Cousin', emoji: '👧' },
-  { name: 'Cousin', score: '96%', role: 'Cousin', emoji: '👧' },
+  { id: 1, name: 'Mona', score: '92%', role: 'Mother', emoji: '😊' },
+  { id: 2, name: 'Ahmed', score: '85%', role: 'Father', emoji: '👨' },
+  { id: 3, name: 'Maya', score: '98%', role: 'Daughter', emoji: '😁' },
+  { id: 4, name: 'Omar', score: '95%', role: 'Son', emoji: '👦' },
+  { id: 5, name: 'Grandpa', score: '78%', role: 'Grandfather', emoji: '👴' },
+  { id: 1, name: 'Grandma', score: '88%', role: 'Grandmother', emoji: '👵' },
+  { id: 2, name: 'Aunt', score: '91%', role: 'Aunt', emoji: '👩' },
+  { id: 3, name: 'Uncle', score: '82%', role: 'Uncle', emoji: '👨' },
+  { id: 4, name: 'Cousin', score: '94%', role: 'Cousin', emoji: '👧' },
+  { id: 5, name: 'Cousin', score: '96%', role: 'Cousin', emoji: '👧' },
 ];
 
 const FamilyHealthOverview = () => {
@@ -28,30 +28,25 @@ const FamilyHealthOverview = () => {
           <p>Average Health Score: 81%</p>
         </div>
         <div className="familyhealthoverview-filter-tabs">
-          <button 
-            className={activeFilter === 'Day' ? 'active' : ''} 
-            onClick={() => setActiveFilter('Day')}
-          >
-            Day
-          </button>
-          <button 
-            className={activeFilter === 'Week' ? 'active' : ''} 
-            onClick={() => setActiveFilter('Week')}
-          >
-            Week
-          </button>
-          <button 
-            className={activeFilter === 'Month' ? 'active' : ''} 
-            onClick={() => setActiveFilter('Month')}
-          >
-            Month
-          </button>
+          {['Day', 'Week', 'Month'].map(filter => (
+            <button 
+              key={filter}
+              className={activeFilter === filter ? 'active' : ''} 
+              onClick={() => setActiveFilter(filter)}
+            >
+              {filter}
+            </button>
+          ))}
         </div>
       </div>
 
       <div className="familyhealthoverview-family-grid">
         {familyMembers.map((member, index) => (
-          <div key={index} className="familyhealthoverview-member-card">
+          <div 
+            key={index} 
+            className="familyhealthoverview-member-card"
+            onClick={() => navigate(`/family-profile/${member.id}`)}
+          >
             <div className="familyhealthoverview-member-emoji">{member.emoji}</div>
             <div className="familyhealthoverview-member-info">
               <h3>{member.name}</h3>
