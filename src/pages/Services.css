@@ -115,7 +115,8 @@
 }
 
 .services-search-input-wrapper input {
-    width: 92%;
+    width: 100%;
+    box-sizing: border-box;
     background: var(--white-04);
     border: 1px solid var(--border-light);
     border-radius: 14px;
@@ -134,13 +135,11 @@
 
 .services-table-responsive-wrapper {
     width: 100%;
-    overflow-x: auto;
 }
 
 .services-features-data-table {
     width: 100%;
     border-collapse: collapse;
-    min-width: 800px;
 }
 
 .services-features-data-table th {
@@ -156,7 +155,6 @@
     padding: 20px;
     border-bottom: 1px solid var(--border-thin);
     font-size: 0.95rem;
-    text-align: center;
 }
 
 .services-features-data-table tr:last-child td {
@@ -238,10 +236,6 @@
     margin-right: 15px;
     width: 42px;
     height: 42px;
-}
-
-.services-refresh-circle-btn.spinning svg {
-    animation: services-spin 1s linear infinite;
 }
 
 .services-refresh-circle-btn.spinning svg {
@@ -405,6 +399,64 @@
     }
     .services-title-area h1 {
         font-size: 1.8rem;
+    }
+
+    /* Table Stacking */
+    .services-features-data-table thead {
+        display: none;
+    }
+
+    .services-features-data-table, 
+    .services-features-data-table tbody, 
+    .services-features-data-table tr, 
+    .services-features-data-table td {
+        display: block;
+    }
+
+    .services-features-data-table tr {
+        margin-bottom: 25px;
+        background: var(--white-03);
+        border-radius: 24px;
+        border: 1px solid var(--border-thin);
+        padding: 15px;
+        box-shadow: 0 4px 15px var(--black-20);
+    }
+
+    .services-features-data-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left !important;
+        padding: 16px 12px;
+        border-bottom: 1px solid var(--white-05);
+        direction: ltr !important; /* Force ltr to keep labels on the left */
+    }
+
+    .services-features-data-table td:last-child {
+        border-bottom: none;
+    }
+
+    .services-features-data-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: 15px;
+    }
+
+    .services-feature-name-cell {
+        justify-content: flex-end;
+        width: 100%;
+        text-align: right;
+    }
+
+    /* Actions cell specifics */
+    .services-actions-cell {
+        justify-content: flex-end;
+        border-bottom: none;
+        padding-top: 20px;
     }
 }
 

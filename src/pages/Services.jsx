@@ -129,7 +129,7 @@ const Services = ({ isCollapsed }) => {
                                 <tr><td colSpan="5" style={{textAlign:'center', padding:'50px'}}>Loading platform data...</td></tr>
                             ) : filteredFeatures.map((feature) => (
                                 <tr key={feature.id}>
-                                    <td>
+                                    <td data-label="Title (EN)">
                                         <div className="services-feature-name-cell">
                                             <div className="services-feature-icon-square">
                                                 <Zap size={18} />
@@ -137,10 +137,10 @@ const Services = ({ isCollapsed }) => {
                                             <span>{feature.title_en}</span>
                                         </div>
                                     </td>
-                                    <td><span className="services-path-badge">{feature.category_en}</span></td>
-                                    <td style={{textAlign: 'right', direction: 'rtl'}}>{feature.title_ar}</td>
-                                    <td>{feature.order_index}</td>
-                                    <td className="services-actions-cell">
+                                    <td data-label="Category"><span className="services-path-badge">{feature.category_en}</span></td>
+                                    <td data-label="Title (AR)" style={{textAlign: 'right', direction: 'rtl'}}>{feature.title_ar}</td>
+                                    <td data-label="Index">{feature.order_index}</td>
+                                    <td data-label="Actions" className="services-actions-cell">
                                         <button 
                                             className="services-action-btn-gray"
                                             onClick={() => navigate('/add-feature', { state: { editData: feature } })}
