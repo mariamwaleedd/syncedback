@@ -169,3 +169,7 @@ a:focus {
   color: inherit;
   outline: none;
 }
+
+input {
+  font-family: var(--font-body);
+}
