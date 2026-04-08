@@ -67,6 +67,11 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
     setSearchQuery('');
   };
 
+  const handleNotifClick = () => {
+    navigate('/activities');
+    setShowNotifications(false);
+  };
+
   const filteredResults = SEARCHABLE_PAGES.filter(page => 
     page.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
     page.type.toLowerCase().includes(searchQuery.toLowerCase())
@@ -133,7 +138,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
               </div>
               <div className="notifications-list">
                 {notificationsArr.map((notif) => (
-                  <div key={notif.id} className="notification-item">
+                  <div key={notif.id} className="notification-item" onClick={handleNotifClick}>
                     <div className={`notif-icon type-${notif.type}`}>
                       {notif.icon}
                     </div>
@@ -145,7 +150,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
                   </div>
                 ))}
               </div>
-              <div className="dropdown-footer">
+              <div className="dropdown-footer" onClick={handleNotifClick}>
                 <span>View all notifications</span>
               </div>
             </div>

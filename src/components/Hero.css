@@ -1,7 +1,6 @@
 .hero-container {
   padding: 0;
   margin-bottom: 40px;
-  margin-top: 5%;
   color: var(--text-main);
   transition: var(--transition-main);
 }

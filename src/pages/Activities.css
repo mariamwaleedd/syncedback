@@ -137,16 +137,16 @@
 .activities-list-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .activities-card-row {
   display: flex;
-  gap: 20px;
+  gap: 12px;
   background: var(--bg-card);
   border: 1px solid var(--border-main);
-  padding: 24px;
-  border-radius: 24px;
+  padding: 12px 16px;
+  border-radius: 16px;
   transition: all 0.3s ease;
   animation: slideUp 0.5s ease backwards;
 }
@@ -183,7 +183,7 @@
 
 .activities-description { font-size: 1rem; color: var(--text-muted); margin: 0; line-height: 1.5; }
 
-.activities-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; padding-top: 16px; border-top: 1px solid var(--border-light); }
+.activities-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-light); }
 
 .activities-date { font-size: 0.8rem; color: var(--text-dim); display: flex; align-items: center; gap: 4px; }
 
