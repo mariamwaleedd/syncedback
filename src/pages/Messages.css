@@ -94,9 +94,22 @@
     .messages-msg-header { flex-direction: column; align-items: flex-start; gap: 15px; }
     .confirm-modal-content { width: 90%; }
 
-    /* Table Stacking */
+    
     .messages-inbox-table thead {
         display: none;
+    }
+
+    .messages-inbox-container {
+        padding: 20px 15px;
+        border-radius: 20px;
+    }
+
+    .messages-inbox-table-wrapper {
+        overflow-x: visible;
+    }
+
+    .messages-inbox-table {
+        min-width: 0 !important;
     }
 
     .messages-inbox-table, 
@@ -104,7 +117,7 @@
     .messages-inbox-table tr, 
     .messages-inbox-table td {
         display: block;
-        width: 100%;
+        width: 100% !important;
     }
 
     .messages-inbox-table tr {

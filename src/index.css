@@ -1,12 +1,14 @@
 @import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif&display=swap');
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
-  /* Typography */
   --font-body: 'General Sans', sans-serif;
   --font-title: 'Instrument Serif', serif;
 
-  /* Colors - Brand (Base) */
   --primary: #2b7fff;
   --primary-transparent: rgba(43, 127, 255, 0.1);
   --success: #10b981;
@@ -17,7 +19,6 @@
   --danger: #ef4444;
   --warning: #f97316;
   
-  /* Accents */
   --accent-purple: #9333ea;
   --accent-pink: #d946ef;
   --accent-cyan: #06b6d4;
@@ -27,12 +28,10 @@
   --accent-sky: #60a5fa;
   --accent-orange: #ea580c;
   
-  /* Social Colors */
   --social-github: #333333;
   --social-linkedin: #0077b5;
   --social-twitter: #1da1f2;
   
-  /* Backgrounds */
   --bg-dark: #010422;
   --bg-sidebar: #050827;
   --bg-navbar: #050827;
@@ -44,23 +43,19 @@
   --bg-darker: #1e2139;
   --bg-darkest: #0a0d28;
 
-  /* Text */
   --text-main: #ffffff;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
   --text-meta: #475569;
 
-  /* Borders */
   --border-main: rgba(255, 255, 255, 0.05);
   --border-light: rgba(255, 255, 255, 0.1);
   --border-thin: rgba(255, 255, 255, 0.02);
 
-  /* Effects */
   --transition-main: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-fast: all 0.2s ease;
   --shadow-primary: 0 8px 20px rgba(43, 127, 255, 0.25);
 
-  /* Brand Variants (Translucent) */
   --primary-05: rgba(43, 127, 255, 0.05);
   --primary-08: rgba(43, 127, 255, 0.08);
   --primary-10: rgba(43, 127, 255, 0.1);
@@ -97,7 +92,6 @@
   --accent-blue-60: rgba(59, 130, 246, 0.6);
   --accent-sky-10: rgba(96, 165, 250, 0.1);
 
-  /* Glass/White Variants */
   --white-02: rgba(255, 255, 255, 0.02);
   --white-03: rgba(255, 255, 255, 0.03);
   --white-04: rgba(255, 255, 255, 0.04);
@@ -111,7 +105,6 @@
   --white-30: rgba(255, 255, 255, 0.3);
   --white-80: rgba(255, 255, 255, 0.85);
   
-  /* Black Variants */
   --black-10: rgba(0, 0, 0, 0.1);
   --black-20: rgba(0, 0, 0, 0.2);
   --black-30: rgba(0, 0, 0, 0.3);
@@ -179,7 +172,6 @@ input, textarea {
   user-select: text !important;
 }
 
-/* Global Lockdown: No text selection allowed */
 * {
   user-select: none !important;
   -webkit-user-select: none;

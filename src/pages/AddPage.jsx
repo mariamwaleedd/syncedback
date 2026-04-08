@@ -32,7 +32,7 @@ const AddPage = ({ isCollapsed }) => {
         type: 'standard'
     });
     
-    const [metaTags, setMetaTags] = useState([]); // Array of { key: '', value: '' }
+    const [metaTags, setMetaTags] = useState([]); 
 
     useEffect(() => {
         if (editData) {
@@ -54,9 +54,7 @@ const AddPage = ({ isCollapsed }) => {
                 mobile: !!editData.device_mobile, 
                 tablet: !!editData.device_tablet, 
                 desktop: !!editData.device_desktop 
-            });
-            
-            // Handle Meta Tags JSONB conversion
+            });
             if (editData.meta_tags && typeof editData.meta_tags === 'object') {
                 const tags = Object.entries(editData.meta_tags).map(([key, value]) => ({ key, value }));
                 setMetaTags(tags);
@@ -75,15 +73,13 @@ const AddPage = ({ isCollapsed }) => {
     };
 
     const closeStatusModal = () => {
-        setStatusModal({ ...statusModal, isOpen: false });
-        // Only navigate away on success
+        setStatusModal({ ...statusModal, isOpen: false });
         if (statusModal.type === 'success') {
             navigate('/manage-pages');
         }
     };
 
-    const handleSave = async () => {
-        // Convert Meta Tags back to JSONB object
+    const handleSave = async () => {
         const metaTagsObject = metaTags.reduce((acc, curr) => {
             if (curr.key) acc[curr.key] = curr.value;
             return acc;

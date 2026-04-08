@@ -142,7 +142,7 @@
     flex-direction: column;
     gap: 12px;
     position: sticky;
-    top: calc(100px + 280px); /* Adjust based on stats card height */
+    top: calc(100px + 280px); 
 }
 
 .btn-primary, .btn-secondary {
@@ -203,7 +203,7 @@
     font-size: 0.75rem;
 }
 
-/* Status Modal Styles */
+
 .status-modal-overlay {
     position: fixed;
     top: 0;

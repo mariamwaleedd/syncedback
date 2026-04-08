@@ -202,9 +202,17 @@
     justify-content: center;
   }
 
-  /* Table Stacking */
+  
   .applicationpages-pages-table thead {
     display: none;
+  }
+
+  .applicationpages-pages-table {
+    min-width: 0 !important;
+  }
+
+  .applicationpages-table-wrapper {
+    overflow-x: visible;
   }
 
   .applicationpages-pages-table, 
@@ -212,7 +220,7 @@
   .applicationpages-pages-table tr, 
   .applicationpages-pages-table td {
     display: block;
-    width: 100%;
+    width: 100% !important;
   }
 
   .applicationpages-pages-table tr {

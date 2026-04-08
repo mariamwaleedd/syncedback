@@ -8,9 +8,7 @@ const AddFeature = ({ isCollapsed }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const editData = location.state?.editData;
-    const [loading, setLoading] = useState(false);
-    
-    // Status Modal State
+    const [loading, setLoading] = useState(false);
     const [statusModal, setStatusModal] = useState({
         isOpen: false,
         type: 'warning',

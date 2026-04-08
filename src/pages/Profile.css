@@ -225,7 +225,7 @@
 
 .profile-save-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px var(--accent-blue-60); }
 
-/* Stats Card Styles */
+
 .profile-stats-inner-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -256,7 +256,7 @@
 .profile-stat-item h4 { font-size: 24px; font-weight: 700; margin: 0 0 5px; }
 .profile-stat-item p { color: var(--text-dim); font-size: 13px; }
 
-/* Social Card Styles */
+
 .profile-social-links-list {
   display: flex;
   flex-direction: column;
@@ -296,7 +296,7 @@
 .profile-linkedin { background: #0077b5; }
 .profile-twitter { background: #1da1f2; }
 
-/* Security & Pref Toggle Styles */
+
 .profile-security-list, .profile-pref-list {
   display: flex;
   flex-direction: column;

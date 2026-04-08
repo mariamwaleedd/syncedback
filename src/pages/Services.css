@@ -253,7 +253,7 @@
     border-color: var(--text-muted);
 }
 
-/* Modal Styles */
+
 .services-modal-overlay {
     position: fixed;
     top: 0;
@@ -401,7 +401,18 @@
         font-size: 1.8rem;
     }
 
-    /* Table Stacking */
+    .services-feature-list-content-card {
+        padding: 20px 15px;
+        border-radius: 20px;
+    }
+
+    .services-table-responsive-wrapper {
+        overflow-x: visible;
+    }
+
+    .services-features-data-table {
+        min-width: 0 !important;
+    }
     .services-features-data-table thead {
         display: none;
     }
@@ -429,7 +440,7 @@
         text-align: left !important;
         padding: 16px 12px;
         border-bottom: 1px solid var(--white-05);
-        direction: ltr !important; /* Force ltr to keep labels on the left */
+        direction: ltr !important; 
     }
 
     .services-features-data-table td:last-child {
@@ -452,7 +463,7 @@
         text-align: right;
     }
 
-    /* Actions cell specifics */
+    
     .services-actions-cell {
         justify-content: flex-end;
         border-bottom: none;

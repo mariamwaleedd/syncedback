@@ -78,7 +78,7 @@
 .space-between { justify-content: space-between; }
 .align-center { align-items: center; }
 
-/* Buttons */
+
 .btn-solid-primary { background: var(--primary);     color: var(--text-main);
  border: none; padding: 12px 20px; border-radius: 12px; font-weight: 600; display: flex; align-items: center; gap: 8px; cursor: pointer; transition: 0.2s; box-shadow: var(--shadow-primary); }
 .btn-solid-secondary { background: var(--white-05);     color: var(--text-main);
@@ -92,7 +92,7 @@
  padding: 12px 20px; border-radius: 12px; cursor: pointer; }
 .btn-link { background: transparent; border: none; color: var(--primary); display: flex; align-items: center; gap: 6px; font-weight: 600; cursor: pointer; }
 
-/* Badges */
+
 .badge-ui { padding: 4px 12px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
 .badge-ui.success { background: var(--success-10); color: var(--success); }
 .badge-ui.warning { background: var(--warning-10); color: var(--warning); }
@@ -106,7 +106,7 @@
 .status-indicator.inactive .dot { background: var(--text-dim); }
 .status-indicator.busy .dot { background: var(--danger); }
 
-/* Form Controls */
+
 .input-wrap-ui { display: flex; flex-direction: column; gap: 8px; }
 .input-wrap-ui label { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
 .input-wrap-ui input, .select-ui { background: var(--white-03); border: 1px solid var(--border-light); border-radius: 10px; padding: 12px 15px; color: white; outline: none; }
@@ -114,7 +114,7 @@
 .icon-field svg { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-dim); }
 .icon-field input { padding-left: 40px; width: 100%; }
 
-/* Switches & Checkboxes */
+
 .ui-switch { width: 48px; height: 24px; background: var(--bg-darker); border-radius: 20px; padding: 2px; cursor: pointer; transition: 0.3s; }
 .ui-switch.active { background: var(--primary); }
 .ui-switch .handle { width: 20px; height: 20px; background: white; border-radius: 50%; transition: 0.3s; }
@@ -126,7 +126,7 @@
 .checkbox-ui input:checked ~ .checkmark { background: var(--primary); border-color: var(--primary); }
 .checkbox-ui input:checked ~ .checkmark::after { content: ''; position: absolute; left: 6px; top: 2px; width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
 
-/* Progress */
+
 .progress-item { margin-bottom: 15px; }
 .progress-label { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 0.85rem; color: var(--text-muted); }
 .progress-bg { height: 8px; background: var(--white-05); border-radius: 4px; overflow: hidden; }
@@ -135,13 +135,13 @@
 .progress-fill.green { background: var(--success); }
 .progress-fill.danger { background: var(--danger); }
 
-/* Alerts */
+
 .alert-ui { padding: 15px 20px; border-radius: 12px; display: flex; align-items: center; gap: 15px; font-size: 0.9rem; }
 .alert-ui.success { background: var(--success-10); border: 1px solid rgba(16, 185, 129, 0.2); color: var(--success); }
 .alert-ui.info { background: var(--primary-10); border: 1px solid var(--primary-20); color: var(--primary); }
 .alert-ui.danger { background: var(--danger-10); border: 1px solid rgba(239, 68, 68, 0.2); color: var(--danger); }
 
-/* Avatars & Icons */
+
 .avatar-ui { border-radius: 50%; overflow: hidden; border: 2px solid var(--border-light); }
 .avatar-ui img { width: 100%; height: 100%; object-fit: cover; }
 .avatar-ui.sm { width: 32px; height: 32px; }

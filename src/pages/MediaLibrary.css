@@ -404,9 +404,17 @@
     .media-search { width: 100%; }
     .media-search input { width: 100%; }
 
-    /* Table Stacking for List View */
+    
     .media-table thead {
         display: none;
+    }
+
+    .media-table {
+        min-width: 0 !important;
+    }
+
+    .media-table-wrapper {
+        overflow-x: visible;
     }
 
     .media-table, 
@@ -414,7 +422,7 @@
     .media-table tr, 
     .media-table td {
         display: block;
-        width: 100%;
+        width: 100% !important;
     }
 
     .media-table tr {
@@ -454,7 +462,7 @@
     }
 }
 
-/* Media Modal Styles */
+
 .media-modal-overlay {
     position: fixed;
     top: 0;
@@ -558,7 +566,7 @@
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Base Modal Icons / Buttons additions */
+
 .media-modal-icon.danger { background: var(--danger-10); color: var(--danger); }
 .media-modal-btn-danger { background: var(--danger); border: none; color: white; box-shadow: 0 4px 12px var(--danger-25); }
 .media-modal-btn-danger:hover { background: #dc2626; transform: translateY(-2px); box-shadow: 0 6px 15px var(--danger-35); }
@@ -588,7 +596,7 @@
     background: var(--bg-card); 
 }
 
-/* Toast Notifications */
+
 .media-toast {
     position: fixed;
     bottom: 30px;
