@@ -259,3 +259,110 @@
     .messages-inbox-header-row { flex-direction: column; align-items: flex-start; gap: 15px; }
     .messages-msg-search-bar input { width: 84%; }
 }
+
+.approve-btn-mini {
+    background: #ecfdf5;
+    color: #059669;
+    border: 1px solid #10b981;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.approve-btn-mini:hover { background: #d1fae5; }
+
+.deny-btn-mini {
+    background: #fef2f2;
+    color: #dc2626;
+    border: 1px solid #ef4444;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.deny-btn-mini:hover { background: #fee2e2; }
+/* Review Sections */
+.review-section-box {
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(13, 17, 23, 0.4);
+}
+
+.section-title {
+    font-size: 1.1rem;
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.pending-title { color: #60a5fa; } /* Blue */
+.live-title { color: #34d399; } /* Green */
+
+.empty-row {
+    text-align: center;
+    padding: 30px !important;
+    color: #8b949e;
+    font-style: italic;
+}
+
+/* Action Buttons */
+.action-btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.action-btn-group button {
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.btn-approve { background: #064e3b; color: #34d399; }
+.btn-approve:hover { background: #065f46; transform: scale(1.1); }
+
+.btn-archive { background: #451a03; color: #fbbf24; }
+.btn-archive:hover { background: #78350f; transform: scale(1.1); }
+
+.btn-delete { background: #450a0a; color: #f87171; }
+.btn-delete:hover { background: #7f1d1d; transform: scale(1.1); }
+
+/* Notification Popup */
+.action-notification {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 16px 24px;
+    border-radius: 12px;
+    background: #1f2937;
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out forwards;
+    border-left: 5px solid #3b82f6;
+}
+
+.action-notification.success { border-left-color: #34d399; }
+.action-notification.warning { border-left-color: #fbbf24; }
+.action-notification.error { border-left-color: #f87171; }
+
+.action-notification button {
+    background: transparent;
+    border: none;
+    color: #9ca3af;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
