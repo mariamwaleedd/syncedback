@@ -202,10 +202,59 @@
     justify-content: center;
   }
 
-  .applicationpages-pages-table th:nth-child(4),
-  .applicationpages-pages-table td:nth-child(4),
-  .applicationpages-pages-table th:nth-child(5),
-  .applicationpages-pages-table td:nth-child(5) {
+  /* Table Stacking */
+  .applicationpages-pages-table thead {
     display: none;
+  }
+
+  .applicationpages-pages-table, 
+  .applicationpages-pages-table tbody, 
+  .applicationpages-pages-table tr, 
+  .applicationpages-pages-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .applicationpages-pages-table tr {
+    margin-bottom: 25px;
+    background: var(--white-03);
+    border-radius: 24px;
+    border: 1px solid var(--border-thin);
+    padding: 15px;
+    box-shadow: 0 4px 15px var(--black-20);
+  }
+
+  .applicationpages-pages-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left !important;
+    padding: 16px 12px;
+    border-bottom: 1px solid var(--white-05);
+    direction: ltr !important;
+  }
+
+  .applicationpages-pages-table td:last-child {
+    border-bottom: none;
+  }
+
+  .applicationpages-pages-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-right: 15px;
+  }
+
+  .applicationpages-page-name-cell {
+    justify-content: flex-end;
+    width: 100%;
+    text-align: right;
+  }
+
+  .applicationpages-action-btns {
+    justify-content: flex-end;
   }
 }

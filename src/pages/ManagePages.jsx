@@ -91,16 +91,16 @@ const ManagePages = ({ isCollapsed }) => {
                             {loading ? <tr><td colSpan="5" style={{textAlign:'center', padding:'40px'}}>Fetching...</td></tr> : 
                             filtered.map((page) => (
                                 <tr key={page.id}>
-                                    <td>
+                                    <td data-label="Page Name">
                                         <div className="managepages-page-name-cell">
                                             <div className="managepages-page-icon-square"><FileCode size={18} /></div>
                                             <span>{page.name_en}</span>
                                         </div>
                                     </td>
-                                    <td><span className="managepages-path-badge">{page.path_en}</span></td>
-                                    <td><div className="managepages-status-chip-active"><span className="managepages-dot"></span>{page.status || 'active'}</div></td>
-                                    <td><span className={`managepages-type-badge ${page.type || 'standard'}`}>{page.type || 'standard'}</span></td>
-                                    <td className="managepages-actions-cell">
+                                    <td data-label="Path"><span className="managepages-path-badge">{page.path_en}</span></td>
+                                    <td data-label="Status"><div className="managepages-status-chip-active"><span className="managepages-dot"></span>{page.status || 'active'}</div></td>
+                                    <td data-label="Type"><span className={`managepages-type-badge ${page.type || 'standard'}`}>{page.type || 'standard'}</span></td>
+                                    <td data-label="Actions" className="managepages-actions-cell">
                                         <button className="managepages-action-btn-gray" onClick={() => navigate('/add-page', { state: { editData: page } })}><Edit2 size={16} /></button>
                                         <button className="managepages-action-btn-gray" style={{color:'#ef4444'}} onClick={() => handleDeleteClick(page.id)}><Trash2 size={16} /></button>
                                     </td>

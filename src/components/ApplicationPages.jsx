@@ -52,7 +52,7 @@ const ApplicationPages = () => {
           <tbody>
             {pagesData.map((page, index) => (
               <tr key={index}>
-                <td>
+                <td data-label="Page Name">
                   <div className="applicationpages-page-name-cell">
                     <div className="applicationpages-page-icon">
                       <FileText size={18} />
@@ -60,18 +60,18 @@ const ApplicationPages = () => {
                     <span>{page.name}</span>
                   </div>
                 </td>
-                <td>
+                <td data-label="Path">
                   <span className="applicationpages-path-chip">{page.path}</span>
                 </td>
-                <td>
+                <td data-label="Status">
                   <div className="applicationpages-status-badge">
                     <span className="applicationpages-dot"></span>
                     <span>{page.status}</span>
                   </div>
                 </td>
-                <td>{page.views}</td>
-                <td>{page.modified}</td>
-                <td>
+                <td data-label="Views">{page.views}</td>
+                <td data-label="Modified">{page.modified}</td>
+                <td data-label="Actions">
                   <div className="applicationpages-action-btns">
                     <button className="applicationpages-icon-action"><Edit2 size={16} /></button>
                     <button className="applicationpages-icon-action"><MoreVertical size={16} /></button>

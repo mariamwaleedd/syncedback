@@ -149,10 +149,10 @@ const Messages = ({ isCollapsed }) => {
                             ) : (
                                 pendingReviews.map((r) => (
                                     <tr key={r.id} onClick={() => goToDetails(r, true)}>
-                                        <td>{r.name_en}</td>
-                                        <td>{r.role_en}</td>
-                                        <td>{r.content_en?.substring(0, 40)}...</td>
-                                        <td>
+                                        <td data-label="Sender">{r.name_en}</td>
+                                        <td data-label="Role">{r.role_en}</td>
+                                        <td data-label="Content">{r.content_en?.substring(0, 40)}...</td>
+                                        <td data-label="Actions">
                                             <div className="action-btn-group">
                                                 <button className="btn-approve" onClick={(e) => triggerConfirm(e, r.id, 'review', 'approve')}><Check size={16} /></button>
                                                 <button className="btn-delete" onClick={(e) => triggerConfirm(e, r.id, 'review', 'delete')}><Trash2 size={16} /></button>
@@ -179,11 +179,11 @@ const Messages = ({ isCollapsed }) => {
                             ) : (
                                 contactMessages.map((msg) => (
                                     <tr key={msg.id} onClick={() => goToDetails(msg, false, true)}>
-                                        <td><span className={`messages-status-badge ${(msg.status_en || 'New').toLowerCase()}`}>{msg.status_en || 'New'}</span></td>
-                                        <td>{msg.sender_name_en}</td>
-                                        <td>{msg.subject_en}</td>
-                                        <td>{new Date(msg.created_at).toLocaleDateString()}</td>
-                                        <td>
+                                        <td data-label="Status"><span className={`messages-status-badge ${(msg.status_en || 'New').toLowerCase()}`}>{msg.status_en || 'New'}</span></td>
+                                        <td data-label="Sender">{msg.sender_name_en}</td>
+                                        <td data-label="Subject">{msg.subject_en}</td>
+                                        <td data-label="Date">{new Date(msg.created_at).toLocaleDateString()}</td>
+                                        <td data-label="Actions">
                                             <div className="action-btn-group">
                                                 <button className="btn-archive" onClick={(e) => triggerConfirm(e, msg.id, 'message', 'archive')}><Archive size={16} /></button>
                                                 <button className="btn-delete" onClick={(e) => triggerConfirm(e, msg.id, 'message', 'delete')}><Trash2 size={16} /></button>
@@ -207,10 +207,10 @@ const Messages = ({ isCollapsed }) => {
                         <tbody>
                             {approvedReviews.map((r) => (
                                 <tr key={r.id} onClick={() => goToDetails(r, true)}>
-                                    <td>{r.name_en}</td>
-                                    <td>{r.role_en}</td>
-                                    <td>{r.content_en?.substring(0, 40)}...</td>
-                                    <td>
+                                    <td data-label="Sender">{r.name_en}</td>
+                                    <td data-label="Role">{r.role_en}</td>
+                                    <td data-label="Content">{r.content_en?.substring(0, 40)}...</td>
+                                    <td data-label="Actions">
                                         <div className="action-btn-group">
                                             <button className="btn-archive" onClick={(e) => triggerConfirm(e, r.id, 'review', 'archive')}><Archive size={16} /></button>
                                             <button className="btn-delete" onClick={(e) => triggerConfirm(e, r.id, 'review', 'delete')}><Trash2 size={16} /></button>

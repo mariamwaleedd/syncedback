@@ -340,10 +340,10 @@ const MediaLibrary = ({ isCollapsed }) => {
                                     <tbody>
                                         {filteredMedia.map(item => (
                                             <tr key={item.fullPath} onClick={() => handleItemClick(item)} className={selectedItem?.fullPath === item.fullPath ? 'selected' : ''}>
-                                                <td><div className="list-name-cell">{item.isFolder ? <Folder size={18}/> : <ImageIcon size={18} />}<span>{item.name}</span></div></td>
-                                                <td><span className={`type-badge ${item.type}`}>{item.type}</span></td>
-                                                <td>{formatSize(item.metadata?.size)}</td>
-                                                <td><button className="list-action" onClick={(e) => { e.stopPropagation(); requestDelete(item); }}><Trash2 size={16} /></button></td>
+                                                <td data-label="Name"><div className="list-name-cell">{item.isFolder ? <Folder size={18}/> : <ImageIcon size={18} />}<span>{item.name}</span></div></td>
+                                                <td data-label="Type"><span className={`type-badge ${item.type}`}>{item.type}</span></td>
+                                                <td data-label="Size">{formatSize(item.metadata?.size)}</td>
+                                                <td data-label="Actions"><button className="list-action" onClick={(e) => { e.stopPropagation(); requestDelete(item); }}><Trash2 size={16} /></button></td>
                                             </tr>
                                         ))}
                                     </tbody>

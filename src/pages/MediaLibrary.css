@@ -403,6 +403,55 @@
     .controls-right { flex-wrap: wrap; }
     .media-search { width: 100%; }
     .media-search input { width: 100%; }
+
+    /* Table Stacking for List View */
+    .media-table thead {
+        display: none;
+    }
+
+    .media-table, 
+    .media-table tbody, 
+    .media-table tr, 
+    .media-table td {
+        display: block;
+        width: 100%;
+    }
+
+    .media-table tr {
+        margin-bottom: 25px;
+        background: var(--white-03);
+        border-radius: 20px;
+        border: 1px solid var(--border-thin);
+        padding: 10px;
+    }
+
+    .media-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left !important;
+        padding: 12px 10px;
+        border-bottom: 1px solid var(--white-05);
+        direction: ltr !important;
+    }
+
+    .media-table td:last-child {
+        border-bottom: none;
+    }
+
+    .media-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-right: 15px;
+    }
+
+    .list-name-cell {
+        justify-content: flex-end;
+    }
 }
 
 /* Media Modal Styles */
