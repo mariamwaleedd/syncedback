@@ -1,0 +1,75 @@
+.rich-text-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background: var(--bg-darker);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.toolbar-group {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.toolbar-sep {
+    width: 1px;
+    height: 20px;
+    background: var(--white-10);
+    margin: 0 4px;
+}
+
+.toolbar-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.toolbar-btn:hover {
+    background: var(--white-05);
+    color: var(--text-main);
+}
+
+.toolbar-btn:active {
+    background: var(--white-10);
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .rich-text-toolbar {
+        padding: 8px 12px;
+        gap: 2px;
+    }
+    
+    .toolbar-btn {
+        width: 30px;
+        height: 30px;
+    }
+    .analytics-btn-primary {
+        width: 60%;
+    }
+}
+
+@media (max-width: 480px) {
+    .rich-text-toolbar {
+        padding: 8px;
+        gap: 4px;
+    }
+    
+    .toolbar-sep {
+        display: none; /* Hide separators on very small screens to save space */
+    }
+    
+    .toolbar-group {
+        gap: 2px;
+    }
+}

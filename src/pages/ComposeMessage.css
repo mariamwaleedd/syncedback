@@ -85,7 +85,6 @@
 .composemessage-editor-container {
     border: 1px solid var(--border-light);
     border-radius: 12px;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
@@ -174,6 +173,16 @@
     .composemessage-action-btn {
         flex: 1;
         justify-content: center;
+    }
+    
+    .composemessage-message-textarea {
+        min-height: 200px;
+        padding: 15px;
+    }
+    
+    .rich-text-toolbar {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
     }
 }
 

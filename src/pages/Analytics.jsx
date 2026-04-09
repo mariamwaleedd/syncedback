@@ -8,6 +8,7 @@ import {
     Heading3, Pencil, Code, Link as LinkIcon, Image, Search, Zap,
     CheckCircle, AlertCircle, X
 } from 'lucide-react';
+import RichTextToolbar from '../common/RichTextToolbar';
 import { 
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
     PieChart, Pie, Cell, 
@@ -321,21 +322,7 @@ const Analytics = ({ isCollapsed }) => {
                 </div>
                 
                 <div className="editor-container">
-                    <div className="analytics-editor-toolbar">
-                        {/* Toolbar items remain as icons but now provide feedback */}
-                        <div className="analytics-toolbar-group" onClick={() => setStatusModal({ isOpen: true, type: 'success', message: 'Formatting applied' })}>
-                             <Bold size={16} /> <Italic size={16} /> <Strikethrough size={16} />
-                        </div>
-                        <div className="analytics-sep" />
-                        <div className="analytics-toolbar-group" onClick={() => setStatusModal({ isOpen: true, type: 'success', message: 'Heading style updated' })}>
-                            <Heading1 size={16} /> <Heading2 size={16} /> <Heading3 size={16} />
-                        </div>
-                        <div className="analytics-sep" />
-                        <div className="analytics-toolbar-group" onClick={() => setStatusModal({ isOpen: true, type: 'success', message: 'Element added' })}>
-                            <Pencil size={16} /> <Code size={16} /> <LinkIcon size={16} /> 
-                            <Image size={16} /> <Search size={16} />
-                        </div>
-                    </div>
+                    <RichTextToolbar />
                     <div className="analytics-field">
                         <label>Meta Description</label>
                         <textarea placeholder="Enter Meta Description" value={seoData.desc} onChange={(e) => setSeoData({...seoData, desc: e.target.value})}></textarea>
