@@ -10,7 +10,6 @@
 .toolbar-group {
     display: flex;
     align-items: center;
-    gap: 4px;
 }
 
 .toolbar-sep {
@@ -46,8 +45,8 @@
 
 @media (max-width: 768px) {
     .rich-text-toolbar {
-        padding: 8px 12px;
-        gap: 2px;
+        padding: 8px;
+        
     }
     
     .toolbar-btn {
