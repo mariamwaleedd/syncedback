@@ -23,7 +23,7 @@ const RecentActivity = () => {
 
       <div className="recentactivity-activity-list">
         {activities.map((activity) => (
-          <div key={activity.id} className="recentactivity-activity-row">
+          <div key={activity.id} className="recentactivity-activity-row" onClick={() => navigate('/activities')}>
             <div className={`recentactivity-activity-icon-box type-${activity.type.toLowerCase()}`}>
               {activity.icon}
             </div>
