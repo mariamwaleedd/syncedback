@@ -1,22 +1,49 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { 
-  FileText, Filter, Plus, Edit2, MoreVertical 
+  FileText, Filter, Plus, Edit2, Trash2, AlertCircle 
 } from 'lucide-react';
+import { supabase } from '../Supabase';
 import './ApplicationPages.css';
 
-const pagesData = [
-  { name: 'Homepage', path: '/', status: 'active', views: '12,450', modified: '2 hours ago' },
-  { name: 'Family Dashboard', path: '/family-dashboard', status: 'active', views: '8,920', modified: '5 hours ago' },
-  { name: 'Medicine Tracker', path: '/medicine-tracker', status: 'active', views: '6,340', modified: '1 day ago' },
-  { name: 'Wellness Hub', path: '/wellness-hub', status: 'active', views: '5,670', modified: '2 days ago' },
-  { name: 'Doctors Page', path: '/doctors', status: 'active', views: '4,890', modified: '3 days ago' },
-  { name: 'AI Health Assistant', path: '/health-ai', status: 'active', views: '4,120', modified: '4 days ago' },
-  { name: 'Settings', path: '/settings', status: 'active', views: '3,450', modified: '5 days ago' },
-  { name: 'Emergency', path: '/emergency', status: 'active', views: '2,890', modified: '1 week ago' },
-];
-
 const ApplicationPages = () => {
+  const navigate = useNavigate();
+  const [pages, setPages] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [deleteModal, setDeleteModal] = useState({ isOpen: false, pageId: null });
+
+  useEffect(() => {
+    fetchPages();
+  }, []);
+
+  const fetchPages = async () => {
+    setLoading(true);
+    const { data, error } = await supabase
+      .from('pages')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(8);
+    
+    if (error) console.error(error);
+    else setPages(data || []);
+    setLoading(false);
+  };
+
+  const handleDeleteClick = (id) => {
+    setDeleteModal({ isOpen: true, pageId: id });
+  };
+
+  const confirmDelete = async () => {
+    if (!deleteModal.pageId) return;
+    
+    const { error } = await supabase.from('pages').delete().eq('id', deleteModal.pageId);
+    if (error) {
+      alert("Error deleting page");
+    } else {
+      fetchPages();
+    }
+    setDeleteModal({ isOpen: false, pageId: null });
+  };
   return (
     <div className="applicationpages-app-pages-container">
       <div className="applicationpages-app-pages-header">
@@ -25,10 +52,6 @@ const ApplicationPages = () => {
           <p>Manage and edit all pages in your application</p>
         </div>
         <div className="applicationpages-header-actions">
-          <button className="applicationpages-filter-btn">
-            <Filter size={18} />
-            <span>Filter</span>
-          </button>
           <button className="applicationpages-new-page-btn">
             <Plus size={18} />
             <Link to="/add-page" className="primary-hero-btn">
@@ -50,38 +73,83 @@ const ApplicationPages = () => {
             </tr>
           </thead>
           <tbody>
-            {pagesData.map((page, index) => (
-              <tr key={index}>
-                <td data-label="Page Name">
-                  <div className="applicationpages-page-name-cell">
-                    <div className="applicationpages-page-icon">
-                      <FileText size={18} />
+            {loading ? (
+              <tr><td colSpan="6" style={{textAlign:'center', padding:'40px'}}>Fetching live pages...</td></tr>
+            ) : (
+              pages.map((page) => (
+                <tr key={page.id}>
+                  <td data-label="Page Name">
+                    <div className="applicationpages-page-name-cell">
+                      <div className="applicationpages-page-icon">
+                        <FileText size={18} />
+                      </div>
+                      <span>{page.name_en}</span>
                     </div>
-                    <span>{page.name}</span>
-                  </div>
-                </td>
-                <td data-label="Path">
-                  <span className="applicationpages-path-chip">{page.path}</span>
-                </td>
-                <td data-label="Status">
-                  <div className="applicationpages-status-badge">
-                    <span className="applicationpages-dot"></span>
-                    <span>{page.status}</span>
-                  </div>
-                </td>
-                <td data-label="Views">{page.views}</td>
-                <td data-label="Modified">{page.modified}</td>
-                <td data-label="Actions">
-                  <div className="applicationpages-action-btns">
-                    <button className="applicationpages-icon-action"><Edit2 size={16} /></button>
-                    <button className="applicationpages-icon-action"><MoreVertical size={16} /></button>
-                  </div>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                  <td data-label="Path">
+                    <span className="applicationpages-path-chip">{page.path_en}</span>
+                  </td>
+                  <td data-label="Status">
+                    <div className="applicationpages-status-badge">
+                      <span className="applicationpages-dot"></span>
+                      <span>{page.status || 'active'}</span>
+                    </div>
+                  </td>
+                  <td data-label="Type">
+                    <span className={`applicationpages-type-tag ${page.type || 'standard'}`}>
+                      {page.type || 'standard'}
+                    </span>
+                  </td>
+                  <td data-label="Last Modified">
+                    {new Date(page.created_at).toLocaleDateString()}
+                  </td>
+                  <td data-label="Actions">
+                    <div className="applicationpages-action-btns">
+                      <button 
+                        className="applicationpages-icon-action" 
+                        title="Edit Page"
+                        onClick={() => navigate('/add-page', { state: { editData: page } })}
+                      >
+                        <Edit2 size={16} />
+                      </button>
+                      <button 
+                        className="applicationpages-icon-action delete" 
+                        title="Delete Page"
+                        onClick={() => handleDeleteClick(page.id)}
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
+
+      {deleteModal.isOpen && (
+        <div className="applicationpages-modal-overlay">
+          <div className="applicationpages-modal-card">
+            <div className="applicationpages-modal-icon danger">
+              <AlertCircle size={32} />
+            </div>
+            <h2>Delete Page?</h2>
+            <p>This action cannot be undone. This page will be permanently removed from your application and database.</p>
+            <div className="applicationpages-modal-actions">
+              <button 
+                className="applicationpages-modal-btn-secondary" 
+                onClick={() => setDeleteModal({ isOpen: false, pageId: null })}
+              >
+                Cancel
+              </button>
+              <button className="applicationpages-modal-btn-danger" onClick={confirmDelete}>
+                Yes, Delete Page
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

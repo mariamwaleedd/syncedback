@@ -167,7 +167,7 @@
   width: 36px;
   height: 36px;
   background: var(--bg-card);
-  border: 1px solid var(--border-main);
+  border: 1px solid var(--border-light);
   border-radius: 10px;
   color: var(--text-muted);
   display: flex;
@@ -178,9 +178,131 @@
 }
 
 .applicationpages-icon-action:hover {
-  background: var(--bg-card-hover);
+  background: var(--primary-10);
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.applicationpages-icon-action.delete:hover {
+  background: var(--danger-10);
+  color: var(--danger);
+  border-color: var(--danger);
+}
+
+.applicationpages-type-tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: var(--white-05);
+  color: var(--text-muted);
+}
+
+.applicationpages-type-tag.standard { background: var(--primary-10); color: var(--primary); }
+.applicationpages-type-tag.landing { background: var(--accent-purple-10); color: var(--accent-purple); }
+.applicationpages-type-tag.auth { background: var(--warning-10); color: var(--warning); }
+
+/* Modal Styles - Synced with ManagePages */
+.applicationpages-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(1, 4, 34, 0.85);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.3s ease;
+}
+
+.applicationpages-modal-card {
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border-light);
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 450px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  animation: slideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.applicationpages-modal-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 24px;
+}
+
+.applicationpages-modal-icon.danger {
+  background: var(--danger-10);
+  color: var(--danger);
+}
+
+.applicationpages-modal-card h2 {
+  font-family: var(--font-title);
+  font-size: 24px;
+  margin-bottom: 12px;
   color: var(--text-main);
-  border-color: var(--white-20);
+}
+
+.applicationpages-modal-card p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 32px;
+}
+
+.applicationpages-modal-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.applicationpages-modal-btn-secondary,
+.applicationpages-modal-btn-danger {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: none;
+}
+
+.applicationpages-modal-btn-secondary {
+  background: var(--white-05);
+  color: var(--text-main);
+}
+
+.applicationpages-modal-btn-secondary:hover {
+  background: var(--white-10);
+}
+
+.applicationpages-modal-btn-danger {
+  background: var(--danger);
+  color: white;
+}
+
+.applicationpages-modal-btn-danger:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 @media (max-width: 768px) {
