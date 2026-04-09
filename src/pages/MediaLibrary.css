@@ -460,6 +460,15 @@
     .list-name-cell {
         justify-content: flex-end;
     }
+    .folder-premium-card {
+        width: 180%;
+    }
+    .media-content-layout {
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-left: -40%;
+    }
 }
 
 
