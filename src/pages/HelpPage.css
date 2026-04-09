@@ -33,6 +33,51 @@
     max-width: 700px;
     margin: 0 auto;
     position: relative;
+    z-index: 5;
+}
+
+.helppage-help-search-wrapper input {
+    width: 100%;
+    background: #ffffff !important;
+    border: 2px solid var(--primary);
+    border-radius: 18px;
+    padding: 22px 140px 22px 60px;
+    color: #0f172a !important;
+    font-size: 1.15rem;
+    font-family: var(--font-body);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    outline: none;
+    transition: var(--transition-main);
+    user-select: text !important;
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 5;
+}
+
+.helppage-help-search-wrapper input:focus {
+    border-color: var(--primary-bright);
+    box-shadow: 0 0 25px var(--primary-30);
+}
+
+.helppage-search-submit-btn {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    z-index: 10;
+}
+
+.helppage-search-submit-btn:hover {
+    background: var(--primary-bright);
+    transform: translateY(-50%) scale(1.05);
 }
 
 .helppage-help-search-wrapper .helppage-search-icon {
@@ -41,20 +86,10 @@
     top: 50%;
     transform: translateY(-50%);
     color: var(--primary);
+    z-index: 10;
+    pointer-events: none;
 }
 
-.helppage-help-search-wrapper input {
-    width: 100%;
-    color: var(--text-main);
-    border: none;
-    border-radius: 16px;
-    padding: 22px 22px 22px 60px;
-    color: var(--gray-text);
-    font-size: 1.1rem;
-    font-family: var(--font-body);
-    box-shadow: 0 10px 30px var(--black-30);
-    outline: none;
-}
 
 .helppage-help-content-body {
     padding: 60px 40px;
@@ -409,4 +444,70 @@
         padding: 30px;
         width: 95%;
     }
+}
+
+.helppage-no-results {
+    text-align: center;
+    padding: 80px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-main);
+    border-radius: 28px;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.helppage-no-results-icon {
+    width: 100px;
+    height: 100px;
+    background: var(--primary-10);
+    color: var(--primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 30px;
+}
+
+.helppage-no-results h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.helppage-no-results p {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    margin-bottom: 35px;
+}
+
+.helppage-no-results strong {
+    color: var(--primary);
+}
+
+.helppage-clear-search-btn {
+    background: var(--primary);
+    color: var(--text-main);
+    border: none;
+    padding: 14px 35px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.helppage-clear-search-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-primary);
+    filter: brightness(1.1);
+}
+
+.search-highlight {
+    background-color: rgba(var(--primary-rgb), 0.2);
+    color: var(--primary);
+    padding: 0 2px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+
+mark.search-highlight {
+    background-color: var(--primary);
+    color: white;
 }

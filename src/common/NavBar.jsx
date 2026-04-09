@@ -25,6 +25,10 @@ const SEARCHABLE_PAGES = [
   { id: 'profile', title: 'User Profile', path: '/profile', type: 'Page' },
   { id: 'add-feature', title: 'Add New Feature', path: '/add-feature', type: 'Action' },
   { id: 'add-page', title: 'Create New Page', path: '/add-page', type: 'Action' },
+  { id: 'h-features', title: 'Help: Managing Features', path: '/help', type: 'Help' },
+  { id: 'h-seo', title: 'Help: SEO & Meta Tags', path: '/help', type: 'Help' },
+  { id: 'h-analytics', title: 'Help: Tracking Page Views', path: '/help', type: 'Help' },
+  { id: 'h-messaging', title: 'Help: Message Recovery', path: '/help', type: 'Help' },
 ];
 
 const NavBar = ({ isCollapsed, toggleNav }) => {

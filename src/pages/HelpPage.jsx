@@ -6,6 +6,26 @@ import {
 } from 'lucide-react';
 import './HelpPage.css';
 
+const Highlight = ({ text, query }) => {
+    if (!query || !query.trim()) return <span>{text}</span>;
+    try {
+        const escapedQuery = query.trim().replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const regex = new RegExp(`(${escapedQuery})`, 'gi');
+        const parts = String(text).split(regex);
+        return (
+            <span>
+                {parts.map((part, i) => 
+                    part.toLowerCase() === query.trim().toLowerCase() 
+                        ? <mark key={i} className="search-highlight">{part}</mark> 
+                        : part
+                )}
+            </span>
+        );
+    } catch (e) {
+        return <span>{text}</span>;
+    }
+};
+
 const HelpPage = ({ isCollapsed }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFaq, setActiveFaq] = useState(null);
@@ -69,6 +89,45 @@ const HelpPage = ({ isCollapsed }) => {
         }
     ];
 
+    const steps = [
+        {
+            num: '01',
+            title: 'Configure Features',
+            desc: 'Start by defining the core modules of your app in the Features section. Set permissions for users or admins.'
+        },
+        {
+            num: '02',
+            title: 'Build Pages',
+            desc: 'Use the Page Builder to create static content. Define URL paths and link them to your navigation menu.'
+        },
+        {
+            num: '03',
+            title: 'Analyze Traffic',
+            desc: 'Monitor the Analytics dashboard daily to see which sections of your app perform best with real-time data.'
+        }
+    ];
+
+    const filteredCategories = categories.filter(cat => {
+        const query = searchQuery.toLowerCase().trim();
+        return (cat.title || "").toLowerCase().includes(query) || 
+               (cat.desc || "").toLowerCase().includes(query) ||
+               (cat.explanation || "").toLowerCase().includes(query);
+    });
+
+    const filteredFaqs = faqs.filter(faq => {
+        const query = searchQuery.toLowerCase().trim();
+        return (faq.q || "").toLowerCase().includes(query) || 
+               (faq.a || "").toLowerCase().includes(query);
+    });
+
+    const filteredSteps = steps.filter(step => {
+        const query = searchQuery.toLowerCase().trim();
+        return (step.title || "").toLowerCase().includes(query) || 
+               (step.desc || "").toLowerCase().includes(query);
+    });
+
+    const hasResults = searchQuery.trim() === '' || (filteredCategories.length > 0 || filteredFaqs.length > 0 || filteredSteps.length > 0);
+
     return (
         <div className={`helppage-help-center-page ${isCollapsed ? 'is-collapsed' : ''}`}>
             <header className="helppage-help-hero">
@@ -78,32 +137,45 @@ const HelpPage = ({ isCollapsed }) => {
                     <div className="helppage-help-search-wrapper">
                         <Search className="helppage-search-icon" size={20} />
                         <input 
+                            id="help-center-search"
+                            name="help-search"
                             type="text" 
                             placeholder="Search for articles, guides, or keywords..." 
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
+                            onKeyDown={(e) => { if(e.key === 'Enter') e.target.blur(); }}
+                            autoFocus
                         />
+                        <button className="helppage-search-submit-btn">
+                            Search
+                        </button>
+
                     </div>
                 </div>
             </header>
 
             <div className="helppage-help-content-body">
-                <div className="helppage-category-grid">
-                    {categories.map((cat, idx) => (
-                        <div 
-                            key={idx} 
-                            className={`helppage-category-card ${selectedCategory?.title === cat.title ? 'is-active' : ''}`}
-                            onClick={() => setSelectedCategory(cat)}
-                        >
-                            <div className="helppage-cat-icon-box">{cat.icon}</div>
-                            <h3>{cat.title}</h3>
-                            <p>{cat.desc}</p>
-                            <button className="helppage-cat-link-btn">
-                                Explore <ChevronRight size={16} />
-                            </button>
-                        </div>
-                    ))}
-                </div>
+                {hasResults ? (
+                    <>
+                        {filteredCategories.length > 0 && (
+                            <div className="helppage-category-grid">
+                                {filteredCategories.map((cat, idx) => (
+                                    <div 
+                                        key={idx} 
+                                        className={`helppage-category-card ${selectedCategory?.title === cat.title ? 'is-active' : ''}`}
+                                        onClick={() => setSelectedCategory(cat)}
+                                    >
+                                        <div className="helppage-cat-icon-box">{cat.icon}</div>
+                                        <h3><Highlight text={cat.title} query={searchQuery} /></h3>
+                                        <p><Highlight text={cat.desc} query={searchQuery} /></p>
+                                        <button className="helppage-cat-link-btn">
+                                            Explore <ChevronRight size={16} />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        )}
+
 
                 {selectedCategory && (
                     <div className="helppage-modal-overlay" onClick={() => setSelectedCategory(null)}>
@@ -123,82 +195,89 @@ const HelpPage = ({ isCollapsed }) => {
                     </div>
                 )}
 
-                <section className="helppage-instructions-section">
-                    <div className="helppage-section-header">
-                        <h2>Quick Start Guide</h2>
-                        <span className="helppage-badge">Updated</span>
-                    </div>
-                    
-                    <div className="helppage-guide-steps-grid">
-                        <div className="step-item">
-                            <div className="helppage-step-num">01</div>
-                            <div className="helppage-step-info">
-                                <h4>Configure Features</h4>
-                                <p>Start by defining the core modules of your app in the Features section. Set permissions for users or admins.</p>
-                            </div>
-                        </div>
-                        <div className="step-item">
-                            <div className="helppage-step-num">02</div>
-                            <div className="helppage-step-info">
-                                <h4>Build Pages</h4>
-                                <p>Use the Page Builder to create static content. Define URL paths and link them to your navigation menu.</p>
-                            </div>
-                        </div>
-                        <div className="step-item">
-                            <div className="helppage-step-num">03</div>
-                            <div className="helppage-step-info">
-                                <h4>Analyze Traffic</h4>
-                                <p>Monitor the Analytics dashboard daily to see which sections of your app perform best with real-time data.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <div className="helppage-help-dual-row">
-                    <section className="helppage-faq-section">
-                        <h2>Frequently Asked Questions</h2>
-                        <div className="helppage-faq-list">
-                            {faqs.map((faq, idx) => (
-                                <div 
-                                    key={idx} 
-                                    className={`helppage-faq-item ${activeFaq === idx ? 'open' : ''}`}
-                                    onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
-                                >
-                                    <div className="helppage-faq-question">
-                                        <span>{faq.q}</span>
-                                        <ChevronDown size={18} className="helppage-arrow" />
-                                    </div>
-                                    {activeFaq === idx && <div className="helppage-faq-answer">{faq.a}</div>}
+                        {filteredSteps.length > 0 && (
+                            <section className="helppage-instructions-section">
+                                <div className="helppage-section-header">
+                                    <h2>Quick Start Guide</h2>
+                                    <span className="helppage-badge">Updated</span>
                                 </div>
-                            ))}
-                        </div>
-                    </section>
+                                
+                                <div className="helppage-guide-steps-grid">
+                                    {filteredSteps.map((step, idx) => (
+                                        <div className="step-item" key={idx}>
+                                            <div className="helppage-step-num">{step.num}</div>
+                                            <div className="helppage-step-info">
+                                                <h4><Highlight text={step.title} query={searchQuery} /></h4>
+                                                <p><Highlight text={step.desc} query={searchQuery} /></p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </section>
+                        )}
 
-                    <aside className="helppage-support-sidebar">
-                        <div className="helppage-support-card-blue">
-                            <HelpCircle size={32} />
-                            <h3>Still need help?</h3>
-                            <p>Our support team is available 24/7 to help you with technical issues.</p>
-                            <button className="helppage-contact-btn">Contact Support</button>
-                        </div>
+                        <div className="helppage-help-dual-row">
+                            {filteredFaqs.length > 0 && (
+                                <section className="helppage-faq-section">
+                                    <h2>Frequently Asked Questions</h2>
+                                    <div className="helppage-faq-list">
+                                        {filteredFaqs.map((faq, idx) => (
+                                            <div 
+                                                key={idx} 
+                                                className={`helppage-faq-item ${activeFaq === idx ? 'open' : ''}`}
+                                                onClick={() => setActiveFaq(activeFaq === idx ? null : idx)}
+                                            >
+                                                <div className="helppage-faq-question">
+                                                    <span><Highlight text={faq.q} query={searchQuery} /></span>
+                                                    <ChevronDown size={18} className="helppage-arrow" />
+                                                </div>
+                                                {activeFaq === idx && <div className="helppage-faq-answer"><Highlight text={faq.a} query={searchQuery} /></div>}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+                            )}
 
-                        <div className="helppage-resource-list">
-                            <h3>Documentation</h3>
-                            <div className="helppage-res-item">
-                                <PlayCircle size={18} />
-                                <span>Video Tutorials</span>
-                            </div>
-                            <div className="helppage-res-item">
-                                <FileText size={18} />
-                                <span>API References</span>
-                            </div>
-                            <div className="helppage-res-item">
-                                <MessageCircle size={18} />
-                                <span>Community Forum</span>
-                            </div>
+
+                            <aside className="helppage-support-sidebar">
+                                <div className="helppage-support-card-blue">
+                                    <HelpCircle size={32} />
+                                    <h3>Still need help?</h3>
+                                    <p>Our support team is available 24/7 to help you with technical issues.</p>
+                                    <button className="helppage-contact-btn">Contact Support</button>
+                                </div>
+
+                                <div className="helppage-resource-list">
+                                    <h3>Documentation</h3>
+                                    <div className="helppage-res-item">
+                                        <PlayCircle size={18} />
+                                        <span>Video Tutorials</span>
+                                    </div>
+                                    <div className="helppage-res-item">
+                                        <FileText size={18} />
+                                        <span>API References</span>
+                                    </div>
+                                    <div className="helppage-res-item">
+                                        <MessageCircle size={18} />
+                                        <span>Community Forum</span>
+                                    </div>
+                                </div>
+                            </aside>
                         </div>
-                    </aside>
-                </div>
+                    </>
+                ) : (
+                    <div className="helppage-no-results">
+                        <div className="helppage-no-results-icon">
+                            <Search size={64} />
+                        </div>
+                        <h2>No results found</h2>
+                        <p>We couldn't find any articles matching "<strong>{searchQuery}</strong>".</p>
+                        <button className="helppage-clear-search-btn" onClick={() => setSearchQuery('')}>
+                            Clear search
+                        </button>
+                    </div>
+                )}
+
             </div>
         </div>
     );
