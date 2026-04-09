@@ -11,8 +11,13 @@ import {
     Sparkles, 
     Share2, 
     UserRound,
-    Info
+    Info,
+    CheckCircle,
+    AlertCircle,
+    X,
+    Zap
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './About.css';
 
 const teamMembers = [
@@ -47,6 +52,13 @@ const teamMembers = [
 ];
 
 const AboutPage = ({ isCollapsed }) => {
+    const navigate = useNavigate();
+    const [statusModal, setStatusModal] = React.useState({ isOpen: false, type: 'success', message: '' });
+
+    const handleAction = (message, type = 'success') => {
+        setStatusModal({ isOpen: true, type, message });
+    };
+
     return (
         <div className={`about-page-container ${isCollapsed ? 'is-collapsed' : ''}`}>
             <header className="about-hero">
@@ -70,8 +82,8 @@ const AboutPage = ({ isCollapsed }) => {
                         </div>
                     </div>
                     <div className="profile-actions">
-                        <button className="btn-follow">Follow Updates</button>
-                        <button className="btn-msg"><Mail size={18} /></button>
+                        <button className="btn-follow" onClick={() => handleAction('You are now following HealthHub updates!', 'success')}>Follow Updates</button>
+                        <button className="btn-msg" onClick={() => navigate('/messages')}><Mail size={18} /></button>
                     </div>
                 </div>
             </header>
@@ -120,16 +132,16 @@ const AboutPage = ({ isCollapsed }) => {
                                 <div className="member-top">
                                     <img src={member.image} alt={member.name} />
                                     <div className="member-socials">
-                                        <button className="s-btn"><Share2 size={14} /></button>
-                                        <button className="s-btn"><Globe size={14} /></button>
-                                        <button className="s-btn"><UserRound size={14} /></button>
+                                        <button className="s-btn" onClick={() => handleAction('Sharing profile...') }><Share2 size={14} /></button>
+                                        <button className="s-btn" onClick={() => handleAction('Opening website...') }><Globe size={14} /></button>
+                                        <button className="s-btn" onClick={() => navigate('/profile')}><UserRound size={14} /></button>
                                     </div>
                                 </div>
                                 <div className="member-info">
                                     <h3>{member.name}</h3>
                                     <span className="role">{member.role}</span>
                                     <p>{member.bio}</p>
-                                    <button className="view-profile-btn">
+                                    <button className="view-profile-btn" onClick={() => navigate('/profile')}>
                                         View Profile <ExternalLink size={14} />
                                     </button>
                                 </div>
@@ -143,12 +155,28 @@ const AboutPage = ({ isCollapsed }) => {
                         <h2>Want to join our journey?</h2>
                         <p>We're always looking for talented developers and medical experts to join our team.</p>
                         <div className="cta-btns">
-                            <button className="primary-cta">View Careers</button>
-                            <button className="secondary-cta">Contact Us</button>
+                            <button className="primary-cta" onClick={() => handleAction('Opening careers portal...', 'info')}>View Careers</button>
+                            <button className="secondary-cta" onClick={() => navigate('/messages')}>Contact Us</button>
                         </div>
                     </div>
                 </footer>
             </div>
+
+            {statusModal.isOpen && (
+                <div className="about-modal-overlay">
+                    <div className="about-modal-card">
+                        <div className={`about-modal-icon ${statusModal.type}`}>
+                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : 
+                             statusModal.type === 'info' ? <Zap size={32} /> : <AlertCircle size={32} />}
+                        </div>
+                        <h2>{statusModal.type === 'success' ? 'Confirmed' : 'System Action'}</h2>
+                        <p>{statusModal.message}</p>
+                        <button className="about-modal-btn" onClick={() => setStatusModal({ ...statusModal, isOpen: false })}>
+                            {statusModal.type === 'success' ? 'Excellent' : 'Okay'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

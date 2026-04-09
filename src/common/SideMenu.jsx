@@ -25,8 +25,11 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
   ];
 
   const handleSignOut = () => {
-    navigate('/login');
-    if (isMobile) closeMobile();
+    // Show a quick exit animation or feedback if needed
+    if (window.confirm("Are you sure you want to sign out?")) {
+      navigate('/login');
+      if (isMobile) closeMobile();
+    }
   };
 
   return (

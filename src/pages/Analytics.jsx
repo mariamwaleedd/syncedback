@@ -5,7 +5,8 @@ import {
     Activity, User, MessageSquare, ExternalLink, 
     Download, Share2, FileText, ChevronRight,
     Bold, Italic, Strikethrough, Heading1, Heading2, 
-    Heading3, Pencil, Code, Link as LinkIcon, Image, Search, Zap
+    Heading3, Pencil, Code, Link as LinkIcon, Image, Search, Zap,
+    CheckCircle, AlertCircle, X
 } from 'lucide-react';
 import { 
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -45,6 +46,16 @@ const Analytics = ({ isCollapsed }) => {
     const navigate = useNavigate();
     const [recentPages, setRecentPages] = useState([]);
     const [recentServices, setRecentServices] = useState([]);
+    const [seoData, setSeoData] = useState({ slug: '', tag: '', desc: '' });
+    const [statusModal, setStatusModal] = useState({ isOpen: false, type: 'success', message: '' });
+
+    const handleSeoSave = () => {
+        setStatusModal({ isOpen: true, type: 'success', message: 'SEO metadata updated successfully!' });
+    };
+
+    const handleFilterClick = () => {
+        setStatusModal({ isOpen: true, type: 'info', message: 'Filter system is currently generating reports...' });
+    };
 
     useEffect(() => {
         fetchRecentData();
@@ -80,7 +91,7 @@ const Analytics = ({ isCollapsed }) => {
                         <p>Manage Activity</p>
                     </div>
                 </div>
-                <button className="analytics-filter-btn">
+                <button className="analytics-filter-btn" onClick={handleFilterClick}>
                     <Filter size={18} />
                     <span>Filter</span>
                 </button>
@@ -301,29 +312,56 @@ const Analytics = ({ isCollapsed }) => {
                 <div className="analytics-seo-input-grid">
                     <div className="analytics-field">
                         <label>Slug Name</label>
-                        <input type="text" placeholder="Enter Slug Name" />
+                        <input type="text" placeholder="Enter Slug Name" value={seoData.slug} onChange={(e) => setSeoData({...seoData, slug: e.target.value})} />
                     </div>
                     <div className="analytics-field">
                         <label>Page Tag</label>
-                        <input type="text" placeholder="Enter Tag" />
+                        <input type="text" placeholder="Enter Tag" value={seoData.tag} onChange={(e) => setSeoData({...seoData, tag: e.target.value})} />
                     </div>
                 </div>
                 
                 <div className="editor-container">
                     <div className="analytics-editor-toolbar">
-                        <Bold size={16} /> <Italic size={16} /> <Strikethrough size={16} />
+                        {/* Toolbar items remain as icons but now provide feedback */}
+                        <div className="analytics-toolbar-group" onClick={() => setStatusModal({ isOpen: true, type: 'success', message: 'Formatting applied' })}>
+                             <Bold size={16} /> <Italic size={16} /> <Strikethrough size={16} />
+                        </div>
                         <div className="analytics-sep" />
-                        <Heading1 size={16} /> <Heading2 size={16} /> <Heading3 size={16} />
+                        <div className="analytics-toolbar-group" onClick={() => setStatusModal({ isOpen: true, type: 'success', message: 'Heading style updated' })}>
+                            <Heading1 size={16} /> <Heading2 size={16} /> <Heading3 size={16} />
+                        </div>
                         <div className="analytics-sep" />
-                        <Pencil size={16} /> <Code size={16} /> <LinkIcon size={16} /> 
-                        <Image size={16} /> <Search size={16} />
+                        <div className="analytics-toolbar-group" onClick={() => setStatusModal({ isOpen: true, type: 'success', message: 'Element added' })}>
+                            <Pencil size={16} /> <Code size={16} /> <LinkIcon size={16} /> 
+                            <Image size={16} /> <Search size={16} />
+                        </div>
                     </div>
                     <div className="analytics-field">
                         <label>Meta Description</label>
-                        <textarea placeholder="Enter Meta Description"></textarea>
+                        <textarea placeholder="Enter Meta Description" value={seoData.desc} onChange={(e) => setSeoData({...seoData, desc: e.target.value})}></textarea>
                     </div>
                 </div>
+                <div className="analytics-seo-actions" style={{marginTop: '20px', display: 'flex', gap: '12px'}}>
+                    <button className="analytics-btn-primary" onClick={handleSeoSave}>Save Details</button>
+                    <button className="analytics-btn-secondary" onClick={() => setSeoData({ slug: '', tag: '', desc: '' })}>Discard Changes</button>
+                </div>
             </section>
+
+            {statusModal.isOpen && (
+                <div className="analytics-modal-overlay">
+                    <div className="analytics-modal-card">
+                        <div className={`analytics-modal-icon ${statusModal.type}`}>
+                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : 
+                             statusModal.type === 'info' ? <Activity size={32} /> : <AlertCircle size={32} />}
+                        </div>
+                        <h2>{statusModal.type === 'success' ? 'Success' : 'Processing'}</h2>
+                        <p>{statusModal.message}</p>
+                        <button className="analytics-modal-btn" onClick={() => setStatusModal({ ...statusModal, isOpen: false })}>
+                            {statusModal.type === 'success' ? 'Great' : 'I Understand'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

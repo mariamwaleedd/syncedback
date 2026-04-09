@@ -3,8 +3,9 @@ import {
     User, Shield, Bell, Palette, Globe, 
     Save, Trash2, Camera, Lock, Eye, 
     EyeOff, Moon, Sun, Smartphone,
-    LogOut
+    LogOut, CheckCircle, AlertCircle, X
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './Settings.css';
 
 const Settings = ({ isCollapsed }) => {
@@ -22,6 +23,20 @@ const Settings = ({ isCollapsed }) => {
         language: 'en',
         fontSize: 'medium'
     });
+    const [statusModal, setStatusModal] = useState({ isOpen: false, type: 'success', message: '' });
+    const navigate = useNavigate();
+
+    const handleSave = () => {
+        setStatusModal({ isOpen: true, type: 'success', message: 'Settings saved successfully!' });
+    };
+
+    const handleDiscard = () => {
+        setStatusModal({ isOpen: true, type: 'warning', message: 'Changes discarded.' });
+    };
+
+    const handleLogout = () => {
+        navigate('/login');
+    };
 
     React.useEffect(() => {
         document.documentElement.setAttribute('data-theme', appearance.theme);
@@ -202,8 +217,8 @@ const Settings = ({ isCollapsed }) => {
                     <p>Manage your account settings and preferences</p>
                 </div>
                 <div className="header-actions">
-                    <button className="btn-secondary-outline">Discard</button>
-                    <button className="btn-primary-save"><Save size={18} /> Save Changes</button>
+                    <button className="btn-secondary-outline" onClick={handleDiscard}>Discard</button>
+                    <button className="btn-primary-save" onClick={handleSave}><Save size={18} /> Save Changes</button>
                 </div>
             </header>
 
@@ -225,7 +240,7 @@ const Settings = ({ isCollapsed }) => {
                     </nav>
 
                     <div className="sidebar-footer">
-                        <button className="logout-btn">
+                        <button className="logout-btn" onClick={handleLogout}>
                             <LogOut size={20} /> <span>Log Out</span>
                         </button>
                     </div>
@@ -235,6 +250,21 @@ const Settings = ({ isCollapsed }) => {
                     {renderContent()}
                 </main>
             </div>
+
+            {statusModal.isOpen && (
+                <div className="status-modal-overlay">
+                    <div className="status-modal-card">
+                        <div className={`status-modal-icon ${statusModal.type}`}>
+                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : <AlertCircle size={32} />}
+                        </div>
+                        <h2>{statusModal.type === 'success' ? 'Success' : 'Attention'}</h2>
+                        <p>{statusModal.message}</p>
+                        <button className="status-modal-btn" onClick={() => setStatusModal({ ...statusModal, isOpen: false })}>
+                            {statusModal.type === 'success' ? 'Perfect' : 'I Understand'}
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

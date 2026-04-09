@@ -7,6 +7,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, 
   Tooltip, ResponsiveContainer 
 } from 'recharts';
+import { useNavigate } from 'react-router-dom';
 import './Hero.css';
 
 const chartData = [
@@ -20,10 +21,18 @@ const chartData = [
 ];
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const [activeFilter, setActiveFilter] = React.useState('7 Days');
+
+  const filteredData = React.useMemo(() => {
+    if (activeFilter === '24h') return chartData.slice(-3).map((d, i) => ({ ...d, name: ['10am', '2pm', '6pm'][i] }));
+    if (activeFilter === '30 Days') return [...chartData, ...chartData, ...chartData, ...chartData].slice(0, 30).map((d, i) => ({ ...d, name: `Day ${i+1}` }));
+    return chartData;
+  }, [activeFilter]);
   return (
     <div className="hero-container">
       <div className="hero-stats-grid">
-        <div className="hero-stat-card">
+        <div className="hero-stat-card" onClick={() => navigate('/analytics')}>
           <div className="hero-stat-header">
             <div className="hero-stat-icon-box blue"><Eye size={20} /></div>
             <TrendingUp size={16} className="hero-trend-up" />
@@ -33,7 +42,7 @@ const Hero = () => {
           <span className="hero-stat-change hero-positive">+12.5% <small>vs last week</small></span>
         </div>
 
-        <div className="hero-stat-card">
+        <div className="hero-stat-card" onClick={() => navigate('/analytics')}>
           <div className="hero-stat-header">
             <div className="hero-stat-icon-box hero-purple"><Users size={20} /></div>
             <TrendingUp size={16} className="hero-trend-up" />
@@ -43,7 +52,7 @@ const Hero = () => {
           <span className="hero-stat-change hero-positive">+8.2% <small>vs last week</small></span>
         </div>
 
-        <div className="hero-stat-card">
+        <div className="hero-stat-card" onClick={() => navigate('/manage-pages')}>
           <div className="hero-stat-header">
             <div className="hero-stat-icon-box hero-green"><FileCode size={20} /></div>
             <CheckCircle size={16} className="hero-trend-check" />
@@ -53,7 +62,7 @@ const Hero = () => {
           <span className="hero-stat-change active">All Active <small>No errors</small></span>
         </div>
 
-        <div className="hero-stat-card">
+        <div className="hero-stat-card" onClick={() => navigate('/services')}>
           <div className="hero-stat-header">
             <div className="hero-stat-icon-box hero-orange"><Zap size={20} /></div>
             <TrendingUp size={16} className="hero-trend-up" />
@@ -63,7 +72,7 @@ const Hero = () => {
           <span className="hero-stat-change active">100% <small>Operational</small></span>
         </div>
 
-        <div className="hero-stat-card">
+        <div className="hero-stat-card" onClick={() => navigate('/activities')}>
           <div className="hero-stat-header">
             <div className="hero-stat-icon-box hero-cyan"><Activity size={20} /></div>
             <Activity size={16} className="hero-trend-pulse" />
@@ -82,14 +91,20 @@ const Hero = () => {
               <p>Page views over time</p>
             </div>
             <div className="hero-filter-tabs">
-              <button>24h</button>
-              <button className="active">7 Days</button>
-              <button>30 Days</button>
+              {['24h', '7 Days', '30 Days'].map(tab => (
+                <button 
+                  key={tab} 
+                  className={activeFilter === tab ? 'active' : ''} 
+                  onClick={() => setActiveFilter(tab)}
+                >
+                  {tab}
+                </button>
+              ))}
             </div>
           </div>
           <div className="chart-wrapper">
             <ResponsiveContainer width="100%" height={250}>
-              <LineChart data={chartData}>
+              <LineChart data={filteredData}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="rgba(255,255,255,0.05)" />
                 <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#64748b', fontSize: 12}} dy={10} />
                 <YAxis hide />
@@ -141,7 +156,7 @@ const Hero = () => {
               { icon: <FileCode />, title: 'Settings Modified', sub: 'Notification System', time: '2 hours ago', type: 'Admin' },
               { icon: <Activity />, title: 'Database Backup', sub: 'Full Backup', time: '3 hours ago', type: 'System' },
             ].map((item, i) => (
-              <div key={i} className="hero-activity-item">
+              <div key={i} className="hero-activity-item" onClick={() => navigate('/activities')}>
                 <div className="hero-activity-icon">{item.icon}</div>
                 <div className="activity-content">
                   <div className="activity-row">

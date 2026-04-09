@@ -2,8 +2,10 @@ import React from 'react';
 import { 
   User, Mail, Phone, MapPin, Shield, 
   Key, Bell, Smartphone, Globe, Camera,
-  ExternalLink, Award, Briefcase, Calendar, Zap, Code
+  ExternalLink, Award, Briefcase, Calendar, Zap, Code,
+  CheckCircle, AlertCircle, X
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import './Profile.css';
 
 const Profile = ({ isCollapsed }) => {
@@ -12,6 +14,13 @@ const Profile = ({ isCollapsed }) => {
     email: true,
     push: true
   });
+  const [statusModal, setStatusModal] = React.useState({ isOpen: false, type: 'success', message: '' });
+  const navigate = useNavigate();
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setStatusModal({ isOpen: true, type: 'success', message: 'Profile details updated successfully!' });
+  };
 
   const handleToggle = (key) => {
     setToggleStates(prev => ({ ...prev, [key]: !prev[key] }));
@@ -72,7 +81,7 @@ const Profile = ({ isCollapsed }) => {
                 <textarea defaultValue="Full-stack developer with 5+ years of experience in building modern, performant web applications using React, Next.js, and Node.js. Passionate about UI/UX and system architecture." />
               </div>
               <div className="form-actions">
-                <button className="profile-save-btn">Update Profile</button>
+                <button className="profile-save-btn" onClick={handleUpdate}>Update Profile</button>
               </div>
             </div>
           </div>
@@ -82,7 +91,7 @@ const Profile = ({ isCollapsed }) => {
               <Zap size={20} className="profile-header-icon" />
               <h3>Account Analytics</h3>
             </div>
-            <div className="profile-stats-inner-grid">
+            <div className="profile-stats-inner-grid" onClick={() => navigate('/analytics')} style={{ cursor: 'pointer' }}>
               <div className="profile-stat-item">
                 <div className="profile-stat-icon-box blue"><Zap size={20} /></div>
                 <h4>154</h4>
@@ -114,21 +123,21 @@ const Profile = ({ isCollapsed }) => {
               <h3>Social Connect</h3>
             </div>
             <div className="profile-social-links-list">
-              <a href="#" className="profile-social-item">
+              <div className="profile-social-item" onClick={() => setStatusModal({ isOpen: true, type: 'info', message: 'Opening GitHub Profile...' })}>
                 <div className="profile-social-icon profile-github"><Code size={18} /></div>
                 <span>GitHub Profile</span>
                 <ExternalLink size={14} className="profile-ext-icon" />
-              </a>
-              <a href="#" className="profile-social-item">
+              </div>
+              <div className="profile-social-item" onClick={() => setStatusModal({ isOpen: true, type: 'info', message: 'Redirecting to LinkedIn...' })}>
                 <div className="profile-social-icon profile-linkedin"><ExternalLink size={18} /></div>
                 <span>LinkedIn Profile</span>
                 <ExternalLink size={14} className="profile-ext-icon" />
-              </a>
-              <a href="#" className="profile-social-item">
+              </div>
+              <div className="profile-social-item" onClick={() => setStatusModal({ isOpen: true, type: 'info', message: 'Redirecting to Twitter...' })}>
                 <div className="profile-social-icon profile-twitter"><Globe size={18} /></div>
                 <span>Twitter / X</span>
                 <ExternalLink size={14} className="profile-ext-icon" />
-              </a>
+              </div>
             </div>
           </div>
 
@@ -146,7 +155,7 @@ const Profile = ({ isCollapsed }) => {
                     <p>Last changed Dec 2025</p>
                   </div>
                 </div>
-                <button className="profile-sec-action-btn">Edit</button>
+                <button className="profile-sec-action-btn" onClick={() => navigate('/settings')}>Edit</button>
               </div>
               <div className="profile-security-item">
                 <div className="profile-security-info">
@@ -185,8 +194,24 @@ const Profile = ({ isCollapsed }) => {
           </div>
         </div>
       </div>
+
+      {statusModal.isOpen && (
+        <div className="profile-modal-overlay">
+          <div className="profile-modal-card">
+            <div className={`profile-modal-icon ${statusModal.type}`}>
+                {statusModal.type === 'success' ? <CheckCircle size={32} /> : 
+                 statusModal.type === 'info' ? <Zap size={32} /> : <AlertCircle size={32} />}
+            </div>
+            <h2>{statusModal.type === 'success' ? 'Success' : 'Processing'}</h2>
+            <p>{statusModal.message}</p>
+            <button className="profile-modal-btn" onClick={() => setStatusModal({ ...statusModal, isOpen: false })}>
+                {statusModal.type === 'success' ? 'Understood' : 'Okay'}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
-  );
+);
 };
 
 export default Profile;

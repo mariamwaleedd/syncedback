@@ -119,24 +119,24 @@ const Messages = ({ isCollapsed }) => {
             </header>
 
             <div className="messages-msg-stats-grid">
-                <div className="messages-msg-stat-card">
+                <div className="messages-msg-stat-card" onClick={() => document.getElementById('pending-reviews').scrollIntoView({behavior:'smooth'})} style={{cursor:'pointer'}}>
                     <div className="messages-msg-icon-box blue"><Users size={20} /></div>
                     <h3>Pending Reviews</h3>
                     <div className="messages-msg-stat-val">{pendingReviews.length}</div>
                 </div>
-                <div className="messages-msg-stat-card">
+                <div className="messages-msg-stat-card" onClick={() => document.getElementById('contact-messages').scrollIntoView({behavior:'smooth'})} style={{cursor:'pointer'}}>
                     <div className="messages-msg-icon-box light-blue"><Mail size={20} /></div>
                     <h3>Contact Messages</h3>
                     <div className="messages-msg-stat-val">{contactMessages.length}</div>
                 </div>
-                <div className="messages-msg-stat-card">
+                <div className="messages-msg-stat-card" onClick={() => document.getElementById('live-reviews').scrollIntoView({behavior:'smooth'})} style={{cursor:'pointer'}}>
                     <div className="messages-msg-icon-box messages-blue-grad"><Check size={20} /></div>
                     <h3>Live Reviews</h3>
                     <div className="messages-msg-stat-val">{approvedReviews.length}</div>
                 </div>
             </div>
 
-            <section className="messages-inbox-container review-section-box">
+            <section className="messages-inbox-container review-section-box" id="pending-reviews">
                 <h2 className="section-title pending-title">Pending Reviews (Approval Required)</h2>
                 <div className="messages-inbox-table-wrapper">
                     <table className="messages-inbox-table">
@@ -166,7 +166,7 @@ const Messages = ({ isCollapsed }) => {
                 </div>
             </section>
 
-            <section className="messages-inbox-container review-section-box">
+            <section className="messages-inbox-container review-section-box" id="contact-messages">
                 <h2 className="section-title live-title">Website Contact Inquiries</h2>
                 <div className="messages-inbox-table-wrapper">
                     <table className="messages-inbox-table">
@@ -197,7 +197,7 @@ const Messages = ({ isCollapsed }) => {
                 </div>
             </section>
 
-            <section className="messages-inbox-container review-section-box">
+            <section className="messages-inbox-container review-section-box" id="live-reviews">
                 <h2 className="section-title live-title">Approved Live Reviews</h2>
                 <div className="messages-inbox-table-wrapper">
                     <table className="messages-inbox-table">

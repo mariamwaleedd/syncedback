@@ -71,9 +71,16 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
     setSearchQuery('');
   };
 
+  const [notifications, setNotifications] = useState(notificationsArr);
+
   const handleNotifClick = () => {
     navigate('/activities');
     setShowNotifications(false);
+  };
+
+  const clearNotifications = (e) => {
+    e.stopPropagation();
+    setNotifications([]);
   };
 
   const filteredResults = SEARCHABLE_PAGES.filter(page => 
@@ -131,28 +138,34 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
             onClick={handleToggleNotifications}
           >
             <Bell size={20} />
-            <span className="badge">{notificationsArr.length}</span>
+            {notifications.length > 0 && <span className="badge">{notifications.length}</span>}
           </button>
 
           {showNotifications && (
             <div className="notification-dropdown">
               <div className="dropdown-header">
                 <h3>Notifications</h3>
-                <span className="mark-read">Mark all as read</span>
+                <span className="mark-read" onClick={clearNotifications}>Mark all as read</span>
               </div>
               <div className="notifications-list">
-                {notificationsArr.map((notif) => (
-                  <div key={notif.id} className="notification-item" onClick={handleNotifClick}>
-                    <div className={`notif-icon type-${notif.type}`}>
-                      {notif.icon}
+                {notifications.length > 0 ? (
+                  notifications.map((notif) => (
+                    <div key={notif.id} className="notification-item" onClick={handleNotifClick}>
+                      <div className={`notif-icon type-${notif.type}`}>
+                        {notif.icon}
+                      </div>
+                      <div className="notif-content">
+                        <h4>{notif.title}</h4>
+                        <p>{notif.sub}</p>
+                        <span>{notif.time}</span>
+                      </div>
                     </div>
-                    <div className="notif-content">
-                      <h4>{notif.title}</h4>
-                      <p>{notif.sub}</p>
-                      <span>{notif.time}</span>
-                    </div>
+                  ))
+                ) : (
+                  <div className="notification-empty-state">
+                    No new notifications
                   </div>
-                ))}
+                )}
               </div>
               <div className="dropdown-footer" onClick={handleNotifClick}>
                 <span>View all notifications</span>
