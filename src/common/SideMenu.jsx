@@ -2,7 +2,7 @@ import React from 'react';
 import { 
   LayoutGrid, BarChart3, Briefcase, User, Library, 
   FileText, PenTool, MessageSquare, HelpCircle, Settings, 
-  LogOut, X, Menu 
+  LogOut, X, Menu, Globe 
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDialog } from './DialogContext';
@@ -58,6 +58,16 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
         </nav>
 
         <div className="side-menu-footer">
+          <a 
+            href="https://synced.mariamwaleed.com/" 
+            target="_blank" 
+            rel="noreferrer"
+            className="nav-link view-web-link"
+            style={{ textDecoration: 'none' }}
+          >
+            <div className="nav-icon-box"><Globe size={22} /></div>
+            <span className="nav-text">View Website</span>
+          </a>
           <div className="nav-link exit-link" style={{ cursor: 'pointer' }} onClick={handleSignOut}>
             <div className="nav-icon-box"><LogOut size={22} /></div>
             <span className="nav-text">Sign Out</span>
