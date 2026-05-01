@@ -5,11 +5,13 @@ import {
   LogOut, X, Menu 
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDialog } from './DialogContext';
 import './SideMenu.css';
 
 const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile }) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { confirm } = useDialog();
 
   const menuItems = [
     { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/' },
@@ -24,9 +26,9 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
     { icon: <Settings size={22} />, label: 'Settings', path: '/settings' },
   ];
 
-  const handleSignOut = () => {
-    // Show a quick exit animation or feedback if needed
-    if (window.confirm("Are you sure you want to sign out?")) {
+  const handleSignOut = async () => {
+    const confirmed = await confirm("Are you sure you want to sign out?");
+    if (confirmed) {
       navigate('/login');
       if (isMobile) closeMobile();
     }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { ArrowLeft, Filter, Plus, Search, Zap, Edit2, Trash2, MoreVertical, AlertCircle } from 'lucide-react';
 import { supabase } from '../Supabase';
+import { useDialog } from '../common/DialogContext';
 import './Services.css';
 
 const Services = ({ isCollapsed }) => {
@@ -10,9 +11,7 @@ const Services = ({ isCollapsed }) => {
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [itemToDelete, setItemToDelete] = useState(null);
+    const { alert, confirm } = useDialog();
     const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
@@ -42,33 +41,23 @@ const Services = ({ isCollapsed }) => {
         setRefreshing(false);
     };
 
-    const openDeleteModal = (item) => {
-        setItemToDelete(item);
-        setIsModalOpen(true);
-    };
-
-    const closeDeleteModal = () => {
-        setIsModalOpen(false);
-        setItemToDelete(null);
-    };
-
-    const confirmDelete = async () => {
-        if (!itemToDelete) return;
+    const handleDelete = async (item) => {
+        const confirmed = await confirm(`Are you sure you want to delete "${item.title_en}"? This action will remove the feature permanently from the system and cannot be undone.`, 'Confirm Deletion');
         
-        setIsDeleting(true);
-        console.log(`Deleting feature ${itemToDelete.id}...`);
-        
-        const { error } = await supabase.from('features').delete().eq('id', itemToDelete.id);
-        
-        if (error) {
-            console.error('Delete failed:', error);
-            alert(`Failed to delete: ${error.message}`);
-        } else {
-            console.log('Delete successful');
-            fetchFeatures();
-            closeDeleteModal();
+        if (confirmed) {
+            setIsDeleting(true);
+            console.log(`Deleting feature ${item.id}...`);
+            const { error } = await supabase.from('features').delete().eq('id', item.id);
+            
+            if (error) {
+                console.error('Delete failed:', error);
+                alert(`Failed to delete: ${error.message}`);
+            } else {
+                console.log('Delete successful');
+                fetchFeatures();
+            }
+            setIsDeleting(false);
         }
-        setIsDeleting(false);
     };
 
     const filteredFeatures = features.filter(f => 
@@ -150,8 +139,9 @@ const Services = ({ isCollapsed }) => {
                                         <button 
                                             className="services-action-btn-gray" 
                                             style={{color: '#ef4444'}}
-                                            onClick={() => openDeleteModal(feature)}
+                                            onClick={() => handleDelete(feature)}
                                             title="Delete Feature"
+                                            disabled={isDeleting}
                                         >
                                             <Trash2 size={16} />
                                         </button>
@@ -163,34 +153,7 @@ const Services = ({ isCollapsed }) => {
                 </div>
             </main>
 
-            {isModalOpen && (
-                <div className="services-modal-overlay">
-                    <div className="services-modal-card">
-                        <div className="services-modal-icon danger">
-                            <AlertCircle size={32} />
-                        </div>
-                        <h2>Confirm Deletion</h2>
-                        <p>Are you sure you want to delete <strong>"{itemToDelete?.title_en}"</strong>? This action will remove the feature permanently from the system and cannot be undone.</p>
-                        
-                        <div className="services-modal-actions">
-                            <button 
-                                className="services-modal-btn-secondary" 
-                                onClick={closeDeleteModal}
-                                disabled={isDeleting}
-                            >
-                                Cancel
-                            </button>
-                            <button 
-                                className="services-modal-btn-danger" 
-                                onClick={confirmDelete}
-                                disabled={isDeleting}
-                            >
-                                {isDeleting ? 'Deleting...' : 'Delete Feature'}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
+
         </div>
     );
 };

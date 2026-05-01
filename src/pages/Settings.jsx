@@ -6,11 +6,13 @@ import {
     LogOut, CheckCircle, AlertCircle, X
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useDialog } from '../common/DialogContext';
 import './Settings.css';
 
 const Settings = ({ isCollapsed }) => {
     const [activeTab, setActiveTab] = useState('profile');
     const [showPassword, setShowPassword] = useState(false);
+    const { alert } = useDialog();
     const [notifications, setNotifications] = useState({
         email: true,
         push: true,
@@ -23,15 +25,15 @@ const Settings = ({ isCollapsed }) => {
         language: 'en',
         fontSize: 'medium'
     });
-    const [statusModal, setStatusModal] = useState({ isOpen: false, type: 'success', message: '' });
+    
     const navigate = useNavigate();
 
     const handleSave = () => {
-        setStatusModal({ isOpen: true, type: 'success', message: 'Settings saved successfully!' });
+        alert('Settings saved successfully!', 'Success');
     };
 
     const handleDiscard = () => {
-        setStatusModal({ isOpen: true, type: 'warning', message: 'Changes discarded.' });
+        alert('Changes discarded.', 'Info');
     };
 
     const handleLogout = () => {
@@ -251,20 +253,7 @@ const Settings = ({ isCollapsed }) => {
                 </main>
             </div>
 
-            {statusModal.isOpen && (
-                <div className="status-modal-overlay">
-                    <div className="status-modal-card">
-                        <div className={`status-modal-icon ${statusModal.type}`}>
-                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : <AlertCircle size={32} />}
-                        </div>
-                        <h2>{statusModal.type === 'success' ? 'Success' : 'Attention'}</h2>
-                        <p>{statusModal.message}</p>
-                        <button className="status-modal-btn" onClick={() => setStatusModal({ ...statusModal, isOpen: false })}>
-                            {statusModal.type === 'success' ? 'Perfect' : 'I Understand'}
-                        </button>
-                    </div>
-                </div>
-            )}
+
         </div>
     );
 };

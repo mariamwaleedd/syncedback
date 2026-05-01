@@ -3,9 +3,10 @@ import {
   User, Mail, Phone, MapPin, Shield, 
   Key, Bell, Smartphone, Globe, Camera,
   ExternalLink, Award, Briefcase, Calendar, Zap, Code,
-  CheckCircle, AlertCircle, X
+  CheckCircle, AlertCircle, X, ArrowLeft, Edit2
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useDialog } from '../common/DialogContext';
 import './Profile.css';
 
 const Profile = ({ isCollapsed }) => {
@@ -14,12 +15,14 @@ const Profile = ({ isCollapsed }) => {
     email: true,
     push: true
   });
-  const [statusModal, setStatusModal] = React.useState({ isOpen: false, type: 'success', message: '' });
+  const [isEditing, setIsEditing] = React.useState(false);
   const navigate = useNavigate();
+  const { alert } = useDialog();
 
   const handleUpdate = (e) => {
     e.preventDefault();
-    setStatusModal({ isOpen: true, type: 'success', message: 'Profile details updated successfully!' });
+    setIsEditing(false);
+    alert('Profile details updated successfully!', 'success');
   };
 
   const handleToggle = (key) => {
@@ -123,17 +126,17 @@ const Profile = ({ isCollapsed }) => {
               <h3>Social Connect</h3>
             </div>
             <div className="profile-social-links-list">
-              <div className="profile-social-item" onClick={() => setStatusModal({ isOpen: true, type: 'info', message: 'Opening GitHub Profile...' })}>
+              <div className="profile-social-item" onClick={() => alert('Opening GitHub Profile...', 'info')}>
                 <div className="profile-social-icon profile-github"><Code size={18} /></div>
                 <span>GitHub Profile</span>
                 <ExternalLink size={14} className="profile-ext-icon" />
               </div>
-              <div className="profile-social-item" onClick={() => setStatusModal({ isOpen: true, type: 'info', message: 'Redirecting to LinkedIn...' })}>
+              <div className="profile-social-item" onClick={() => alert('Redirecting to LinkedIn...', 'info')}>
                 <div className="profile-social-icon profile-linkedin"><ExternalLink size={18} /></div>
                 <span>LinkedIn Profile</span>
                 <ExternalLink size={14} className="profile-ext-icon" />
               </div>
-              <div className="profile-social-item" onClick={() => setStatusModal({ isOpen: true, type: 'info', message: 'Redirecting to Twitter...' })}>
+              <div className="profile-social-item" onClick={() => alert('Redirecting to Twitter...', 'info')}>
                 <div className="profile-social-icon profile-twitter"><Globe size={18} /></div>
                 <span>Twitter / X</span>
                 <ExternalLink size={14} className="profile-ext-icon" />
@@ -194,24 +197,8 @@ const Profile = ({ isCollapsed }) => {
           </div>
         </div>
       </div>
-
-      {statusModal.isOpen && (
-        <div className="profile-modal-overlay">
-          <div className="profile-modal-card">
-            <div className={`profile-modal-icon ${statusModal.type}`}>
-                {statusModal.type === 'success' ? <CheckCircle size={32} /> : 
-                 statusModal.type === 'info' ? <Zap size={32} /> : <AlertCircle size={32} />}
-            </div>
-            <h2>{statusModal.type === 'success' ? 'Success' : 'Processing'}</h2>
-            <p>{statusModal.message}</p>
-            <button className="profile-modal-btn" onClick={() => setStatusModal({ ...statusModal, isOpen: false })}>
-                {statusModal.type === 'success' ? 'Understood' : 'Okay'}
-            </button>
-          </div>
-        </div>
-      )}
     </div>
-);
+  );
 };
 
 export default Profile;

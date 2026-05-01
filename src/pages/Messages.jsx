@@ -5,6 +5,7 @@ import {
     TrendingUp, MousePointer2, Mail, MoreVertical, Check, Trash2, Archive, AlertCircle, X, RotateCcw
 } from 'lucide-react';
 import { supabase } from '../Supabase';
+import { useDialog } from '../common/DialogContext';
 import './Messages.css';
 
 const Messages = ({ isCollapsed }) => {
@@ -13,7 +14,7 @@ const Messages = ({ isCollapsed }) => {
     const [approvedReviews, setApprovedReviews] = useState([]);
     const [contactMessages, setContactMessages] = useState([]);
     const [notification, setNotification] = useState({ show: false, message: "", type: "" });
-    const [confirmModal, setConfirmModal] = useState({ show: false, id: null, category: null, action: null });
+    const { alert, confirm } = useDialog();
     const [isRefreshing, setIsRefreshing] = useState(false);
 
     const showNotify = (message, type) => {
@@ -42,13 +43,15 @@ const Messages = ({ isCollapsed }) => {
         fetchData();
     }, []);
 
-    const triggerConfirm = (e, id, category, action) => {
+    const triggerConfirm = async (e, id, category, action) => {
         e.stopPropagation();
-        setConfirmModal({ show: true, id, category, action });
+        const confirmed = await confirm(`Are you sure you want to ${action} this ${category}?`, 'Confirm Action');
+        if (confirmed) {
+            executeAction(id, category, action);
+        }
     };
 
-    const executeAction = async () => {
-        const { id, category, action } = confirmModal;
+    const executeAction = async (id, category, action) => {
         let table = category === 'review' ? 'testimonials' : 'contact_messages';
         let error;
 
@@ -72,7 +75,6 @@ const Messages = ({ isCollapsed }) => {
         } else {
             showNotify("Action failed", "error");
         }
-        setConfirmModal({ show: false, id: null, category: null, action: null });
     };
 
     const goToDetails = (item, isReview = false, isContact = false) => {
@@ -90,19 +92,7 @@ const Messages = ({ isCollapsed }) => {
                 </div>
             )}
 
-            {confirmModal.show && (
-                <div className="confirm-modal-overlay">
-                    <div className="confirm-modal-content">
-                        <AlertCircle size={40} color="#f87171" />
-                        <h3>Confirm Action</h3>
-                        <p>Are you sure you want to {confirmModal.action} this {confirmModal.category}?</p>
-                        <div className="confirm-modal-btns">
-                            <button className="cancel-confirm" onClick={() => setConfirmModal({ show: false })}>Cancel</button>
-                            <button className="execute-confirm" onClick={executeAction}>Confirm</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+
 
             <header className="messages-msg-header">
                 <div className="messages-msg-titles">

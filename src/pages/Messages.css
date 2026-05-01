@@ -80,10 +80,7 @@
 .action-notification { position: fixed; bottom: 30px; right: 30px; padding: 16px 24px; border-radius: 12px; background: #1f2937; color: white; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 9999; border-left: 5px solid #3b82f6; }
 .action-notification.success { border-left-color: #34d399; }
 
-.confirm-modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; z-index: 10000; backdrop-filter: blur(4px); }
-.confirm-modal-content { background: #111827; padding: 30px; border-radius: 20px; width: 400px; text-align: center; border: 1px solid var(--border-main); }
-.confirm-modal-btns { display: flex; gap: 12px; margin-top: 25px; }
-.confirm-modal-btns button { flex: 1; padding: 12px; border-radius: 10px; cursor: pointer; font-weight: 600; border: none; }
+
 .cancel-confirm { background: #374151; color: white; }
 .execute-confirm { background: #ef4444; color: white; }
 

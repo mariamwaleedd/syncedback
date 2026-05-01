@@ -7,6 +7,7 @@ import {
     CheckCircle, Loader
 } from 'lucide-react';
 import { supabase } from '../Supabase';
+import { useDialog } from '../common/DialogContext';
 import './MediaLibrary.css';
 
 const MediaLibrary = ({ isCollapsed }) => {
@@ -26,7 +27,7 @@ const MediaLibrary = ({ isCollapsed }) => {
     const [sortBy, setSortBy] = useState('default');
     const [addModalOpen, setAddModalOpen] = useState(false);
     const [selectedUploadFolder, setSelectedUploadFolder] = useState('General');
-    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const { alert, confirm } = useDialog();
     const [itemToDelete, setItemToDelete] = useState(null);
     const [toast, setToast] = useState({ visible: false, message: '', type: 'loading' });
 
@@ -200,17 +201,17 @@ const MediaLibrary = ({ isCollapsed }) => {
         }
     };
 
-    const requestDelete = (item) => {
-        setItemToDelete(item);
-        setDeleteModalOpen(true);
+    const requestDelete = async (item) => {
+        const confirmed = await confirm(`Are you absolutely sure you want to delete ${item.name}? This action cannot be undone and may break links in your application.`, 'Delete Asset?');
+        if (confirmed) {
+            confirmDelete(item);
+        }
     };
 
-    const confirmDelete = async () => {
-        if (!itemToDelete) return;
-        setDeleteModalOpen(false);
-        showToast(`Deleting ${itemToDelete.name}...`, 'loading');
+    const confirmDelete = async (item) => {
+        showToast(`Deleting ${item.name}...`, 'loading');
         
-        const { error } = await supabase.storage.from(BUCKET_NAME).remove([itemToDelete.fullPath]);
+        const { error } = await supabase.storage.from(BUCKET_NAME).remove([item.fullPath]);
         if (error) {
             showToast('Delete failed: ' + error.message, 'error');
         } else {
@@ -219,7 +220,6 @@ const MediaLibrary = ({ isCollapsed }) => {
             fetchFiles(currentPath); 
             fetchAllFlatMedia();
         }
-        setItemToDelete(null);
     };
 
     const filteredMedia = (activeTab === 'all' ? files : allMediaFlat).filter(item => {
@@ -364,7 +364,10 @@ const MediaLibrary = ({ isCollapsed }) => {
                         </div>
                         <div className="detail-actions">
                             {!selectedItem.isFolder && (
-                                <button className="btn-detail-outline" onClick={() => setReplaceModalOpen(true)}>
+                                <button className="btn-detail-outline" onClick={async () => {
+                                    const confirmed = await confirm("This action will overwrite the existing file at this path instantly across the whole application.", "Replace Asset?");
+                                    if (confirmed) replaceInputRef.current.click();
+                                }}>
                                     <RefreshCw size={18} /> Replace Asset
                                 </button>
                             )}
@@ -375,33 +378,7 @@ const MediaLibrary = ({ isCollapsed }) => {
                 )}
             </div>
 
-            {replaceModalOpen && (
-                <div className="media-modal-overlay">
-                    <div className="media-modal-card">
-                        <div className="media-modal-icon warning"><AlertCircle size={32} /></div>
-                        <h2>Replace Asset?</h2>
-                        <p>This action will overwrite the existing file at this path instantly across the whole application.</p>
-                        <div className="media-modal-actions">
-                            <button className="media-modal-btn-secondary" onClick={() => setReplaceModalOpen(false)}>Cancel</button>
-                            <button className="media-modal-btn-warning" onClick={() => { setReplaceModalOpen(false); replaceInputRef.current.click(); }}>Yes, Replace</button>
-                        </div>
-                    </div>
-                </div>
-            )}
 
-            {deleteModalOpen && (
-                <div className="media-modal-overlay">
-                    <div className="media-modal-card">
-                        <div className="media-modal-icon danger"><Trash2 size={32} /></div>
-                        <h2>Delete Asset?</h2>
-                        <p>Are you absolutely sure you want to delete <strong>{itemToDelete?.name}</strong>? This action cannot be undone and may break links in your application.</p>
-                        <div className="media-modal-actions">
-                            <button className="media-modal-btn-secondary" onClick={() => setDeleteModalOpen(false)}>Cancel</button>
-                            <button className="media-modal-btn-danger" onClick={confirmDelete}>Yes, Delete It</button>
-                        </div>
-                    </div>
-                </div>
-            )}
 
             {addModalOpen && (
                 <div className="media-modal-overlay">

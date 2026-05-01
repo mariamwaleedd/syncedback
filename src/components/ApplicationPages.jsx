@@ -4,13 +4,14 @@ import {
   FileText, Filter, Plus, Edit2, Trash2, AlertCircle 
 } from 'lucide-react';
 import { supabase } from '../Supabase';
+import { useDialog } from '../common/DialogContext';
 import './ApplicationPages.css';
 
 const ApplicationPages = () => {
   const navigate = useNavigate();
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [deleteModal, setDeleteModal] = useState({ isOpen: false, pageId: null });
+  const { alert, confirm } = useDialog();
 
   useEffect(() => {
     fetchPages();
@@ -29,20 +30,16 @@ const ApplicationPages = () => {
     setLoading(false);
   };
 
-  const handleDeleteClick = (id) => {
-    setDeleteModal({ isOpen: true, pageId: id });
-  };
-
-  const confirmDelete = async () => {
-    if (!deleteModal.pageId) return;
-    
-    const { error } = await supabase.from('pages').delete().eq('id', deleteModal.pageId);
-    if (error) {
-      alert("Error deleting page");
-    } else {
-      fetchPages();
+  const handleDeleteClick = async (id) => {
+    const confirmed = await confirm("This action cannot be undone. This page will be permanently removed from your application and database.", "Delete Page?");
+    if (confirmed) {
+      const { error } = await supabase.from('pages').delete().eq('id', id);
+      if (error) {
+        alert("Error deleting page");
+      } else {
+        fetchPages();
+      }
     }
-    setDeleteModal({ isOpen: false, pageId: null });
   };
   return (
     <div className="applicationpages-app-pages-container">
@@ -128,28 +125,7 @@ const ApplicationPages = () => {
         </table>
       </div>
 
-      {deleteModal.isOpen && (
-        <div className="applicationpages-modal-overlay">
-          <div className="applicationpages-modal-card">
-            <div className="applicationpages-modal-icon danger">
-              <AlertCircle size={32} />
-            </div>
-            <h2>Delete Page?</h2>
-            <p>This action cannot be undone. This page will be permanently removed from your application and database.</p>
-            <div className="applicationpages-modal-actions">
-              <button 
-                className="applicationpages-modal-btn-secondary" 
-                onClick={() => setDeleteModal({ isOpen: false, pageId: null })}
-              >
-                Cancel
-              </button>
-              <button className="applicationpages-modal-btn-danger" onClick={confirmDelete}>
-                Yes, Delete Page
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };
