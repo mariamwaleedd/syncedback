@@ -14,7 +14,7 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
   const { confirm } = useDialog();
 
   const menuItems = [
-    { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/' },
+    { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/dashboard' },
     { icon: <BarChart3 size={22} />, label: 'Analytics', path: '/analytics' },
     { icon: <Briefcase size={22} />, label: 'Services', path: '/services' },
     { icon: <FileText size={22} />, label: 'Pages', path: '/manage-pages' },

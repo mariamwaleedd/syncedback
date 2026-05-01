@@ -11,6 +11,12 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const handleAdminLogin = () => {
+        setEmail('mariam@123.com');
+        setPassword('12345');
+        setError('');
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (email === 'mariam@123.com' && password === '12345') {
@@ -65,6 +71,14 @@ const Login = () => {
                         Login
                     </button>
 
+                    <button 
+                        type="button" 
+                        className="login-admin-btn" 
+                        onClick={handleAdminLogin}
+                    >
+                        Login as Admin
+                    </button>
+
                     <Link to="/forget-password" alt="" className="login-forgot-link">Forget password?</Link>
                 </form>
 
@@ -95,9 +109,7 @@ const Login = () => {
                     </div>
                 </div>
 
-                <p className="login-signup-footer">
-                    Don't have an account yet? <Link to="/signup">Sign Up</Link>
-                </p>
+
             </div>
         </div>
     );

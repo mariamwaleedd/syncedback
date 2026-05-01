@@ -34,7 +34,7 @@ const Routing = () => {
     const [loading, setLoading] = useState(true);
     const location = useLocation();
 
-    const isAuthPage = ['/login', '/signup', '/forget-password', '/choose-platform'].includes(location.pathname);
+    const isAuthPage = ['/', '/login', '/signup', '/forget-password', '/choose-platform'].includes(location.pathname);
 
     useEffect(() => {
         document.title = `Synced | ${getPageTitle(location.pathname)}`;
@@ -87,6 +87,8 @@ const Routing = () => {
         return routes[path] || 'Synced Backend';
     };
 
+
+
     const toggleNav = () => {
         if (isMobile) {
             setIsMobileOpen(!isMobileOpen);
@@ -114,7 +116,8 @@ const Routing = () => {
                 />
             )}
             <Routes>
-                <Route path="/" element={<Home isCollapsed={isCollapsed} />} />
+                <Route path="/" element={<Login />} />
+                <Route path="/dashboard" element={<Home isCollapsed={isCollapsed} />} />
                 <Route path="/preloader" element={<PreLoader />} />
                 <Route path="/add-feature" element={<AddFeature isCollapsed={isCollapsed} />} />
                 <Route path="/login" element={<Login />} />

@@ -9,7 +9,7 @@ const ChoosePlatform = () => {
     const navigate = useNavigate();
 
     const handleSelect = () => {
-        navigate('/');
+        navigate('/dashboard');
     };
 
     return (
