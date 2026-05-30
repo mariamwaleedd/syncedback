@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { 
     User, Shield, Bell, Palette, Globe, 
-    Save, Trash2, Camera, Lock, Eye, 
+    Save, Camera, Eye, 
     EyeOff, Moon, Sun, Smartphone,
-    LogOut, CheckCircle, AlertCircle, X
+    LogOut
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useDialog } from '../common/DialogContext';
+import { useTranslation } from '../common/LanguageContext';
 import './Settings.css';
 
 const Settings = ({ isCollapsed }) => {
@@ -20,6 +21,8 @@ const Settings = ({ isCollapsed }) => {
     const [confirmNewPassword, setConfirmNewPassword] = useState('');
     
     const { alert } = useDialog();
+    const { language, changeLanguage, t } = useTranslation();
+
     const [notifications, setNotifications] = useState({
         email: true,
         push: true,
@@ -29,18 +32,18 @@ const Settings = ({ isCollapsed }) => {
 
     const [appearance, setAppearance] = useState({
         theme: localStorage.getItem('synced_theme') || 'dark',
-        language: 'en',
+        language: language,
         fontSize: 'medium'
     });
     
     const navigate = useNavigate();
 
     const handleSave = () => {
-        alert('Settings saved successfully!', 'Success');
+        alert(t('settingsSaved'), t('success'));
     };
 
     const handleDiscard = () => {
-        alert('Changes discarded.', 'Info');
+        alert(t('changesDiscarded'), t('info'));
     };
 
     const handleLogout = () => {
@@ -52,18 +55,26 @@ const Settings = ({ isCollapsed }) => {
         localStorage.setItem('synced_theme', appearance.theme);
     }, [appearance.theme]);
 
+    React.useEffect(() => {
+        setAppearance(prev => ({ ...prev, language }));
+    }, [language]);
+
     const toggleNotification = (key) => {
         const nextState = !notifications[key];
         setNotifications(prev => ({ ...prev, [key]: nextState }));
         
         const titles = {
-            email: 'Email Notifications',
-            push: 'Push Notifications',
-            marketing: 'Marketing Emails',
-            security: 'Two-Factor Authentication'
+            email: t('emailNotif'),
+            push: t('pushNotif'),
+            marketing: t('marketingNotif'),
+            security: t('twoFactor')
         };
         
-        alert(`${titles[key] || key} has been successfully ${nextState ? 'enabled' : 'disabled'}.`, 'System Update');
+        const statusMsg = language === 'ar' 
+            ? `تم ${nextState ? 'تفعيل' : 'تعطيل'} ${titles[key] || key} بنجاح.`
+            : `${titles[key] || key} has been successfully ${nextState ? 'enabled' : 'disabled'}.`;
+        
+        alert(statusMsg, t('success'));
     };
 
     const renderContent = () => {
@@ -72,51 +83,51 @@ const Settings = ({ isCollapsed }) => {
                 return (
                     <div className="settings-tab-content animate-fade-in">
                         <section className="settings-section">
-                            <h2 className="section-title">Profile Information</h2>
+                            <h2 className="section-title">{t('profileInfo')}</h2>
                             <div className="avatar-upload-wrapper">
                                 <div className="avatar-preview">
                                     <img src="https://ui-avatars.com/api/?name=Admin+User&background=2b7fff&color=fff" alt="Profile" />
                                     <button className="change-photo-btn"><Camera size={16} /></button>
                                 </div>
                                 <div className="avatar-info">
-                                    <h3>Your Profile Picture</h3>
-                                    <p>JPG, GIF or PNG. Max size of 2MB</p>
+                                    <h3>{t('yourProfilePic')}</h3>
+                                    <p>{t('picInfo')}</p>
                                     <div className="avatar-actions">
-                                        <button className="btn-upload">Upload New</button>
-                                        <button className="btn-remove">Remove</button>
+                                        <button className="btn-upload">{t('uploadNew')}</button>
+                                        <button className="btn-remove">{t('remove')}</button>
                                     </div>
                                 </div>
                             </div>
 
                             <div className="settings-form-grid">
                                 <div className="setting-input-field">
-                                    <label>Full Name</label>
+                                    <label>{t('fullName')}</label>
                                     <input type="text" defaultValue="Admin User" />
                                 </div>
                                 <div className="setting-input-field">
-                                    <label>Email Address</label>
+                                    <label>{t('emailAddress')}</label>
                                     <input type="email" defaultValue="admin@healthhub.com" />
                                 </div>
                                 <div className="setting-input-field full-width">
-                                    <label>Professional Bio</label>
+                                    <label>{t('professionalBio')}</label>
                                     <textarea defaultValue="Senior Health Administrator and Platform Manager."></textarea>
                                 </div>
                             </div>
                         </section>
 
                         <section className="settings-section">
-                            <h2 className="section-title">Account Details</h2>
+                            <h2 className="section-title">{t('accountDetails')}</h2>
                             <div className="settings-form-grid">
                                 <div className="setting-input-field">
-                                    <label>Username</label>
+                                    <label>{t('username')}</label>
                                     <input type="text" defaultValue="admin_health" />
                                 </div>
                                 <div className="setting-input-field">
-                                    <label>Timezone</label>
+                                    <label>{t('timezone')}</label>
                                     <select defaultValue="UTC-5">
-                                        <option value="UTC-5">Eastern Time (US & Canada)</option>
-                                        <option value="UTC+0">London (GMT)</option>
-                                        <option value="UTC+3">Riyadh (AST)</option>
+                                        <option value="UTC-5">{t('timezoneUS')}</option>
+                                        <option value="UTC+0">{t('timezoneUK')}</option>
+                                        <option value="UTC+3">{t('timezoneSA')}</option>
                                     </select>
                                 </div>
                             </div>
@@ -127,14 +138,14 @@ const Settings = ({ isCollapsed }) => {
                 return (
                     <div className="settings-tab-content animate-fade-in">
                         <section className="settings-section">
-                            <h2 className="section-title">Change Password</h2>
+                            <h2 className="section-title">{t('changePassword')}</h2>
                             <div className="settings-form-grid">
                                 <div className="setting-input-field full-width">
-                                    <label>Current Password</label>
+                                    <label>{t('currentPassword')}</label>
                                     <div className="password-input-wrap">
                                         <input 
                                             type={showCurrentPassword ? "text" : "password"} 
-                                            placeholder="Enter current password" 
+                                            placeholder={t('currentPassPlaceholder')} 
                                             value={currentPassword}
                                             onChange={(e) => setCurrentPassword(e.target.value)}
                                         />
@@ -144,11 +155,11 @@ const Settings = ({ isCollapsed }) => {
                                     </div>
                                 </div>
                                 <div className="setting-input-field">
-                                    <label>New Password</label>
+                                    <label>{t('newPassword')}</label>
                                     <div className="password-input-wrap">
                                         <input 
                                             type={showNewPassword ? "text" : "password"} 
-                                            placeholder="Enter new password" 
+                                            placeholder={t('newPassPlaceholder')} 
                                             value={newPassword}
                                             onChange={(e) => setNewPassword(e.target.value)}
                                         />
@@ -158,11 +169,11 @@ const Settings = ({ isCollapsed }) => {
                                     </div>
                                 </div>
                                 <div className="setting-input-field">
-                                    <label>Confirm New Password</label>
+                                    <label>{t('confirmNewPassword')}</label>
                                     <div className="password-input-wrap">
                                         <input 
                                             type={showConfirmPassword ? "text" : "password"} 
-                                            placeholder="Confirm new password" 
+                                            placeholder={t('confirmPassPlaceholder')} 
                                             value={confirmNewPassword}
                                             onChange={(e) => setConfirmNewPassword(e.target.value)}
                                         />
@@ -183,8 +194,8 @@ const Settings = ({ isCollapsed }) => {
                                 <div className="text">
                                     <Shield size={24} className="icon-blue" />
                                     <div>
-                                        <h4>Two-Factor Authentication</h4>
-                                        <p>Add an extra layer of security to your account.</p>
+                                        <h4>{t('twoFactor')}</h4>
+                                        <p>{t('twoFactorDesc')}</p>
                                     </div>
                                 </div>
                                 <div className={`custom-toggle ${notifications.security ? 'active' : ''}`}>
@@ -198,14 +209,14 @@ const Settings = ({ isCollapsed }) => {
                 return (
                     <div className="settings-tab-content animate-fade-in">
                         <section className="settings-section">
-                            <h2 className="section-title">Notification Preferences</h2>
-                            <p className="section-desc">Control how you receive alerts and updates.</p>
+                            <h2 className="section-title">{t('notifPreferences')}</h2>
+                            <p className="section-desc">{t('notifDesc')}</p>
                             
                             <div className="notification-list">
                                 {[
-                                    { id: 'email', title: 'Email Notifications', desc: 'Receive daily digests and activity reports via email.', icon: <Bell size={20} /> },
-                                    { id: 'push', title: 'Push Notifications', desc: 'Get real-time browser alerts for urgent tasks.', icon: <Smartphone size={20} /> },
-                                    { id: 'marketing', title: 'Marketing Emails', desc: 'Stay updated with new features and platform tips.', icon: <Globe size={20} /> }
+                                    { id: 'email', titleKey: 'emailNotif', descKey: 'emailNotifDesc', icon: <Bell size={20} /> },
+                                    { id: 'push', titleKey: 'pushNotif', descKey: 'pushNotifDesc', icon: <Smartphone size={20} /> },
+                                    { id: 'marketing', titleKey: 'marketingNotif', descKey: 'marketingNotifDesc', icon: <Globe size={20} /> }
                                 ].map((item) => (
                                     <div 
                                         key={item.id} 
@@ -216,8 +227,8 @@ const Settings = ({ isCollapsed }) => {
                                         <div className="notif-info">
                                             <div className="notif-icon">{item.icon}</div>
                                             <div>
-                                                <h4>{item.title}</h4>
-                                                <p>{item.desc}</p>
+                                                <h4>{t(item.titleKey)}</h4>
+                                                <p>{t(item.descKey)}</p>
                                             </div>
                                         </div>
                                         <div className={`custom-toggle ${notifications[item.id] ? 'active' : ''}`}>
@@ -233,24 +244,28 @@ const Settings = ({ isCollapsed }) => {
                 return (
                     <div className="settings-tab-content animate-fade-in">
                         <section className="settings-section">
-                            <h2 className="section-title">Visual Customization</h2>
+                            <h2 className="section-title">{t('visualCustomization')}</h2>
                             <div className="appearance-grid">
                                 <div className="appearance-option">
-                                    <label>Interface Theme</label>
+                                    <label>{t('interfaceTheme')}</label>
                                     <div className="theme-selector">
                                         <button className={appearance.theme === 'dark' ? 'active' : ''} onClick={() => setAppearance({...appearance, theme: 'dark'})}>
-                                            <Moon size={18} /> Dark Mode
+                                            <Moon size={18} /> {t('darkMode')}
                                         </button>
                                         <button className={appearance.theme === 'light' ? 'active' : ''} onClick={() => setAppearance({...appearance, theme: 'light'})}>
-                                            <Sun size={18} /> Light Mode
+                                            <Sun size={18} /> {t('lightMode')}
                                         </button>
                                     </div>
                                 </div>
                                 <div className="appearance-option">
-                                    <label>Platform Language</label>
+                                    <label>{t('platformLanguage')}</label>
                                     <div className="lang-selector">
-                                        <button className={appearance.language === 'en' ? 'active' : ''} onClick={() => setAppearance({...appearance, language: 'en'})}>English</button>
-                                        <button className={appearance.language === 'ar' ? 'active' : ''} onClick={() => setAppearance({...appearance, language: 'ar'})}>العربية</button>
+                                        <button className={language === 'en' ? 'active' : ''} onClick={() => changeLanguage('en')}>
+                                            {t('english')}
+                                        </button>
+                                        <button className={language === 'ar' ? 'active' : ''} onClick={() => changeLanguage('ar')}>
+                                            {t('arabic')}
+                                        </button>
                                     </div>
                                 </div>
                             </div>
@@ -266,12 +281,12 @@ const Settings = ({ isCollapsed }) => {
         <div className={`settings-page-wrapper ${isCollapsed ? 'is-collapsed' : ''}`}>
             <header className="settings-header">
                 <div className="header-text">
-                    <h1>Settings</h1>
-                    <p>Manage your account settings and preferences</p>
+                    <h1>{t('settings')}</h1>
+                    <p>{t('perfOverview')}</p>
                 </div>
                 <div className="header-actions">
-                    <button className="btn-secondary-outline" onClick={handleDiscard}>Discard</button>
-                    <button className="btn-primary-save" onClick={handleSave}><Save size={18} /> Save Changes</button>
+                    <button className="btn-secondary-outline" onClick={handleDiscard}>{t('discard')}</button>
+                    <button className="btn-primary-save" onClick={handleSave}><Save size={18} /> {t('saveChanges')}</button>
                 </div>
             </header>
 
@@ -279,22 +294,22 @@ const Settings = ({ isCollapsed }) => {
                 <aside className="settings-sidebar">
                     <nav className="settings-nav">
                         <button className={`nav-item ${activeTab === 'profile' ? 'active' : ''}`} onClick={() => setActiveTab('profile')}>
-                            <User size={20} /> <span>Profile</span>
+                            <User size={20} /> <span>{t('profile')}</span>
                         </button>
                         <button className={`nav-item ${activeTab === 'security' ? 'active' : ''}`} onClick={() => setActiveTab('security')}>
-                            <Shield size={20} /> <span>Security</span>
+                            <Shield size={20} /> <span>{t('security')}</span>
                         </button>
                         <button className={`nav-item ${activeTab === 'notifications' ? 'active' : ''}`} onClick={() => setActiveTab('notifications')}>
-                            <Bell size={20} /> <span>Notifications</span>
+                            <Bell size={20} /> <span>{t('notifications')}</span>
                         </button>
                         <button className={`nav-item ${activeTab === 'appearance' ? 'active' : ''}`} onClick={() => setActiveTab('appearance')}>
-                            <Palette size={20} /> <span>Appearance</span>
+                            <Palette size={20} /> <span>{t('appearance')}</span>
                         </button>
                     </nav>
 
                     <div className="sidebar-footer">
                         <button className="logout-btn" onClick={handleLogout}>
-                            <LogOut size={20} /> <span>Log Out</span>
+                            <LogOut size={20} /> <span>{t('logOut')}</span>
                         </button>
                     </div>
                 </aside>
@@ -303,8 +318,6 @@ const Settings = ({ isCollapsed }) => {
                     {renderContent()}
                 </main>
             </div>
-
-
         </div>
     );
 };

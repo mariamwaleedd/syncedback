@@ -315,3 +315,21 @@
         font-size: 1.8rem;
     }
 }
+
+/* RTL Overrides */
+[dir="rtl"] .add-feature-container {
+    padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .add-feature-container.collapsed {
+    padding-right: 120px;
+    padding-left: 40px;
+}
+
+@media (max-width: 768px) {
+    [dir="rtl"] .add-feature-container, 
+    [dir="rtl"] .add-feature-container.collapsed {
+        padding: 100px 20px 40px 20px;
+    }
+}
+

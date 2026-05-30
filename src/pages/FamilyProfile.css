@@ -261,3 +261,92 @@
   .profile-badges { justify-content: center; }
   .profile-main-info h1 { font-size: 2rem; }
 }
+
+/* RTL Overrides for Family Profile Page */
+[dir="rtl"] .family-profile-container {
+  padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .family-profile-container.is-collapsed {
+  padding-left: 40px;
+  padding-right: 120px;
+}
+
+[dir="rtl"] .profile-hero-header::after {
+  right: auto;
+  left: -10%;
+}
+
+[dir="rtl"] .profile-back-btn {
+  left: auto;
+  right: 30px;
+}
+
+[dir="rtl"] .profile-back-btn:hover {
+  transform: translateX(3px);
+}
+
+[dir="rtl"] .profile-main-info {
+  text-align: right;
+}
+
+[dir="rtl"] .profile-badges {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .profile-vitals-section h2 {
+  text-align: right;
+}
+
+[dir="rtl"] .vital-card {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .vital-text {
+  text-align: right;
+}
+
+[dir="rtl"] .detail-group h3 {
+  text-align: right;
+}
+
+[dir="rtl"] .detail-item {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .detail-item .item-text {
+  text-align: right;
+}
+
+[dir="rtl"] .security-card, [dir="rtl"] .emergency-alert-card {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .security-info, [dir="rtl"] .alert-info {
+  text-align: right;
+}
+
+[dir="rtl"] .security-btn, [dir="rtl"] .emergency-alert-card .custom-toggle {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+@media (max-width: 1200px) {
+  [dir="rtl"] .family-profile-container {
+    padding-right: 120px;
+    padding-left: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .family-profile-container, 
+  [dir="rtl"] .family-profile-container.is-collapsed {
+    padding: 90px 15px 40px 15px;
+  }
+  
+  [dir="rtl"] .profile-badges {
+    justify-content: center;
+    flex-direction: row;
+  }
+}
+

@@ -1,14 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowLeft, Save, X, Zap, AlertCircle, CheckCircle } from 'lucide-react';
+import { ArrowLeft, Zap, AlertCircle, CheckCircle } from 'lucide-react';
 import { supabase } from '../Supabase';
+import { useTranslation } from '../common/LanguageContext';
 import './AddFeature.css';
+
+const localTranslations = {
+  en: {
+    editFeature: "Edit Feature",
+    addNewFeature: "Add New Feature",
+    detailsEn: "Details (English)",
+    detailsAr: "Details (Arabic)",
+    configuration: "Configuration",
+    titleEn: "Title EN",
+    categoryEn: "Category EN",
+    descEn: "Description EN",
+    btnTextEn: "Button Text EN",
+    btnTextEnPlaceholder: "e.g. Explore Now",
+    titleAr: "Title AR",
+    categoryAr: "Category AR",
+    descAr: "Description AR",
+    btnTextAr: "Button Text AR",
+    btnTextArPlaceholder: "e.g. Explore Now (AR)",
+    orderIndex: "Order Index",
+    automatic: "Automatic",
+    imageUrl: "Image URL",
+    saving: "Saving...",
+    saveFeature: "Save Feature",
+    cancel: "Cancel",
+    success: "Success",
+    attention: "Attention",
+    perfect: "Perfect",
+    understand: "I Understand",
+    featureUpdatedSuccess: "Feature updated successfully!",
+    newFeatureCreatedSuccess: "New feature created successfully!",
+    failedSaveFeature: "Operation failed. Check your connection or database permissions."
+  },
+  ar: {
+    editFeature: "تعديل الميزة",
+    addNewFeature: "إضافة ميزة جديدة",
+    detailsEn: "التفاصيل (الإنجليزية)",
+    detailsAr: "التفاصيل (العربية)",
+    configuration: "الإعدادات",
+    titleEn: "العنوان بالإنجليزية",
+    categoryEn: "الفئة بالإنجليزية",
+    descEn: "الوصف بالإنجليزية",
+    btnTextEn: "نص الزر بالإنجليزية",
+    btnTextEnPlaceholder: "مثال: استكشف الآن",
+    titleAr: "العنوان بالعربية",
+    categoryAr: "الفئة بالعربية",
+    descAr: "الوصف بالعربية",
+    btnTextAr: "نص الزر بالعربية",
+    btnTextArPlaceholder: "مثال: اكتشف الآن",
+    orderIndex: "ترتيب العرض",
+    automatic: "تلقائي",
+    imageUrl: "رابط الصورة",
+    saving: "جاري الحفظ...",
+    saveFeature: "حفظ الميزة",
+    cancel: "إلغاء",
+    success: "تم بنجاح",
+    attention: "انتباه",
+    perfect: "ممتاز",
+    understand: "حسناً، فهمت",
+    featureUpdatedSuccess: "تم تحديث الميزة بنجاح!",
+    newFeatureCreatedSuccess: "تم إنشاء الميزة الجديدة بنجاح!",
+    failedSaveFeature: "فشلت العملية. تحقق من الاتصال أو صلاحيات قاعدة البيانات."
+  }
+};
 
 const AddFeature = ({ isCollapsed }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const editData = location.state?.editData;
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const { language } = useTranslation();
+    
     const [statusModal, setStatusModal] = useState({
         isOpen: false,
         type: 'warning',
@@ -27,6 +93,10 @@ const AddFeature = ({ isCollapsed }) => {
         order_index: '',
         img_url: ''
     });
+
+    const tLocal = (key) => {
+        return localTranslations[language]?.[key] || localTranslations['en'][key] || key;
+    };
 
     useEffect(() => {
         if (editData) {
@@ -82,7 +152,7 @@ const AddFeature = ({ isCollapsed }) => {
                 setStatusModal({
                     isOpen: true,
                     type: 'success',
-                    message: 'Feature updated successfully!'
+                    message: tLocal('featureUpdatedSuccess')
                 });
             } else {
                 const { data, error } = await supabase
@@ -95,7 +165,7 @@ const AddFeature = ({ isCollapsed }) => {
                 setStatusModal({
                     isOpen: true,
                     type: 'success',
-                    message: 'New feature created successfully!'
+                    message: tLocal('newFeatureCreatedSuccess')
                 });
             }
         } catch (err) {
@@ -103,7 +173,7 @@ const AddFeature = ({ isCollapsed }) => {
             setStatusModal({
                 isOpen: true,
                 type: 'warning',
-                message: err.message || 'Operation failed. Check your connection or database permissions.'
+                message: err.message || tLocal('failedSaveFeature')
             });
         } finally {
             setLoading(false);
@@ -115,75 +185,75 @@ const AddFeature = ({ isCollapsed }) => {
             <header className="page-header">
                 <button className="back-btn" onClick={() => navigate(-1)}><ArrowLeft size={20} /></button>
                 <div className="header-text">
-                    <h1>{editData ? 'Edit Feature' : 'Add New Feature'}</h1>
+                    <h1>{editData ? tLocal('editFeature') : tLocal('addNewFeature')}</h1>
                 </div>
             </header>
 
             <div className="content-grid">
                 <div className="form-sections">
                     <section className="form-card">
-                        <h2>Details (English)</h2>
+                        <h2>{tLocal('detailsEn')}</h2>
                         <div className="input-group">
-                            <label>Title EN</label>
+                            <label>{tLocal('titleEn')}</label>
                             <input name="title_en" value={formData.title_en} onChange={handleChange} />
                         </div>
                         <div className="input-group">
-                            <label>Category EN</label>
+                            <label>{tLocal('categoryEn')}</label>
                             <input name="category_en" value={formData.category_en} onChange={handleChange} />
                         </div>
                         <div className="input-group">
-                            <label>Description EN</label>
+                            <label>{tLocal('descEn')}</label>
                             <textarea name="desc_en" value={formData.desc_en} onChange={handleChange} />
                         </div>
                         <div className="input-group">
-                            <label>Button Text EN</label>
-                            <input name="btn_text_en" value={formData.btn_text_en} onChange={handleChange} placeholder="e.g. Explore Now" />
+                            <label>{tLocal('btnTextEn')}</label>
+                            <input name="btn_text_en" value={formData.btn_text_en} onChange={handleChange} placeholder={tLocal('btnTextEnPlaceholder')} />
                         </div>
                     </section>
 
                     <section className="form-card">
-                        <h2 style={{textAlign:'right'}}>التفاصيل (العربية)</h2>
+                        <h2 style={{textAlign: language === 'ar' ? 'right' : 'left'}}>{tLocal('detailsAr')}</h2>
                         <div className="input-group is-rtl">
-                            <label>العنوان</label>
-                            <input name="title_ar" value={formData.title_ar} onChange={handleChange} />
+                            <label style={{textAlign: language === 'ar' ? 'right' : 'left'}}>{tLocal('titleAr')}</label>
+                            <input name="title_ar" value={formData.title_ar} onChange={handleChange} style={{textAlign: language === 'ar' ? 'right' : 'left'}} />
                         </div>
                         <div className="input-group is-rtl">
-                            <label>الفئة</label>
-                            <input name="category_ar" value={formData.category_ar} onChange={handleChange} />
+                            <label style={{textAlign: language === 'ar' ? 'right' : 'left'}}>{tLocal('categoryAr')}</label>
+                            <input name="category_ar" value={formData.category_ar} onChange={handleChange} style={{textAlign: language === 'ar' ? 'right' : 'left'}} />
                         </div>
                         <div className="input-group is-rtl">
-                            <label>الوصف</label>
-                            <textarea name="desc_ar" value={formData.desc_ar} onChange={handleChange} />
+                            <label style={{textAlign: language === 'ar' ? 'right' : 'left'}}>{tLocal('descAr')}</label>
+                            <textarea name="desc_ar" value={formData.desc_ar} onChange={handleChange} style={{textAlign: language === 'ar' ? 'right' : 'left'}} />
                         </div>
                         <div className="input-group is-rtl">
-                            <label>نص الزر</label>
-                            <input name="btn_text_ar" value={formData.btn_text_ar} onChange={handleChange} placeholder="مثال: اكتشف الآن" />
+                            <label style={{textAlign: language === 'ar' ? 'right' : 'left'}}>{tLocal('btnTextAr')}</label>
+                            <input name="btn_text_ar" value={formData.btn_text_ar} onChange={handleChange} placeholder={tLocal('btnTextArPlaceholder')} style={{textAlign: language === 'ar' ? 'right' : 'left'}} />
                         </div>
                     </section>
                 </div>
 
                 <aside className="preview-sidebar">
                     <div className="stats-card">
-                        <h3>Configuration</h3>
+                        <h3>{tLocal('configuration')}</h3>
                         <div className="input-group">
-                            <label>Order Index</label>
+                            <label>{tLocal('orderIndex')}</label>
                             <div className="readonly-index-chip">
                                 <Zap size={14} />
                                 <span>{formData.order_index}</span>
-                                <small>(Automatic)</small>
+                                <small>({tLocal('automatic')})</small>
                             </div>
                         </div>
                         <div className="input-group">
-                            <label>Image URL</label>
+                            <label>{tLocal('imageUrl')}</label>
                             <input name="img_url" value={formData.img_url} onChange={handleChange} />
                         </div>
                     </div>
                     <div className="action-buttons">
                         <button className="btn-primary" onClick={handleSave} disabled={loading}>
-                            {loading ? 'Saving...' : 'Save Feature'}
+                            {loading ? tLocal('saving') : tLocal('saveFeature')}
                         </button>
                         <button className="btn-secondary" onClick={() => navigate(-1)} disabled={loading}>
-                            Cancel
+                            {tLocal('cancel')}
                         </button>
                     </div>
                 </aside>
@@ -195,10 +265,10 @@ const AddFeature = ({ isCollapsed }) => {
                         <div className={`status-modal-icon ${statusModal.type}`}>
                             {statusModal.type === 'success' ? <CheckCircle size={32} /> : <AlertCircle size={32} />}
                         </div>
-                        <h2>{statusModal.type === 'success' ? 'Success' : 'Attention'}</h2>
+                        <h2>{statusModal.type === 'success' ? tLocal('success') : tLocal('attention')}</h2>
                         <p>{statusModal.message}</p>
                         <button className="status-modal-btn" onClick={closeStatusModal}>
-                            {statusModal.type === 'success' ? 'Perfect' : 'I Understand'}
+                            {statusModal.type === 'success' ? tLocal('perfect') : tLocal('understand')}
                         </button>
                     </div>
                 </div>

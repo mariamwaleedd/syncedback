@@ -397,3 +397,72 @@
 @media (max-width: 768px) {
   .family-delete-modal { padding: 30px; }
 }
+
+/* RTL Overrides for Family Page */
+[dir="rtl"] .family-page-container {
+  padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .family-page-container.is-collapsed {
+  padding-left: 40px;
+  padding-right: 120px;
+}
+
+[dir="rtl"] .family-back-btn:hover {
+  transform: translateX(3px);
+}
+
+[dir="rtl"] .family-status-indicator {
+  right: auto;
+  left: -4px;
+}
+
+[dir="rtl"] .family-name-role {
+  text-align: right;
+}
+
+[dir="rtl"] .family-role-badge {
+  display: inline-block;
+}
+
+[dir="rtl"] .family-health-insight {
+  flex-direction: row-reverse;
+  justify-content: flex-start;
+}
+
+[dir="rtl"] .family-insight-item {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .family-contact-brief {
+  text-align: right;
+}
+
+[dir="rtl"] .contact-item {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+
+[dir="rtl"] .family-dropdown-menu {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .family-dropdown-item {
+  text-align: right;
+}
+
+@media (max-width: 1200px) {
+  [dir="rtl"] .family-page-container {
+    padding-right: 120px;
+    padding-left: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .family-page-container, 
+  [dir="rtl"] .family-page-container.is-collapsed {
+    padding: 90px 15px 40px 15px;
+  }
+}
+

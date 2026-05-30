@@ -515,3 +515,47 @@ mark.search-highlight {
     background-color: var(--primary);
     color: white;
 }
+
+/* RTL Overrides */
+[dir="rtl"] .helppage-help-center-page {
+    padding: 0 200px 10px 0;
+}
+
+[dir="rtl"] .helppage-help-center-page.is-collapsed {
+    padding-right: 80px;
+    padding-left: 0;
+}
+
+[dir="rtl"] .helppage-help-search-wrapper input {
+    padding: 22px 60px 22px 140px;
+}
+
+[dir="rtl"] .helppage-search-submit-btn {
+    left: 8px;
+    right: auto;
+}
+
+[dir="rtl"] .helppage-help-search-wrapper .helppage-search-icon {
+    right: 20px;
+    left: auto;
+}
+
+[dir="rtl"] .helppage-modal-close {
+    left: 20px;
+    right: auto;
+}
+
+[dir="rtl"] .helppage-res-item:hover {
+    padding-right: 5px;
+    padding-left: 0;
+}
+
+@media (max-width: 768px) {
+    [dir="rtl"] .helppage-help-center-page,
+    [dir="rtl"] .helppage-help-center-page.is-collapsed {
+        margin-right: 0;
+        margin-left: 0;
+        padding: 0 0 40px 0;
+    }
+}
+

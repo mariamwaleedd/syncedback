@@ -166,3 +166,35 @@
     .titles h1 { font-size: 1.8rem; }
     .btn-solid-primary, .btn-solid-secondary, .btn-outline, .btn-danger { width: 100%; justify-content: center; }
 }
+
+/* RTL Overrides */
+[dir="rtl"] .ui-elements-page {
+    padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .ui-elements-page.is-collapsed {
+    padding-right: 120px;
+    padding-left: 40px;
+}
+
+[dir="rtl"] .icon-field svg {
+    left: auto;
+    right: 12px;
+}
+
+[dir="rtl"] .icon-field input {
+    padding-left: 15px;
+    padding-right: 40px;
+}
+
+[dir="rtl"] .ui-switch.active .handle {
+    transform: translateX(-24px);
+}
+
+@media (max-width: 768px) {
+    [dir="rtl"] .ui-elements-page, 
+    [dir="rtl"] .ui-elements-page.is-collapsed { 
+        padding: 100px 20px 40px 20px; 
+    }
+}
+

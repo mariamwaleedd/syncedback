@@ -386,3 +386,58 @@
     from { opacity: 0; transform: translateY(20px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* RTL Overrides for About Page */
+[dir="rtl"] .about-page-container {
+    padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .about-page-container.is-collapsed {
+    padding-left: 40px;
+    padding-right: 120px;
+}
+
+[dir="rtl"] .verified-badge {
+    right: auto;
+    left: -5px;
+}
+
+[dir="rtl"] .member-socials {
+    left: auto;
+    right: 10px;
+}
+
+[dir="rtl"] .metric-box {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .m-info {
+    text-align: right;
+}
+
+[dir="rtl"] .member-info {
+    text-align: right;
+}
+
+[dir="rtl"] .view-profile-btn {
+    flex-direction: row-reverse;
+}
+
+@media (max-width: 1200px) {
+    [dir="rtl"] .about-page-container,
+    [dir="rtl"] .about-page-container.is-collapsed {
+        padding: 100px 40px 40px 40px;
+    }
+}
+
+@media (max-width: 768px) {
+    [dir="rtl"] .about-page-container,
+    [dir="rtl"] .about-page-container.is-collapsed {
+        padding: 100px 20px 40px 20px;
+    }
+    
+    [dir="rtl"] .profile-stats-row {
+        justify-content: center;
+    }
+}
+

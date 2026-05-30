@@ -282,6 +282,10 @@
     .settings-sidebar { position: static; }
     .settings-nav { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
     .nav-item { flex-shrink: 0; }
+    .settings-page-wrapper,
+    .settings-page-wrapper.is-collapsed {
+        padding: 100px 40px 40px 40px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -291,6 +295,7 @@
     .full-width { grid-column: span 1; }
     .settings-main-content { padding: 25px; }
     .avatar-upload-wrapper { flex-direction: column; text-align: center; }
+    .avatar-actions { justify-content: center; }
     .security-toggle-card, .notification-item { padding: 18px; }
     .security-toggle-card .text, .notif-info { gap: 15px; }
 }
@@ -310,3 +315,26 @@
     from { opacity: 0; transform: translateY(20px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
+
+/* RTL Settings Overrides */
+[dir="rtl"] .settings-page-wrapper {
+  padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .settings-page-wrapper.is-collapsed {
+  padding-left: 40px;
+  padding-right: 120px;
+}
+
+[dir="rtl"] .password-input-wrap button {
+  right: auto;
+  left: 10px;
+}
+
+[dir="rtl"] .password-input-wrap input {
+  padding-right: 15px;
+  padding-left: 45px;
+}
+
+
+

@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import { Zap, Plus } from 'lucide-react';
-import './FeatureManagement.css';
 import { Link } from 'react-router-dom';
+import { useTranslation } from '../common/LanguageContext';
+import './FeatureManagement.css';
 
 const featuresData = [
-  { id: 1, name: 'Health Questionnaire', category: 'Onboarding', users: '1,240', active: true },
-  { id: 2, name: 'Family Management', category: 'Core', users: '3,450', active: true },
-  { id: 3, name: 'Medicine Tracking', category: 'Healthcare', users: '2,890', active: true },
-  { id: 4, name: 'AI Assistant', category: 'AI', users: '1,890', active: true },
-  { id: 5, name: 'Device Syncing', category: 'Integration', users: '980', active: true },
-  { id: 6, name: 'Blood Donation Network', category: 'Community', users: '560', active: true },
+  { id: 1, nameKey: 'healthQuestionnaire', categoryKey: 'onboarding', users: '1,240', active: true },
+  { id: 2, nameKey: 'familyMgmt', categoryKey: 'core', users: '3,450', active: true },
+  { id: 3, nameKey: 'medicineTracking', categoryKey: 'healthcare', users: '2,890', active: true },
+  { id: 4, nameKey: 'aiAssistantFeature', categoryKey: 'aiCat', users: '1,890', active: true },
+  { id: 5, nameKey: 'deviceSyncing', categoryKey: 'integration', users: '980', active: true },
+  { id: 6, nameKey: 'bloodDonationNetwork', categoryKey: 'community', users: '560', active: true },
 ];
 
 const FeatureManagement = () => {
   const [features, setFeatures] = useState(featuresData);
+  const { t } = useTranslation();
 
   const toggleFeature = (id) => {
     setFeatures(features.map(f => 
@@ -25,13 +27,13 @@ const FeatureManagement = () => {
     <div className="featuremanagement-feature-mgmt-container">
       <div className="featuremanagement-feature-mgmt-header">
         <div className="featuremanagement-header-text">
-          <h1>Feature Management</h1>
-          <p>Enable/disable features and track usage</p>
+          <h1>{t('featureManagement')}</h1>
+          <p>{t('enableDisableFeatures')}</p>
         </div>
         <button className="featuremanagement-add-feature-btn">
           <Plus size={18} />
           <Link to="/add-feature" className="primary-hero-btn">
-            <span>Add Feature</span>
+            <span>{t('addFeature')}</span>
           </Link>
         </button>
       </div>
@@ -53,10 +55,10 @@ const FeatureManagement = () => {
               </label>
             </div>
             <div className="featuremanagement-card-content">
-              <h3>{feature.name}</h3>
+              <h3>{t(feature.nameKey)}</h3>
               <div className="featuremanagement-card-footer">
-                <span className="featuremanagement-category">{feature.category}</span>
-                <span className="featuremanagement-users-count">{feature.users} users</span>
+                <span className="featuremanagement-category">{t(feature.categoryKey)}</span>
+                <span className="featuremanagement-users-count">{feature.users} {t('usersCount')}</span>
               </div>
             </div>
           </div>
@@ -67,3 +69,4 @@ const FeatureManagement = () => {
 };
 
 export default FeatureManagement;
+

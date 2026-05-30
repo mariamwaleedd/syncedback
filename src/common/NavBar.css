@@ -393,3 +393,43 @@
     width: auto;
   }
 }
+
+/* RTL NavBar Overrides */
+[dir="rtl"] .navbar {
+  left: 0;
+  right: 200px;
+}
+
+[dir="rtl"] .navbar.sidebar-collapsed {
+  right: 85px;
+}
+
+[dir="rtl"] .mobile-toggle {
+  margin-right: 0;
+  margin-left: 15px;
+}
+
+[dir="rtl"] .search-icon {
+  margin-right: 0;
+  margin-left: 12px;
+}
+
+[dir="rtl"] .notification-dropdown {
+  right: auto;
+  left: 0;
+}
+
+[dir="rtl"] .user-profile {
+  padding: 6px 6px 6px 16px;
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .navbar {
+    right: 0 !important;
+    left: 0 !important;
+  }
+  
+  [dir="rtl"] .user-profile {
+    padding: 4px;
+  }
+}

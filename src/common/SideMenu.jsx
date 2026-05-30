@@ -6,28 +6,30 @@ import {
 } from 'lucide-react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDialog } from './DialogContext';
+import { useTranslation } from './LanguageContext';
 import './SideMenu.css';
 
 const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { confirm } = useDialog();
+  const { t } = useTranslation();
 
   const menuItems = [
-    { icon: <LayoutGrid size={22} />, label: 'Dashboard', path: '/dashboard' },
-    { icon: <BarChart3 size={22} />, label: 'Analytics', path: '/analytics' },
-    { icon: <Briefcase size={22} />, label: 'Services', path: '/services' },
-    { icon: <FileText size={22} />, label: 'Pages', path: '/manage-pages' },
-    { icon: <User size={22} />, label: 'About', path: '/about' },
-    { icon: <Library size={22} />, label: 'Media Library', path: '/media-library', space: true },
-    { icon: <PenTool size={22} />, label: 'UI Elements', path: '/ui-elements' },
-    { icon: <MessageSquare size={22} />, label: 'Messages', path: '/messages', space: true },
-    { icon: <HelpCircle size={22} />, label: 'Help', path: '/help' },
-    { icon: <Settings size={22} />, label: 'Settings', path: '/settings' },
+    { icon: <LayoutGrid size={22} />, labelKey: 'dashboard', path: '/dashboard' },
+    { icon: <BarChart3 size={22} />, labelKey: 'analytics', path: '/analytics' },
+    { icon: <Briefcase size={22} />, labelKey: 'services', path: '/services' },
+    { icon: <FileText size={22} />, labelKey: 'pages', path: '/manage-pages' },
+    { icon: <User size={22} />, labelKey: 'about', path: '/about' },
+    { icon: <Library size={22} />, labelKey: 'mediaLibrary', path: '/media-library', space: true },
+    { icon: <PenTool size={22} />, labelKey: 'uiElements', path: '/ui-elements' },
+    { icon: <MessageSquare size={22} />, labelKey: 'messages', path: '/messages', space: true },
+    { icon: <HelpCircle size={22} />, labelKey: 'help', path: '/help' },
+    { icon: <Settings size={22} />, labelKey: 'settings', path: '/settings' },
   ];
 
   const handleSignOut = async () => {
-    const confirmed = await confirm("Are you sure you want to sign out?");
+    const confirmed = await confirm(t('signOutConfirm'));
     if (confirmed) {
       navigate('/login');
       if (isMobile) closeMobile();
@@ -52,7 +54,7 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
               onClick={isMobile ? closeMobile : undefined}
             >
               <div className="nav-icon-box">{item.icon}</div>
-              <span className="nav-text">{item.label}</span>
+              <span className="nav-text">{t(item.labelKey)}</span>
             </Link>
           ))}
         </nav>
@@ -66,11 +68,11 @@ const SideMenu = ({ isCollapsed, isMobileOpen, isMobile, toggleNav, closeMobile 
             style={{ textDecoration: 'none' }}
           >
             <div className="nav-icon-box"><Globe size={22} /></div>
-            <span className="nav-text">View Website</span>
+            <span className="nav-text">{t('viewWebsite')}</span>
           </a>
           <div className="nav-link exit-link" style={{ cursor: 'pointer' }} onClick={handleSignOut}>
             <div className="nav-icon-box"><LogOut size={22} /></div>
-            <span className="nav-text">Sign Out</span>
+            <span className="nav-text">{t('signOut')}</span>
           </div>
         </div>
       </div>

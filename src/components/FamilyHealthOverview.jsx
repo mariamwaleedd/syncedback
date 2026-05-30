@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { useTranslation } from '../common/LanguageContext';
 import './FamilyHealthOverview.css';
 
 const familyMembers = [
@@ -19,13 +20,21 @@ const familyMembers = [
 const FamilyHealthOverview = () => {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('Month');
+  const { t } = useTranslation();
+
+  const getFilterLabel = (filter) => {
+    if (filter === 'Day') return t('day');
+    if (filter === 'Week') return t('week');
+    if (filter === 'Month') return t('month');
+    return filter;
+  };
 
   return (
     <div className="familyhealthoverview-family-health-container">
       <div className="familyhealthoverview-family-health-header">
         <div className="familyhealthoverview-header-text">
-          <h1>Family Health Overview</h1>
-          <p>Average Health Score: 81%</p>
+          <h1>{t('familyHealthOverview')}</h1>
+          <p>{t('avgHealthScore')}</p>
         </div>
         <div className="familyhealthoverview-filter-tabs">
           {['Day', 'Week', 'Month'].map(filter => (
@@ -34,7 +43,7 @@ const FamilyHealthOverview = () => {
               className={activeFilter === filter ? 'active' : ''} 
               onClick={() => setActiveFilter(filter)}
             >
-              {filter}
+              {getFilterLabel(filter)}
             </button>
           ))}
         </div>
@@ -49,19 +58,19 @@ const FamilyHealthOverview = () => {
           >
             <div className="familyhealthoverview-member-emoji">{member.emoji}</div>
             <div className="familyhealthoverview-member-info">
-              <h3>{member.name}</h3>
+              <h3>{t(member.name)}</h3>
               <div className="familyhealthoverview-member-score">
                 <span className={`familyhealthoverview-score-dot ${parseInt(member.score) > 90 ? 'familyhealthoverview-green' : 'familyhealthoverview-yellow'}`}></span>
                 <span>{member.score}</span>
               </div>
-              <span className="familyhealthoverview-member-role">{member.role}</span>
+              <span className="familyhealthoverview-member-role">{t(member.role)}</span>
             </div>
           </div>
         ))}
       </div>
 
       <button className="familyhealthoverview-view-all-members-btn" onClick={() => navigate('/family')}>
-        <span>View All 15 Members</span>
+        <span>{t('viewAllMembers')}</span>
         <ArrowRight size={18} />
       </button>
     </div>
@@ -69,3 +78,4 @@ const FamilyHealthOverview = () => {
 };
 
 export default FamilyHealthOverview;
+

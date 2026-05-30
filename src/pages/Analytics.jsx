@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
     ArrowLeft, Filter, TrendingUp, Globe, BarChart2, 
     Activity, User, MessageSquare, ExternalLink, 
-    Download, Share2, FileText, ChevronRight,
-    Bold, Italic, Strikethrough, Heading1, Heading2, 
-    Heading3, Pencil, Code, Link as LinkIcon, Image, Search, Zap,
-    CheckCircle, AlertCircle, X
+    Download, Share2, FileText, ChevronRight, Zap,
+    CheckCircle, AlertCircle
 } from 'lucide-react';
 import RichTextToolbar from '../common/RichTextToolbar';
 import { 
     AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
-    PieChart, Pie, Cell, 
-    BarChart, Bar
+    PieChart, Pie, Cell
 } from 'recharts';
 import { supabase } from '../Supabase';
+import { useTranslation } from '../common/LanguageContext';
 import './Analytics.css';
 
 const trafficData = [
@@ -49,13 +47,15 @@ const Analytics = ({ isCollapsed }) => {
     const [recentServices, setRecentServices] = useState([]);
     const [seoData, setSeoData] = useState({ slug: '', tag: '', desc: '' });
     const [statusModal, setStatusModal] = useState({ isOpen: false, type: 'success', message: '' });
+    
+    const { language, t } = useTranslation();
 
     const handleSeoSave = () => {
-        setStatusModal({ isOpen: true, type: 'success', message: 'SEO metadata updated successfully!' });
+        setStatusModal({ isOpen: true, type: 'success', message: t('seoSuccess') });
     };
 
     const handleFilterClick = () => {
-        setStatusModal({ isOpen: true, type: 'info', message: 'Filter system is currently generating reports...' });
+        setStatusModal({ isOpen: true, type: 'info', message: t('filterProcessing') });
     };
 
     useEffect(() => {
@@ -63,21 +63,45 @@ const Analytics = ({ isCollapsed }) => {
     }, []);
 
     const fetchRecentData = async () => {
+        // Query bilingual columns
         const { data: pagesData } = await supabase
             .from('pages')
-            .select('id, name_en, path_en, status')
+            .select('id, name_en, name_ar, path_en, path_ar, status')
             .order('created_at', { ascending: false })
             .limit(2);
         
         if (pagesData) setRecentPages(pagesData);
-
+        
         const { data: servicesData } = await supabase
             .from('features')
-            .select('id, title_en, category_en')
+            .select('id, title_en, title_ar, category_en, category_ar')
             .order('created_at', { ascending: false })
             .limit(2);
         
         if (servicesData) setRecentServices(servicesData);
+    };
+
+    const getSourceLabel = (name) => {
+        const labels = {
+            'Organic Search': language === 'ar' ? 'بحث طبيعي' : 'Organic Search',
+            'Direct': language === 'ar' ? 'مباشر' : 'Direct',
+            'Social Media': language === 'ar' ? 'شبكات اجتماعية' : 'Social Media',
+            'Referral': language === 'ar' ? 'إحالة' : 'Referral',
+            'Email': language === 'ar' ? 'بريد إلكتروني' : 'Email'
+        };
+        return labels[name] || name;
+    };
+
+    const translateActivity = (text) => {
+        if (language !== 'ar') return text;
+        const translationsMap = {
+            'New visitor from LinkedIn Profile viewed': 'قام زائر جديد من LinkedIn بعرض الملف الشخصي',
+            'Contact form submitted john.doe@example.com': 'تم تقديم نموذج الاتصال john.doe@example.com',
+            'Project page viewed /projects/web-app': 'تم عرض صفحة المشروع /projects/web-app',
+            'Resume downloaded resume.pdf': 'تم تحميل السيرة الذاتية resume.pdf',
+            'Portfolio shared Twitter referral': 'تم مشاركة الملف التعريفي عبر إحالة Twitter'
+        };
+        return translationsMap[text] || text;
     };
 
     return (
@@ -88,13 +112,13 @@ const Analytics = ({ isCollapsed }) => {
                         <ArrowLeft size={20} />
                     </button>
                     <div className="analytics-titles">
-                        <h1>Analytics</h1>
-                        <p>Manage Activity</p>
+                        <h1>{t('analytics')}</h1>
+                        <p>{t('manageActivity')}</p>
                     </div>
                 </div>
                 <button className="analytics-filter-btn" onClick={handleFilterClick}>
                     <Filter size={18} />
-                    <span>Filter</span>
+                    <span>{t('filter')}</span>
                 </button>
             </header>
 
@@ -102,7 +126,7 @@ const Analytics = ({ isCollapsed }) => {
                 <div className="analytics-chart-card analytics-wide-chart">
                     <div className="analytics-card-header">
                         <TrendingUp size={18} />
-                        <h3>Website Traffic (Last 7 Days)</h3>
+                        <h3>{t('trafficDays')}</h3>
                     </div>
                     <div className="analytics-chart-wrapper">
                         <ResponsiveContainer width="100%" height={250}>
@@ -126,15 +150,15 @@ const Analytics = ({ isCollapsed }) => {
                         </ResponsiveContainer>
                     </div>
                     <div className="analytics-chart-legend">
-                        <span className="analytics-legend-item"><i className="analytics-dot analytics-users"></i> Users</span>
-                        <span className="analytics-legend-item"><i className="analytics-dot analytics-views"></i> Views</span>
+                        <span className="analytics-legend-item"><i className="analytics-dot analytics-users"></i> {t('users')}</span>
+                        <span className="analytics-legend-item"><i className="analytics-dot analytics-views"></i> {t('views')}</span>
                     </div>
                 </div>
 
                 <div className="analytics-chart-card">
                     <div className="analytics-card-header">
                         <Globe size={18} />
-                        <h3>Traffic Sources</h3>
+                        <h3>{t('trafficSources')}</h3>
                     </div>
                     <div className="analytics-chart-wrapper">
                         <ResponsiveContainer width="100%" height={250}>
@@ -159,7 +183,7 @@ const Analytics = ({ isCollapsed }) => {
                     <div className="analytics-pie-legend">
                         {sourceData.map(item => (
                             <div key={item.name} className="analytics-pie-analytics-legend-item">
-                                <span className="analytics-label">{item.name} {item.value}%</span>
+                                <span className="analytics-label">{getSourceLabel(item.name)} {item.value}%</span>
                             </div>
                         ))}
                     </div>
@@ -168,16 +192,20 @@ const Analytics = ({ isCollapsed }) => {
                 <div className="analytics-chart-card analytics-wide-chart">
                     <div className="analytics-card-header">
                         <BarChart2 size={18} />
-                        <h3>Top Pages</h3>
+                        <h3>{t('topPages')}</h3>
                     </div>
                     <div className="analytics-chart-wrapper">
                         <ResponsiveContainer width="100%" height={250}>
-                            <BarChart data={pageData}>
+                            <AreaChart data={pageData}>
                                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                                 <XAxis dataKey="name" stroke="#64748b" fontSize={11} axisLine={false} tickLine={false} />
                                 <YAxis stroke="#64748b" fontSize={12} axisLine={false} tickLine={false} />
-                                <Bar dataKey="value" fill="#2b7fff" radius={[4, 4, 0, 0]} barSize={60} />
-                            </BarChart>
+                                <Tooltip 
+                                    contentStyle={{ background: '#fff', borderRadius: '8px', border: 'none', color: '#000' }}
+                                    itemStyle={{ color: '#000' }}
+                                />
+                                <Area type="monotone" dataKey="value" stroke="#2b7fff" strokeWidth={3} fillOpacity={0.1} fill="#2b7fff" />
+                            </AreaChart>
                         </ResponsiveContainer>
                     </div>
                 </div>
@@ -185,42 +213,42 @@ const Analytics = ({ isCollapsed }) => {
                 <div className="analytics-activity-card">
                     <div className="analytics-card-header">
                         <Activity size={18} />
-                        <h3>Recent Activity</h3>
+                        <h3>{t('recentActivity')}</h3>
                     </div>
                     <div className="analytics-activity-list">
                         <div className="analytics-activity-item">
                             <div className="analytics-icon-box"><User size={14} /></div>
                             <div className="analytics-info">
-                                <p>New visitor from LinkedIn Profile viewed</p>
-                                <span>2 minutes ago</span>
+                                <p>{translateActivity('New visitor from LinkedIn Profile viewed')}</p>
+                                <span>{language === 'ar' ? 'منذ دقيقتين' : '2 minutes ago'}</span>
                             </div>
                         </div>
                         <div className="analytics-activity-item">
                             <div className="analytics-icon-box"><MessageSquare size={14} /></div>
                             <div className="analytics-info">
-                                <p>Contact form submitted john.doe@example.com</p>
-                                <span>15 minutes ago</span>
+                                <p>{translateActivity('Contact form submitted john.doe@example.com')}</p>
+                                <span>{language === 'ar' ? 'منذ ١٥ دقيقة' : '15 minutes ago'}</span>
                             </div>
                         </div>
                         <div className="analytics-activity-item">
                             <div className="analytics-icon-box"><ExternalLink size={14} /></div>
                             <div className="analytics-info">
-                                <p>Project page viewed /projects/web-app</p>
-                                <span>23 minutes ago</span>
+                                <p>{translateActivity('Project page viewed /projects/web-app')}</p>
+                                <span>{language === 'ar' ? 'منذ ٢٣ دقيقة' : '23 minutes ago'}</span>
                             </div>
                         </div>
                         <div className="analytics-activity-item">
                             <div className="analytics-icon-box"><Download size={14} /></div>
                             <div className="analytics-info">
-                                <p>Resume downloaded resume.pdf</p>
-                                <span>1 hour ago</span>
+                                <p>{translateActivity('Resume downloaded resume.pdf')}</p>
+                                <span>{language === 'ar' ? 'منذ ساعة' : '1 hour ago'}</span>
                             </div>
                         </div>
                         <div className="analytics-activity-item">
                             <div className="analytics-icon-box"><Share2 size={14} /></div>
                             <div className="analytics-info">
-                                <p>Portfolio shared Twitter referral</p>
-                                <span>2 hours ago</span>
+                                <p>{translateActivity('Portfolio shared Twitter referral')}</p>
+                                <span>{language === 'ar' ? 'منذ ساعتين' : '2 hours ago'}</span>
                             </div>
                         </div>
                     </div>
@@ -230,7 +258,7 @@ const Analytics = ({ isCollapsed }) => {
             <div className="analytics-stats-row-grid">
                 <div className="analytics-stat-mini-card">
                     <div className="analytics-mini-head">
-                        <span>Bounce Rate</span>
+                        <span>{t('bounceRate')}</span>
                         <TrendingUp size={14} className="analytics-rotate-down" />
                     </div>
                     <div className="analytics-val">42.3%</div>
@@ -238,15 +266,15 @@ const Analytics = ({ isCollapsed }) => {
                 </div>
                 <div className="analytics-stat-mini-card">
                     <div className="analytics-mini-head">
-                        <span>Avg. Session Duration</span>
+                        <span>{t('avgDuration')}</span>
                         <TrendingUp size={14} />
                     </div>
-                    <div className="analytics-val">3m 24s</div>
+                    <div className="analytics-val">{language === 'ar' ? '٣ دقائق و ٢٤ ثانية' : '3m 24s'}</div>
                     <div className="analytics-progress-bar"><div className="analytics-fill" style={{width: '65%'}}></div></div>
                 </div>
                 <div className="analytics-stat-mini-card">
                     <div className="analytics-mini-head">
-                        <span>Pages per Session</span>
+                        <span>{t('pagesSession')}</span>
                         <TrendingUp size={14} />
                     </div>
                     <div className="analytics-val">4.8</div>
@@ -257,28 +285,28 @@ const Analytics = ({ isCollapsed }) => {
             <div className="analytics-dual-lists-grid">
                 <div className="analytics-list-card-box">
                     <div className="analytics-box-head">
-                        <h3>Recent Services</h3>
-                        <p>Latest services added to the system</p>
+                        <h3>{t('recentServices')}</h3>
+                        <p>{t('recentServicesDesc')}</p>
                     </div>
                     <div className="analytics-list-items">
                         {recentServices.map(service => (
                             <div key={service.id} className="analytics-list-item-row">
-                                <Zap size={16} /> <span>{service.title_en}</span>
+                                <Zap size={16} /> <span>{language === 'ar' ? (service.title_ar || service.title_en) : service.title_en}</span>
                             </div>
                         ))}
                         {recentServices.length === 0 && (
                              <div className="analytics-list-item-row">
-                                <Zap size={16} /> <span>No services found</span>
+                                <Zap size={16} /> <span>{t('noServices')}</span>
                             </div>
                         )}
                     </div>
-                    <button className="analytics-view-all-link" onClick={() => navigate('/services')}>View All Services <ChevronRight size={14}/></button>
+                    <button className="analytics-view-all-link" onClick={() => navigate('/services')}>{t('viewAllServices')} <ChevronRight size={14}/></button>
                 </div>
 
                 <div className="analytics-list-card-box">
                     <div className="analytics-box-head">
-                        <h3>Recent Pages</h3>
-                        <p>Latest static pages in the system</p>
+                        <h3>{t('recentPages')}</h3>
+                        <p>{t('recentPagesDesc')}</p>
                     </div>
                     <div className="analytics-list-items">
                         {recentPages.map(page => (
@@ -286,8 +314,8 @@ const Analytics = ({ isCollapsed }) => {
                                 <div className="analytics-left">
                                     <FileText size={16} /> 
                                     <div className="analytics-txt">
-                                        <strong>{page.name_en}</strong>
-                                        <span>{page.path_en}</span>
+                                        <strong>{language === 'ar' ? (page.name_ar || page.name_en) : page.name_en}</strong>
+                                        <span>{language === 'ar' ? (page.path_ar || page.path_en) : page.path_en}</span>
                                     </div>
                                 </div>
                                 <span className="analytics-badge-complete">{page.status || 'Complete'}</span>
@@ -298,39 +326,39 @@ const Analytics = ({ isCollapsed }) => {
                                 <div className="analytics-left">
                                     <FileText size={16} /> 
                                     <div className="analytics-txt">
-                                        <strong>No pages found</strong>
+                                        <strong>{t('noPages')}</strong>
                                     </div>
                                 </div>
                             </div>
                         )}
                     </div>
-                    <button className="analytics-view-all-link" onClick={() => navigate('/manage-pages')}>View All Pages <ChevronRight size={14}/></button>
+                    <button className="analytics-view-all-link" onClick={() => navigate('/manage-pages')}>{t('viewAllPages')} <ChevronRight size={14}/></button>
                 </div>
             </div>
 
             <section className="analytics-seo-form-section">
-                <h2 className="analytics-section-title">SEO</h2>
+                <h2 className="analytics-section-title">{t('seo')}</h2>
                 <div className="analytics-seo-input-grid">
                     <div className="analytics-field">
-                        <label>Slug Name</label>
-                        <input type="text" placeholder="Enter Slug Name" value={seoData.slug} onChange={(e) => setSeoData({...seoData, slug: e.target.value})} />
+                        <label>{t('slugName')}</label>
+                        <input type="text" placeholder={t('slugPlaceholder')} value={seoData.slug} onChange={(e) => setSeoData({...seoData, slug: e.target.value})} />
                     </div>
                     <div className="analytics-field">
-                        <label>Page Tag</label>
-                        <input type="text" placeholder="Enter Tag" value={seoData.tag} onChange={(e) => setSeoData({...seoData, tag: e.target.value})} />
+                        <label>{t('pageTag')}</label>
+                        <input type="text" placeholder={t('tagPlaceholder')} value={seoData.tag} onChange={(e) => setSeoData({...seoData, tag: e.target.value})} />
                     </div>
                 </div>
                 
                 <div className="editor-container">
                     <RichTextToolbar />
                     <div className="analytics-field">
-                        <label>Meta Description</label>
-                        <textarea placeholder="Enter Meta Description" value={seoData.desc} onChange={(e) => setSeoData({...seoData, desc: e.target.value})}></textarea>
+                        <label>{t('metaDesc')}</label>
+                        <textarea placeholder={t('metaDescPlaceholder')} value={seoData.desc} onChange={(e) => setSeoData({...seoData, desc: e.target.value})}></textarea>
                     </div>
                 </div>
                 <div className="analytics-seo-actions" style={{marginTop: '20px', display: 'flex', gap: '12px'}}>
-                    <button className="analytics-btn-primary" onClick={handleSeoSave}>Save Details</button>
-                    <button className="analytics-btn-secondary" onClick={() => setSeoData({ slug: '', tag: '', desc: '' })}>Discard Changes</button>
+                    <button className="analytics-btn-primary" onClick={handleSeoSave}>{t('saveDetails')}</button>
+                    <button className="analytics-btn-secondary" onClick={() => setSeoData({ slug: '', tag: '', desc: '' })}>{t('discardChanges')}</button>
                 </div>
             </section>
 
@@ -338,13 +366,12 @@ const Analytics = ({ isCollapsed }) => {
                 <div className="analytics-modal-overlay">
                     <div className="analytics-modal-card">
                         <div className={`analytics-modal-icon ${statusModal.type}`}>
-                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : 
-                             statusModal.type === 'info' ? <Activity size={32} /> : <AlertCircle size={32} />}
+                            {statusModal.type === 'success' ? <CheckCircle size={32} /> : <AlertCircle size={32} />}
                         </div>
-                        <h2>{statusModal.type === 'success' ? 'Success' : 'Processing'}</h2>
+                        <h2>{statusModal.type === 'success' ? t('success') : t('processing')}</h2>
                         <p>{statusModal.message}</p>
                         <button className="analytics-modal-btn" onClick={() => setStatusModal({ ...statusModal, isOpen: false })}>
-                            {statusModal.type === 'success' ? 'Great' : 'I Understand'}
+                            {statusModal.type === 'success' ? t('great') : t('understand')}
                         </button>
                     </div>
                 </div>

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Bell, ShieldAlert, Heart, Activity, Clock, Menu } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from './LanguageContext';
 import './NavBar.css';
 
 const notificationsArr = [
-  { id: 1, title: 'Health Alert', sub: "Maya's health score dropped to 72%", time: '1 hour ago', icon: <ShieldAlert size={16} />, type: 'alert' },
-  { id: 2, title: 'Medication', sub: "Ahmed's evening dose due in 30 mins", time: '2 hours ago', icon: <Heart size={16} />, type: 'med' },
-  { id: 3, title: 'System Sync', sub: 'All medical devices synced successfully', time: '5 hours ago', icon: <Activity size={16} />, type: 'sys' },
-  { id: 4, title: 'Appointment', sub: 'Grandpa - Dr. Smith @ 10:00 AM tomorrow', time: '1 day ago', icon: <Clock size={16} />, type: 'appt' },
+  { id: 1, titleKey: 'healthAlert', sub: "Maya's health score dropped to 72%", time: '1 hour ago', icon: <ShieldAlert size={16} />, type: 'alert' },
+  { id: 2, titleKey: 'medication', sub: "Ahmed's evening dose due in 30 mins", time: '2 hours ago', icon: <Heart size={16} />, type: 'med' },
+  { id: 3, titleKey: 'systemSync', sub: 'All medical devices synced successfully', time: '5 hours ago', icon: <Activity size={16} />, type: 'sys' },
+  { id: 4, titleKey: 'appointment', sub: 'Grandpa - Dr. Smith @ 10:00 AM tomorrow', time: '1 day ago', icon: <Clock size={16} />, type: 'appt' },
 ];
 
 const SEARCHABLE_PAGES = [
@@ -39,6 +40,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
   const notificationRef = useRef(null);
   const searchRef = useRef(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -98,7 +100,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
           <Search className="search-icon" size={18} />
           <input 
             type="text" 
-            placeholder="Search pages, features, analytics..." 
+            placeholder={t('searchPlaceholder')} 
             className="search-input"
             value={searchQuery}
             onChange={handleSearchChange}
@@ -123,7 +125,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
                 </div>
               ) : (
                 <div className="search-no-results">
-                  No results found for "{searchQuery}"
+                  {t('noResults')} "{searchQuery}"
                 </div>
               )}
             </div>
@@ -144,8 +146,8 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
           {showNotifications && (
             <div className="notification-dropdown">
               <div className="dropdown-header">
-                <h3>Notifications</h3>
-                <span className="mark-read" onClick={clearNotifications}>Mark all as read</span>
+                <h3>{t('notifications')}</h3>
+                <span className="mark-read" onClick={clearNotifications}>{t('markAllRead')}</span>
               </div>
               <div className="notifications-list">
                 {notifications.length > 0 ? (
@@ -155,7 +157,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
                         {notif.icon}
                       </div>
                       <div className="notif-content">
-                        <h4>{notif.title}</h4>
+                        <h4>{t(notif.titleKey)}</h4>
                         <p>{notif.sub}</p>
                         <span>{notif.time}</span>
                       </div>
@@ -163,12 +165,12 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
                   ))
                 ) : (
                   <div className="notification-empty-state">
-                    No new notifications
+                    {t('noNotif')}
                   </div>
                 )}
               </div>
               <div className="dropdown-footer" onClick={handleNotifClick}>
-                <span>View all notifications</span>
+                <span>{t('viewAllNotif')}</span>
               </div>
             </div>
           )}
@@ -178,7 +180,7 @@ const NavBar = ({ isCollapsed, toggleNav }) => {
           <div className="avatar">M</div>
           <div className="user-info">
             <span className="user-name">Mariam</span>
-            <span className="user-role">Super User</span>
+            <span className="user-role">{t('superUser')}</span>
           </div>
         </div>
       </div>

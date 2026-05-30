@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
-  FileText, Filter, Plus, Edit2, Trash2, AlertCircle 
+  FileText, Plus, Edit2, Trash2 
 } from 'lucide-react';
 import { supabase } from '../Supabase';
 import { useDialog } from '../common/DialogContext';
+import { useTranslation } from '../common/LanguageContext';
 import './ApplicationPages.css';
 
 const ApplicationPages = () => {
@@ -12,6 +13,7 @@ const ApplicationPages = () => {
   const [pages, setPages] = useState([]);
   const [loading, setLoading] = useState(true);
   const { alert, confirm } = useDialog();
+  const { language, t } = useTranslation();
 
   useEffect(() => {
     fetchPages();
@@ -31,11 +33,11 @@ const ApplicationPages = () => {
   };
 
   const handleDeleteClick = async (id) => {
-    const confirmed = await confirm("This action cannot be undone. This page will be permanently removed from your application and database.", "Delete Page?");
+    const confirmed = await confirm(t('deletePageConfirmMsg'), t('deletePageConfirmTitle'));
     if (confirmed) {
       const { error } = await supabase.from('pages').delete().eq('id', id);
       if (error) {
-        alert("Error deleting page");
+        alert(t('errorDeletingPage'));
       } else {
         fetchPages();
       }
@@ -45,14 +47,15 @@ const ApplicationPages = () => {
     <div className="applicationpages-app-pages-container">
       <div className="applicationpages-app-pages-header">
         <div className="applicationpages-header-left">
-          <h1>Application Pages</h1>
-          <p>Manage and edit all pages in your application</p>
+          <h1>{t('applicationPages')}</h1>
+          <p>{t('manageAppPages')}</p>
         </div>
         <div className="applicationpages-header-actions">
           <button className="applicationpages-new-page-btn">
             <Plus size={18} />
             <Link to="/add-page" className="primary-hero-btn">
-            <span>New Page</span></Link>
+              <span>{t('newPage')}</span>
+            </Link>
           </button>
         </div>
       </div>
@@ -61,57 +64,57 @@ const ApplicationPages = () => {
         <table className="applicationpages-pages-table">
           <thead>
             <tr>
-              <th>Page Name</th>
-              <th>Path</th>
-              <th>Status</th>
-              <th>Views</th>
-              <th>Last Modified</th>
-              <th>Actions</th>
+              <th>{t('pageName')}</th>
+              <th>{t('path')}</th>
+              <th>{t('status')}</th>
+              <th>{t('type')}</th>
+              <th>{t('lastModified')}</th>
+              <th>{t('actions')}</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
-              <tr><td colSpan="6" style={{textAlign:'center', padding:'40px'}}>Fetching live pages...</td></tr>
+              <tr><td colSpan="6" style={{textAlign:'center', padding:'40px'}}>{t('fetchingPages')}</td></tr>
             ) : (
               pages.map((page) => (
                 <tr key={page.id}>
-                  <td data-label="Page Name">
+                  <td data-label={t('pageName')}>
                     <div className="applicationpages-page-name-cell">
                       <div className="applicationpages-page-icon">
                         <FileText size={18} />
                       </div>
-                      <span>{page.name_en}</span>
+                      <span>{language === 'ar' ? (page.name_ar || page.name_en) : page.name_en}</span>
                     </div>
                   </td>
-                  <td data-label="Path">
-                    <span className="applicationpages-path-chip">{page.path_en}</span>
+                  <td data-label={t('path')}>
+                    <span className="applicationpages-path-chip">{language === 'ar' ? (page.path_ar || page.path_en) : page.path_en}</span>
                   </td>
-                  <td data-label="Status">
+                  <td data-label={t('status')}>
                     <div className="applicationpages-status-badge">
                       <span className="applicationpages-dot"></span>
                       <span>{page.status || 'active'}</span>
                     </div>
                   </td>
-                  <td data-label="Type">
+                  <td data-label={t('type')}>
                     <span className={`applicationpages-type-tag ${page.type || 'standard'}`}>
                       {page.type || 'standard'}
                     </span>
                   </td>
-                  <td data-label="Last Modified">
+                  <td data-label={t('lastModified')}>
                     {new Date(page.created_at).toLocaleDateString()}
                   </td>
-                  <td data-label="Actions">
+                  <td data-label={t('actions')}>
                     <div className="applicationpages-action-btns">
                       <button 
                         className="applicationpages-icon-action" 
-                        title="Edit Page"
+                        title={t('editPage')}
                         onClick={() => navigate('/add-page', { state: { editData: page } })}
                       >
                         <Edit2 size={16} />
                       </button>
                       <button 
                         className="applicationpages-icon-action delete" 
-                        title="Delete Page"
+                        title={t('deletePage')}
                         onClick={() => handleDeleteClick(page.id)}
                       >
                         <Trash2 size={16} />
@@ -124,10 +127,9 @@ const ApplicationPages = () => {
           </tbody>
         </table>
       </div>
-
-
     </div>
   );
 };
 
 export default ApplicationPages;
+

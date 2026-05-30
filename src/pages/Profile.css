@@ -355,3 +355,44 @@
   .profile-card { padding: 25px; }
 }
 
+/* RTL Overrides for Profile Page */
+[dir="rtl"] .profile-page {
+  padding: 100px 240px 60px 40px;
+}
+
+[dir="rtl"] .profile-page.is-collapsed {
+  padding-left: 40px;
+  padding-right: 125px;
+}
+
+[dir="rtl"] .profile-change-avatar-btn {
+  right: auto;
+  left: 0px;
+}
+
+[dir="rtl"] .profile-social-item:hover {
+  transform: translateX(-5px);
+}
+
+[dir="rtl"] .profile-card-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .profile-details-form {
+  text-align: right;
+}
+
+[dir="rtl"] .profile-input-group label {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .profile-security-info {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+[dir="rtl"] .profile-pref-row {
+  flex-direction: row-reverse;
+}
+
+

@@ -206,3 +206,53 @@
   .activities-card-meta { width: 100%; justify-content: space-between; }
   .activities-titles h1 { font-size: 1.8rem; }
 }
+
+/* RTL Overrides for Activities Page */
+[dir="rtl"] .activities-page-container {
+  padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .activities-page-container.is-collapsed {
+  padding-right: 120px;
+  padding-left: 40px;
+}
+
+[dir="rtl"] .activities-search-icon {
+  left: auto;
+  right: 18px;
+}
+
+[dir="rtl"] .activities-search-wrapper input {
+  padding: 18px 50px 18px 18px;
+}
+
+[dir="rtl"] .activities-card-row:hover {
+  transform: translateX(-8px);
+}
+
+[dir="rtl"] .activities-card-main {
+  text-align: right;
+}
+
+[dir="rtl"] .activities-card-header {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .activities-card-meta {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .activities-card-footer {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .activities-details-link {
+  flex-direction: row-reverse;
+}
+
+@media (max-width: 1200px) {
+  [dir="rtl"] .activities-page-container {
+    padding: 100px 120px 40px 30px;
+  }
+}
+

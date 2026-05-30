@@ -352,3 +352,69 @@
     }
 }
 
+/* RTL Overrides for Services Page */
+[dir="rtl"] .services-feature-list-container {
+    padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .services-feature-list-container.is-collapsed {
+    padding-right: 120px;
+    padding-left: 40px;
+}
+
+[dir="rtl"] .services-search-icon-inside {
+    left: auto;
+    right: 20px;
+}
+
+[dir="rtl"] .services-search-input-wrapper input {
+    padding: 16px 55px 16px 16px;
+}
+
+[dir="rtl"] .services-features-data-table th {
+    text-align: right;
+}
+
+[dir="rtl"] .services-refresh-circle-btn {
+    margin-right: 0;
+    margin-left: 15px;
+}
+
+[dir="rtl"] .services-actions-cell {
+    justify-content: flex-start;
+}
+
+@media (max-width: 1024px) {
+    [dir="rtl"] .services-feature-list-container,
+    [dir="rtl"] .services-feature-list-container.is-collapsed {
+        padding: 100px 25px 40px 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    [dir="rtl"] .services-feature-list-container,
+    [dir="rtl"] .services-feature-list-container.is-collapsed {
+        padding: 100px 15px 40px 15px;
+    }
+    
+    [dir="rtl"] .services-features-data-table td {
+        text-align: right !important;
+        direction: rtl !important;
+    }
+    
+    [dir="rtl"] .services-features-data-table td::before {
+        margin-right: 0;
+        margin-left: 15px;
+    }
+    
+    [dir="rtl"] .services-feature-name-cell {
+        justify-content: flex-start;
+        text-align: right;
+    }
+    
+    [dir="rtl"] .services-actions-cell {
+        justify-content: flex-start;
+    }
+}
+
+

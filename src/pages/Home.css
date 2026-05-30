@@ -44,3 +44,30 @@
   }
 }
 
+/* RTL Overrides */
+[dir="rtl"] .home-dashboard-container {
+  margin-left: 0;
+  margin-right: 190px;
+}
+
+[dir="rtl"] .home-dashboard-container.is-collapsed {
+  margin-left: 0;
+  margin-right: 85px;
+}
+
+@media (max-width: 1024px) {
+  [dir="rtl"] .home-dashboard-container {
+    margin-right: 100px;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .home-dashboard-container,
+  [dir="rtl"] .home-dashboard-container.is-collapsed {
+    margin-right: 0;
+    margin-left: 0;
+  }
+}
+
+

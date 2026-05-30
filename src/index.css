@@ -223,3 +223,21 @@ a, button, .nav-item, .sidebar-link, .handle, .custom-toggle {
 .custom-toggle.active .handle {
   transform: translateX(22px);
 }
+
+/* Global RTL Support Overrides */
+[dir="rtl"] {
+  text-align: right;
+}
+
+[dir="rtl"] .custom-toggle.active .handle {
+  transform: translateX(-22px);
+}
+
+[dir="rtl"] svg.lucide-chevron-right,
+[dir="rtl"] svg.lucide-chevron-left,
+[dir="rtl"] svg.lucide-arrow-left,
+[dir="rtl"] svg.lucide-arrow-right,
+[dir="rtl"] svg.lucide-chevron-right-ui,
+[dir="rtl"] svg.lucide-arrow-left-ui {
+  transform: scaleX(-1);
+}

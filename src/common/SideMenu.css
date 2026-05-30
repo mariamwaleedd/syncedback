@@ -160,3 +160,39 @@
     z-index: 900;
   }
 }
+
+/* RTL Sidebar Overrides */
+[dir="rtl"] .side-menu {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: 1px solid var(--border-main);
+}
+
+[dir="rtl"] .nav-icon-box {
+  margin-right: 0;
+  margin-left: 15px;
+}
+
+[dir="rtl"] .nav-link:hover {
+  transform: translateX(-6px);
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .side-menu {
+    left: auto;
+    right: -100%;
+    box-shadow: -20px 0 50px var(--black-50);
+  }
+  
+  [dir="rtl"] .side-menu.mobile-show {
+    left: auto;
+    right: 0;
+    box-shadow: -20px 0 60px var(--black-80);
+  }
+
+  [dir="rtl"] .mobile-brand-trigger {
+    left: auto;
+    right: 15px;
+  }
+}
