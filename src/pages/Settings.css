@@ -277,19 +277,46 @@
 .animate-fade-in { animation: fadeIn 0.4s ease; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+/* RTL Settings Overrides */
+[dir="rtl"] .settings-page-wrapper {
+  padding: 100px 300px 40px 40px;
+}
+
+[dir="rtl"] .settings-page-wrapper.is-collapsed {
+  padding-left: 40px;
+  padding-right: 120px;
+}
+
+[dir="rtl"] .password-input-wrap button {
+  right: auto;
+  left: 10px;
+}
+
+[dir="rtl"] .password-input-wrap input {
+  padding-right: 15px;
+  padding-left: 45px;
+}
+
 @media (max-width: 1100px) {
     .settings-layout-grid { grid-template-columns: 1fr; }
     .settings-sidebar { position: static; }
     .settings-nav { flex-direction: row; overflow-x: auto; padding-bottom: 5px; }
     .nav-item { flex-shrink: 0; }
     .settings-page-wrapper,
-    .settings-page-wrapper.is-collapsed {
+    .settings-page-wrapper.is-collapsed,
+    [dir="rtl"] .settings-page-wrapper,
+    [dir="rtl"] .settings-page-wrapper.is-collapsed {
         padding: 100px 40px 40px 40px;
     }
 }
 
 @media (max-width: 768px) {
-    .settings-page-wrapper, .settings-page-wrapper.is-collapsed { padding: 100px 20px 40px 20px; }
+    .settings-page-wrapper,
+    .settings-page-wrapper.is-collapsed,
+    [dir="rtl"] .settings-page-wrapper,
+    [dir="rtl"] .settings-page-wrapper.is-collapsed {
+        padding: 100px 20px 40px 20px;
+    }
     .settings-header { flex-direction: column; align-items: flex-start; gap: 20px; }
     .settings-form-grid, .appearance-grid { grid-template-columns: 1fr; }
     .full-width { grid-column: span 1; }
@@ -314,26 +341,6 @@
 @keyframes slideUpFade {
     from { opacity: 0; transform: translateY(20px) scale(0.95); }
     to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-/* RTL Settings Overrides */
-[dir="rtl"] .settings-page-wrapper {
-  padding: 100px 300px 40px 40px;
-}
-
-[dir="rtl"] .settings-page-wrapper.is-collapsed {
-  padding-left: 40px;
-  padding-right: 120px;
-}
-
-[dir="rtl"] .password-input-wrap button {
-  right: auto;
-  left: 10px;
-}
-
-[dir="rtl"] .password-input-wrap input {
-  padding-right: 15px;
-  padding-left: 45px;
 }
 
 
