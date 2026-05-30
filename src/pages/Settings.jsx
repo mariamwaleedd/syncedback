@@ -11,7 +11,14 @@ import './Settings.css';
 
 const Settings = ({ isCollapsed }) => {
     const [activeTab, setActiveTab] = useState('profile');
-    const [showPassword, setShowPassword] = useState(false);
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmNewPassword, setConfirmNewPassword] = useState('');
+    
     const { alert } = useDialog();
     const [notifications, setNotifications] = useState({
         email: true,
@@ -46,7 +53,17 @@ const Settings = ({ isCollapsed }) => {
     }, [appearance.theme]);
 
     const toggleNotification = (key) => {
-        setNotifications(prev => ({ ...prev, [key]: !prev[key] }));
+        const nextState = !notifications[key];
+        setNotifications(prev => ({ ...prev, [key]: nextState }));
+        
+        const titles = {
+            email: 'Email Notifications',
+            push: 'Push Notifications',
+            marketing: 'Marketing Emails',
+            security: 'Two-Factor Authentication'
+        };
+        
+        alert(`${titles[key] || key} has been successfully ${nextState ? 'enabled' : 'disabled'}.`, 'System Update');
     };
 
     const renderContent = () => {
@@ -115,25 +132,54 @@ const Settings = ({ isCollapsed }) => {
                                 <div className="setting-input-field full-width">
                                     <label>Current Password</label>
                                     <div className="password-input-wrap">
-                                        <input type={showPassword ? "text" : "password"} placeholder="••••••••" />
-                                        <button onClick={() => setShowPassword(!showPassword)}>
-                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                        <input 
+                                            type={showCurrentPassword ? "text" : "password"} 
+                                            placeholder="Enter current password" 
+                                            value={currentPassword}
+                                            onChange={(e) => setCurrentPassword(e.target.value)}
+                                        />
+                                        <button type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
+                                            {showCurrentPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                         </button>
                                     </div>
                                 </div>
                                 <div className="setting-input-field">
                                     <label>New Password</label>
-                                    <input type="password" placeholder="••••••••" />
+                                    <div className="password-input-wrap">
+                                        <input 
+                                            type={showNewPassword ? "text" : "password"} 
+                                            placeholder="Enter new password" 
+                                            value={newPassword}
+                                            onChange={(e) => setNewPassword(e.target.value)}
+                                        />
+                                        <button type="button" onClick={() => setShowNewPassword(!showNewPassword)}>
+                                            {showNewPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                        </button>
+                                    </div>
                                 </div>
                                 <div className="setting-input-field">
                                     <label>Confirm New Password</label>
-                                    <input type="password" placeholder="••••••••" />
+                                    <div className="password-input-wrap">
+                                        <input 
+                                            type={showConfirmPassword ? "text" : "password"} 
+                                            placeholder="Confirm new password" 
+                                            value={confirmNewPassword}
+                                            onChange={(e) => setConfirmNewPassword(e.target.value)}
+                                        />
+                                        <button type="button" onClick={() => setShowConfirmPassword(!showConfirmPassword)}>
+                                            {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </section>
 
                         <section className="settings-section">
-                            <div className="security-toggle-card">
+                            <div 
+                                className="security-toggle-card"
+                                onClick={() => toggleNotification('security')}
+                                style={{ cursor: 'pointer' }}
+                            >
                                 <div className="text">
                                     <Shield size={24} className="icon-blue" />
                                     <div>
@@ -141,7 +187,7 @@ const Settings = ({ isCollapsed }) => {
                                         <p>Add an extra layer of security to your account.</p>
                                     </div>
                                 </div>
-                                <div className={`custom-toggle ${notifications.security ? 'active' : ''}`} onClick={() => toggleNotification('security')}>
+                                <div className={`custom-toggle ${notifications.security ? 'active' : ''}`}>
                                     <div className="handle"></div>
                                 </div>
                             </div>
@@ -161,7 +207,12 @@ const Settings = ({ isCollapsed }) => {
                                     { id: 'push', title: 'Push Notifications', desc: 'Get real-time browser alerts for urgent tasks.', icon: <Smartphone size={20} /> },
                                     { id: 'marketing', title: 'Marketing Emails', desc: 'Stay updated with new features and platform tips.', icon: <Globe size={20} /> }
                                 ].map((item) => (
-                                    <div key={item.id} className="notification-item">
+                                    <div 
+                                        key={item.id} 
+                                        className="notification-item"
+                                        onClick={() => toggleNotification(item.id)}
+                                        style={{ cursor: 'pointer' }}
+                                    >
                                         <div className="notif-info">
                                             <div className="notif-icon">{item.icon}</div>
                                             <div>
@@ -169,7 +220,7 @@ const Settings = ({ isCollapsed }) => {
                                                 <p>{item.desc}</p>
                                             </div>
                                         </div>
-                                        <div className={`custom-toggle ${notifications[item.id] ? 'active' : ''}`} onClick={() => toggleNotification(item.id)}>
+                                        <div className={`custom-toggle ${notifications[item.id] ? 'active' : ''}`}>
                                             <div className="handle"></div>
                                         </div>
                                     </div>

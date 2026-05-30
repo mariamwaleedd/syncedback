@@ -167,16 +167,19 @@ a:focus {
   outline: none;
 }
 
-input, textarea {
-  font-family: var(--font-body);
-  user-select: text !important;
-}
-
-* {
-  user-select: none !important;
+body {
+  user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
+}
+
+input, textarea {
+  font-family: var(--font-body);
+  user-select: text !important;
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
 }
 
 p, span, h1, h2, h3, h4, h5, h6, label, td, li {
@@ -186,4 +189,37 @@ p, span, h1, h2, h3, h4, h5, h6, label, td, li {
 a, button, .nav-item, .sidebar-link, .handle, .custom-toggle {
   cursor: pointer;
   text-decoration: none !important;
+}
+
+/* Custom Toggle Switch Styles */
+.custom-toggle {
+  width: 50px;
+  height: 28px;
+  background-color: var(--toggle-off, #374151);
+  border-radius: 100px;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid var(--border-light);
+}
+
+.custom-toggle.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+.custom-toggle .handle {
+  width: 20px;
+  height: 20px;
+  background-color: var(--toggle-handle, #ffffff);
+  border-radius: 50px;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.custom-toggle.active .handle {
+  transform: translateX(22px);
 }

@@ -4,6 +4,7 @@ import {
     Layers, Settings, ChevronRight, HelpCircle,
     MessageCircle, PlayCircle, FileText, ChevronDown
 } from 'lucide-react';
+import { useDialog } from '../common/DialogContext';
 import './HelpPage.css';
 
 const Highlight = ({ text, query }) => {
@@ -30,6 +31,18 @@ const HelpPage = ({ isCollapsed }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeFaq, setActiveFaq] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [isSupportModalOpen, setIsSupportModalOpen] = useState(false);
+    const [supportSubject, setSupportSubject] = useState('');
+    const [supportMessage, setSupportMessage] = useState('');
+    const { alert } = useDialog();
+
+    const handleSupportSubmit = (e) => {
+        e.preventDefault();
+        setIsSupportModalOpen(false);
+        setSupportSubject('');
+        setSupportMessage('');
+        alert('Your support message has been sent successfully. Our team will review it and reach out to you within 24 hours.', 'Message Sent');
+    };
 
     const categories = [
         { 
@@ -244,7 +257,7 @@ const HelpPage = ({ isCollapsed }) => {
                                     <HelpCircle size={32} />
                                     <h3>Still need help?</h3>
                                     <p>Our support team is available 24/7 to help you with technical issues.</p>
-                                    <button className="helppage-contact-btn">Contact Support</button>
+                                    <button className="helppage-contact-btn" onClick={() => setIsSupportModalOpen(true)}>Contact Support</button>
                                 </div>
 
                                 <div className="helppage-resource-list">
@@ -278,6 +291,65 @@ const HelpPage = ({ isCollapsed }) => {
                     </div>
                 )}
 
+            {isSupportModalOpen && (
+                <div className="helppage-modal-overlay" onClick={() => setIsSupportModalOpen(false)}>
+                    <div className="helppage-modal-content" onClick={e => e.stopPropagation()}>
+                        <button className="helppage-modal-close" onClick={() => setIsSupportModalOpen(false)}>&times;</button>
+                        <div className="helppage-modal-header">
+                            <div className="helppage-modal-icon-box">
+                                <MessageCircle size={28} />
+                            </div>
+                            <h2>Contact Support</h2>
+                        </div>
+                        <form onSubmit={handleSupportSubmit}>
+                            <div className="helppage-modal-body" style={{ display: 'flex', flexDirection: 'column', gap: '15px', textAlign: 'left' }}>
+                                <p style={{ margin: '0 0 10px 0', fontSize: '0.95rem', color: 'var(--text-muted)' }}>Send us a message and we'll get back to you as soon as possible.</p>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>Subject</label>
+                                    <input 
+                                        type="text" 
+                                        placeholder="What do you need help with?"
+                                        value={supportSubject}
+                                        onChange={e => setSupportSubject(e.target.value)}
+                                        required
+                                        style={{
+                                            background: 'rgba(255, 255, 255, 0.03)',
+                                            border: '1px solid var(--border-light)',
+                                            borderRadius: '12px',
+                                            padding: '12px',
+                                            color: '#fff',
+                                            outline: 'none',
+                                        }}
+                                    />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+                                    <label style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-muted)' }}>Message</label>
+                                    <textarea 
+                                        placeholder="Describe your issue in detail..."
+                                        value={supportMessage}
+                                        onChange={e => setSupportMessage(e.target.value)}
+                                        required
+                                        rows={4}
+                                        style={{
+                                            background: 'rgba(255, 255, 255, 0.03)',
+                                            border: '1px solid var(--border-light)',
+                                            borderRadius: '12px',
+                                            padding: '12px',
+                                            color: '#fff',
+                                            outline: 'none',
+                                            resize: 'none',
+                                            fontFamily: 'var(--font-body)'
+                                        }}
+                                    />
+                                </div>
+                            </div>
+                            <div className="helppage-modal-footer" style={{ marginTop: '20px' }}>
+                                <button type="submit" className="helppage-modal-btn">Send Support Request</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
             </div>
         </div>
     );

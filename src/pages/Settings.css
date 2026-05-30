@@ -59,6 +59,8 @@
     grid-template-columns: 280px 1fr;
     gap: 40px;
     align-items: start;
+    width: 100%;
+    max-width: 100%;
 }
 
 .settings-sidebar {
@@ -68,6 +70,9 @@
     padding: 20px;
     position: sticky;
     top: 100px;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
 }
 
 .settings-nav {
@@ -126,6 +131,9 @@
     border: 1px solid var(--border-main);
     border-radius: 28px;
     padding: 40px;
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
 }
 
 .section-title {
@@ -208,8 +216,8 @@
 }
 
 .password-input-wrap { position: relative; display: flex; align-items: center; }
-.password-input-wrap input { width: 100%; }
-.password-input-wrap button { position: absolute; right: 15px; background: transparent; border: none; color: var(--text-dim); cursor: pointer; }
+.password-input-wrap input { width: 100%; padding-right: 45px; }
+.password-input-wrap button { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--text-dim); cursor: pointer; z-index: 2; display: flex; align-items: center; justify-content: center; padding: 10px; }
 
 .security-toggle-card {
     display: flex;
@@ -280,8 +288,22 @@
     .settings-page-wrapper, .settings-page-wrapper.is-collapsed { padding: 100px 20px 40px 20px; }
     .settings-header { flex-direction: column; align-items: flex-start; gap: 20px; }
     .settings-form-grid, .appearance-grid { grid-template-columns: 1fr; }
+    .full-width { grid-column: span 1; }
     .settings-main-content { padding: 25px; }
     .avatar-upload-wrapper { flex-direction: column; text-align: center; }
+    .security-toggle-card, .notification-item { padding: 18px; }
+    .security-toggle-card .text, .notif-info { gap: 15px; }
+}
+
+@media (max-width: 480px) {
+    .header-actions { width: 100%; }
+    .header-actions button { flex: 1; justify-content: center; }
+    .settings-main-content { padding: 15px; }
+    .settings-sidebar { padding: 15px; }
+    .security-toggle-card, .notification-item { padding: 12px; }
+    .security-toggle-card .text, .notif-info { gap: 10px; }
+    .security-toggle-card h4, .notif-info h4 { font-size: 0.95rem; }
+    .security-toggle-card p, .notif-info p { font-size: 0.78rem; }
 }
 
 @keyframes slideUpFade {

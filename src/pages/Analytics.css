@@ -246,11 +246,20 @@
 .analytics-field label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
 
 .analytics-field input, .analytics-field textarea {
-    color: var(--text-main);
+    background: var(--bg-card, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border-light, rgba(255, 255, 255, 0.1));
+    color: var(--text-main, #ffffff);
     border-radius: 10px;
     padding: 15px;
-    color: var(--gray-text);
     font-family: var(--font-body);
+    outline: none;
+    transition: var(--transition-fast);
+}
+
+.analytics-field input:focus, .analytics-field textarea:focus {
+    border-color: var(--primary);
+    background: var(--bg-card-hover);
+    box-shadow: 0 0 0 4px var(--primary-glow);
 }
 
 .analytics-editor-toolbar {

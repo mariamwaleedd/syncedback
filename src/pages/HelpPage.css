@@ -274,7 +274,7 @@
 
 .helppage-contact-btn {
     width: 100%;
-    color: var(--text-main);
+    background: #ffffff;
     color: var(--primary);
     border: none;
     padding: 15px;
@@ -284,7 +284,11 @@
     transition: var(--transition-fast);
 }
 
-.helppage-contact-btn:hover { background: var(--gray-light); transform: scale(1.02); }
+.helppage-contact-btn:hover { 
+    background: #050827; /* navy */
+    color: #ffffff;      /* white */
+    transform: scale(1.02); 
+}
 
 .helppage-resource-list {
     background: var(--bg-card);
